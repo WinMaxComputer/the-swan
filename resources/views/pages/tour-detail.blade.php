@@ -31,6 +31,47 @@
     <meta content="{!! $tourDetail[0]->itinerary !!}" name="description">
     <meta content="{{ $tourDetail[0]->slug }}" name="keywords">
 @endsection
+@section('media')
+<style>
+    .hotel-gallery {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .hotel-gallery-main {
+        position: relative;
+        width: 100%;
+        height: 400px;
+    }
+    .hotel-gallery-main img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    .hotel-gallery-thumbs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+    .hotel-gallery-thumb {
+        position: relative;
+        height: 100px;
+    }
+    .hotel-gallery-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    .hotel-gallery-badge {
+        position: absolute; bottom: 15px; right: 15px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;
+    }
+    .thumb-overlay {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1.2rem; border-radius: 8px;
+    }
+</style>
+@endsection
 @section('content')
     
     <!-- ======= Breadcrumbs ======= -->
@@ -50,7 +91,7 @@
 
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
-        <div class="container" data-aos="fade-up">
+        <div class="container">
 
             <!-- <div class="section-header"> -->
             <!-- <h2>About Us</h2> -->
@@ -58,7 +99,7 @@
             <!-- </div> -->
             
             <div class="row gy-4">
-                <div class="col-lg-6 position-relative about-img" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-lg-6 position-relative about-img">
                     
                     <div class="position-relative mt-4">
                         <h4>{{ $tourDetail[0]->tour_name }}</h4>
@@ -68,7 +109,7 @@
                         <p>{!! $tourDetail[0]->payment !!}</p>
                     </div>
                 </div>
-                <div class="col-lg-6 position-relative about-img" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-lg-6 position-relative about-img">
                     <p>
                         <h4>Make Booking</h4>
                         <!-- <img src="/assets/img/about.jpg" class="img-fluid" alt=""> -->
@@ -76,37 +117,43 @@
                             <img src="{{ asset('assets/img/wa.png')}}" class="img-fluid">+62 8234 006 4488
                         </a>
                     </p>
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-
-                        @php $gmbra = explode(";",$tourDetail[0]->foto) ; @endphp
-                        @php $gmbr = array_slice($gmbra, 0, -1) ; @endphp
-                        @foreach($gmbr as $value)
-                        <li data-target=".carouselExampleCaptions" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
-                        @endforeach
-                        <!-- <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
-                        
-                        </ol>
-                        <div class="carousel-inner">
-                        
-                        @foreach($gmbr as $key => $slider)
-                        <!-- {{ $key }} -->
-                        <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                            <img src="{{ asset('assets/img/tour/'. $slider) }}" class="d-block w-100" alt="$slider">
+                    @php 
+                        $gmbr = array_filter(explode(";", $tourDetail[0]->foto)); 
+                        $imageCount = count($gmbr);
+                    @endphp
+                    <div class="hotel-gallery mb-4">
+                        <div class="hotel-gallery-main">
+                            @if($imageCount > 0)
+                                <a href="{{ asset('assets/img/tour/'. $gmbr[0]) }}" class="glightbox" data-gallery="tour-gallery">
+                                    <img src="{{ asset('assets/img/tour/'. $gmbr[0]) }}" alt="{{ $tourDetail[0]->tour_name }}">
+                                    @if($imageCount == 1)
+                                        <span class="hotel-gallery-badge">{{ $imageCount }} photos</span>
+                                    @endif
+                                </a>
+                            @endif
                         </div>
-                        @endforeach
-                        
+                        <div class="hotel-gallery-thumbs">
+                            @foreach(array_slice($gmbr, 1, 4) as $index => $thumb)
+                                <div class="hotel-gallery-thumb">
+                                    <a href="{{ asset('assets/img/tour/'. $thumb) }}" class="glightbox" data-gallery="tour-gallery">
+                                        <img src="{{ asset('assets/img/tour/'. $thumb) }}" alt="Thumbnail {{ $index + 2 }}">
+                                        @if($loop->last)
+                                            <span class="hotel-gallery-badge">{{ $imageCount }} photos</span>
+                                        @endif
+                                        @if($loop->last && $imageCount > 5)
+                                            <div class="thumb-overlay">+{{ $imageCount - 5 }}</div>
+                                        @endif
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                        </a>
+                        @if($imageCount > 5)
+                            <div style="display:none">
+                                @foreach(array_slice($gmbr, 5) as $hiddenThumb)
+                                    <a href="{{ asset('assets/img/tour/'. $hiddenThumb) }}" class="glightbox" data-gallery="tour-gallery"></a>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                     <p>{!! $tourDetail[0]->note !!}</p>
 
@@ -120,7 +167,7 @@
                     @foreach($destinasi as $desti)
                         @if(in_array($desti->id, $fasi))
                             @php $gmbr = explode(";",$desti->foto) ; @endphp
-                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                                 <div class="chef-member">
                                     <a href="/destinations/{{$desti->slug}}">
                                         <div class="member-img">
@@ -148,7 +195,7 @@
                     @php $kawasan = explode(";",$actv->area) ; @endphp
                         @if(in_array($area, $kawasan))
                             @php $gmbr = explode(";",$actv->foto) ; @endphp
-                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                                 <div class="chef-member">
                                     <a href="/activities/{{$actv->slug}}">
                                         <div class="member-img">

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => __('Add Activities'), 'pageSlug' => 'activity_add'])
+@extends('layouts.app', ['page' => __('Add Activity'), 'pageSlug' => 'activity_add'])
 
 @section('content')
 <div class="row">
@@ -16,33 +16,42 @@
           <div class="form-group col-lg-6">
               <label>Code</label>
               <input type="hidden" name="id" class="form-control" placeholder="code" value="{{ $activityDetail->id ?? '' }}" >
-              <input type="text" name="code" class="form-control" placeholder="code" value="{{ $activityDetail->code ?? '' }}" >
+              <input type="text" name="code" class="form-control text-white" placeholder="Activity Code" value="{{ $activityDetail->code ?? 'ACT-' . date('YmdHis') }}" required>
           </div>
           <div class="form-group col-lg-6">
             <label>Name</label>
-            <input type="text" name="name" class="form-control" placeholder="Title" value="{{ $activityDetail->name ?? '' }}">
+            <input type="text" name="name" id="name" class="form-control text-white" placeholder="Activity Name" value="{{ $activityDetail->name ?? '' }}" required>
           </div>
         </div>
 
         <div class="row">
           <div class="form-group col-lg-6">
               <label>slug</label>
-              <input type="text" name="slug" class="form-control" placeholder="slug" value="{{ $activityDetail->slug ?? '' }}">
+              <input type="text" name="slug" id="slug" class="form-control text-white" placeholder="URL Slug" value="{{ $activityDetail->slug ?? '' }}">
           </div>
           <div class="form-group col-lg-6">
               <label>Lang</label>
-              <input type="text" name="lang" class="form-control" placeholder="Lang" value="{{ $activityDetail->lang ?? '' }}">
+              <select name="lang" class="form-control text-info">
+                  <option value="en" {{ (isset($activityDetail) && $activityDetail->lang == 'en') || !isset($activityDetail) ? 'selected' : '' }}>English</option>
+                  <option value="id" {{ (isset($activityDetail) && $activityDetail->lang == 'id') ? 'selected' : '' }}>Indonesia</option>
+              </select>
           </div>
           
         </div>
         <div class="row">
           <div class="form-group col-lg-6">
               <label>Type</label>
-              <input type="text" name="type" class="form-control" placeholder="Type" value="{{ $activityDetail->type ?? '' }}">
+              <select name="type" class="form-control text-info" required>
+                  <option value="" disabled {{ !isset($activityDetail) ? 'selected' : '' }}>Select Type</option>
+                  <option value="land" {{ (isset($activityDetail) && $activityDetail->type == 'land') ? 'selected' : '' }}>Land Activity</option>
+                  <option value="water" {{ (isset($activityDetail) && $activityDetail->type == 'water') ? 'selected' : '' }}>Water Activity</option>
+                  <option value="air" {{ (isset($activityDetail) && $activityDetail->type == 'air') ? 'selected' : '' }}>Air Activity</option>
+              </select>
           </div>
           <div class="form-group col-lg-6">
                 <label>Area</label>
-                <input type="text" name="area" class="form-control" placeholder="Type" value="{{ $activityDetail->area ?? '' }}">
+                <input type="text" name="area" class="form-control text-white" placeholder="Area Code (e.g. 1;)" value="{{ $activityDetail->area ?? '' }}">
+                <small class="text-muted">Use area IDs separated by semicolon (e.g. 1;5;)</small>
             </div>
         </div>
         <div class="form-group">
@@ -72,10 +81,25 @@
       filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
     };
     CKEDITOR.replace('deskripsi', options);
-    // CKEDITOR.replace('price', options);
-    // CKEDITOR.replace('pickup', options);
-    // CKEDITOR.replace('payment', options);
-    // CKEDITOR.replace('note', options);
+
+    // Function to generate slug from name
+    function generateSlug(text) {
+        return text
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9\s-]/g, '') // Remove invalid chars
+            .replace(/[\s_-]+/g, '-')    // Collapse whitespace and replace by -
+            .replace(/^-+|-+$/g, '');    // Remove dashes from start and end
+    }
+
+    // Listen for changes on the name input to auto-generate slug
+    $('#name').on('keyup', function() {
+        @if(!isset($activityDetail))
+        const name = $(this).val();
+        const slug = generateSlug(name);
+        $('#slug').val(slug);
+        @endif
+    });
 
 
     var uploadedDocumentMap = {}
@@ -89,15 +113,15 @@
       },
       success: function (file, response) {
         console.log(file);
-        $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+        $(file.previewElement).closest('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
         uploadedDocumentMap[file.name] = response.name
       },
       removedfile: function (file) {
-        // console.log(file.xhr);
+        let nama;
         if(file.xhr === undefined){
           nama = file.name ;
         }else{
-          var response = JSON.parse(file.xhr.response);
+          let response = JSON.parse(file.xhr.response);
           nama = response.name ;
           console.log(response.name);
         }
@@ -106,13 +130,11 @@
             type:'POST',
             url:'/activity/media/delete',
             data : { "filetodelete" : nama },
-            success : function (data) {
-              // console.log(data)
-              
+            success : function (data) {              
             }
         }); 
         file.previewElement.remove()
-        var name = ''
+        let name = ''
         if (typeof nama !== 'undefined') {
           name = nama
         } else {

@@ -6,6 +6,51 @@
     <meta content="bali vacation, bali accommodation, bali hotels, hotels bali, trip to bali, luxury vacation homes, tour bali, bali tour package, luxury rental homes, bali holiday packages 
 " name="keywords">
 @endsection
+
+@section('media')
+<style>
+    .search-panel {
+        background: #fff;
+        padding: 10px 15px;
+        border-radius: 12px;
+        box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.08);
+        margin-bottom: 40px;
+    }
+    .search-panel .input-group-text {
+        background: transparent;
+        border: none;
+        color: #ce1212;
+        padding-right: 0;
+    }
+    .search-panel .form-control, .search-panel .form-select {
+        border: none;
+        font-size: 0.9rem;
+    }
+    .search-panel .form-control:focus, .search-panel .form-select:focus {
+        box-shadow: none;
+    }
+    .btn-search {
+        background: #ce1212;
+        color: #fff;
+        border-radius: 8px;
+        padding: 6px 18px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: 0.3s;
+        border: none;
+    }
+    .btn-search:hover {
+        background: #e02a2a;
+        color: #fff;
+    }
+    .form-note {
+        font-size: 0.8rem;
+        color: #777;
+        margin-top: 10px;
+    }
+</style>
+@endsection
+
 @section('content')
     
     <!-- ======= Breadcrumbs ======= -->
@@ -25,14 +70,44 @@
 
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu">
-      <div class="container" data-aos="fade-up">
+      <div class="container">
 
         <div class="section-header">
           <!-- <h2>Our Menu</h2> -->
           <p>Rooms   <span>Bookings</span></p>
         </div>
 
-          
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="search-panel">
+              <form action="{{ url('/hotels') }}" method="GET">
+                <div class="row align-items-center g-2">
+                  <div class="col-lg-5 col-md-5">
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-calendar-range"></i></span>
+                      <input type="text" class="form-control" name="cekin" placeholder="Select dates" value="{{ request('cekin') }}">
+                    </div>
+                  </div>
+                  <div class="col-lg-5 col-md-5">
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                      <select class="form-select" name="area">
+                        <option value="" {{ request('area') == '' ? 'selected' : '' }}>All Area</option>
+                        @foreach($areas as $area)
+                          <option value="{{ $area->name }}" {{ request('area') == $area->name ? 'selected' : '' }}>{{ $area->name }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-md-2 text-center">
+                    <button type="submit" class="btn-search">Search</button>
+                  </div>
+                </div>
+                <p class="form-note mb-0 text-center">Find the best rooms and villas for your stay in Bali.</p>
+              </form>
+            </div>
+          </div>
+        </div>
 
         <div class="tab-content chefs">
          
@@ -40,63 +115,71 @@
               <!-- <p>Menu</p> -->
               <!-- <h3>Transport</h3> -->
             </div>
-            <div class="row gy-3">
-            @foreach ($hotels as $ht)
+            <div class="row gy-4">
+              @foreach ($hotels as $ht)
               <!-- Menu Item -->
-              <div class="col-lg-3 col-md-4 d-flex align-items-stretch" >
-                <div class="chef-member">
+              <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                <div class="chef-member service-card">
                   <div class="member-img">
                       @php $gmbr = explode(";",$ht->foto) ; @endphp
-                      
-                      <img src="{{asset('assets/img/rooms/'.$gmbr[0] ) }}" class="img-fluid" alt="{{ $gmbr[0] }}">
-                      
-                      <div class="social">
-                        <!-- <a href="">Disc -50%</a> -->
-                        <a href="">Feature</i></a>
-                        <a href="" data-toggle="modal" data-target="#trModal{{$ht->id}}" alt="Preview">View</a>
+                      <div class="position-absolute top-0 start-0 m-3" style="z-index: 1;">
+                        <span class="badge bg-danger text-uppercase fw-bold shadow-sm" style="font-size: 0.65rem;">Hot Deal</span>
                       </div>
+                      <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute top-0 end-0 m-3 shadow-sm border-0 d-flex align-items-center justify-content-center" style="z-index: 1; width: 30px; height: 30px;" title="Add to Wishlist">
+                        <i class="bi bi-heart text-danger" style="font-size: 0.9rem;"></i>
+                      </button>
+                      
+                      <img src="assets/img/rooms/{{ $gmbr[0] ?? '' }}" class="img-fluid" alt="{{ $ht->title }}">
+                      
                     </div>
                     <div class="member-info">
-                      <h4>{{ $ht->title}}</h4>
+                      <a href="/bookings/{{$ht->slug}}"><h4>{{ $ht->title}}</h4></a>
                           @php 
-                              $jml = 0;
                               $review = DB::table('review_ratings')->where('product_code', $ht->code)->sum('star_rating');
                               $count = DB::table('review_ratings')->where('product_code', $ht->code)->count('star_rating');
+                              $rating = $count ? round($review / $count) : 0;
                           @endphp
-                          <div class="rated">
-                          @php 
-                            $jml = $review / ($count ? $count : 1);
-                          @endphp
-                            @for($i=1; $i<=$jml; $i++)                                                      
-                                <label class="star-rating-complete" title="text">{{$i}} stars</label>
-                            @endfor
+                          <div class="d-flex align-items-center mb-2" style="font-size: 0.85rem;">
+                            <div class="d-flex align-items-center me-3">
+                              <div class="text-warning me-1">
+                                @for($i = 1; $i <= 5; $i++)
+                                  <i class="bi {{ $i <= $rating ? 'bi-star-fill' : 'bi-star' }}" style="font-size: 0.75rem;"></i>
+                                @endfor
+                              </div>
+                              <small class="text-muted">({{$count}} Reviews)</small>
+                            </div>
+                            <div class="d-flex align-items-center border-start ps-3" style="border-color: #ddd !important;">
+                              <i class="bi bi-geo-alt-fill me-1" style="color: #ce1212; font-size: 0.9rem;"></i>
+                              <small class="text-muted">{{ $ht->area_name ?? 'Bali' }}</small>
+                            </div>
                           </div>
-                          ({{$count}} Reviews)<p>
-                      <h5>Top Facilities</h5>
-                      <div class="row gy-4">
+                      <p class="fst-italic mb-3">{!! strip_tags(substr($ht->desc, 0, 120)) !!}...</p>
+
+                      <div class="service-tags mb-3">
                         @php $fasi = explode(";",$ht->facility) ; @endphp
                         @for ($i = 1; $i < 4; $i++)
                           @foreach ($fasilitas as $fas)
-                            @if($fasi[$i] == $fas->id)
-                            <div class="col-1">
-                            <i class="bi bi-check2-all"></i> {!! $fas->icon !!}
-                            <!-- <i class="fa-sharp fa-solid fa-person-swimming"></i> -->
-                            </div>
+                            @if(isset($fasi[$i]) && $fasi[$i] == $fas->id)
+                              <span class="facility-badge">
+                                {!! $fas->icon !!}
+                                <span>{{ $fas->fas_name }}</span>
+                              </span>
                             @endif
                           @endforeach
                         @endfor
                       </div>
 
-                    @foreach ($rate as $rat)
-                      @if($ht->code == $rat->kode_kamar)
-                        IDR {{ number_format($rat->harga, 2) }} / Night <br>
-                        {{ $rat->stok }} room available on our site
-                      @endif
-                    @endforeach
-
-                    <p class="price">
-                      <a href="/bookings/{{$ht->slug}}" class="btn-book-a-table">Book Now</a>
-                    </p>
+                      @foreach ($rate as $rat)
+                        @if($ht->code == $rat->kode_kamar)
+                          <div class="d-flex justify-content-between align-items-center service-actions">
+                            <div>
+                              <strong>IDR {{ number_format($rat->harga, 2) }}</strong><br>
+                              <small class="text-muted">{{ $rat->stok }} room available</small>
+                            </div>
+                            <a href="/bookings/{{$ht->slug}}" class="btn-book-a-table">Book Now</a>
+                          </div>
+                        @endif
+                      @endforeach
                   </div>
                 </div>
               </div><!-- End Chefs Member -->
@@ -115,56 +198,35 @@
 
 
     
-
-
-    
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-header">
-          <h2>Contact</h2>
-          <p>Need Help? <span>Contact Us</span></p>
-        </div>
-
-        <div class="mb-3">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d986.1957654155755!2d115.17408542285924!3d-8.6168148017417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd239e1f895d5b3%3A0xad8aa8fe6cf83d1d!2sPerumahan%20Pesona%20gaji%20Dalung%20Block%204!5e0!3m2!1sid!2sid!4v1710597857163!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <!-- End Google Maps -->
-
-        <div class="row gy-4">
-
-
-
-        </div>
-
-        <form action="forms/contact.php" method="post" role="form" class="php-email-form p-3 p-md-4">
-          <div class="row">
-            <div class="col-xl-6 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-            </div>
-            <div class="col-xl-6 form-group">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-          </div>
-          <div class="my-3">
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your message has been sent. Thank you!</div>
-          </div>
-          <div class="text-center"><button type="submit">Send Message</button></div>
-        </form><!--End Contact Form -->
-
-      </div>
-    </section><!-- End Contact Section -->
-
-    
-
 @stop
+
+@section('scripts')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script>
+$(function() {
+  $('input[name="cekin"]').daterangepicker({
+    "autoApply": true,
+    "locale": {
+        "format": "MMM DD, YYYY",
+        "separator": " - ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": ["Su","Mo","Tu","We","Th","Fr","Sa"],
+        "monthNames": ["January","February","March","April","May","June","July","August","September","October","November","December"],
+        "firstDay": 1
+    },
+    "minDate": new Date(),
+    "startDate": new Date(),
+    "endDate": new Date(Date.now() + ( 3600 * 1000 * 24)),
+    "opens": "center",
+    "drops": "auto"
+  }, function(start, end, label) {
+    console.log(moment(start).format('YYYY-MM-DD'))
+  });
+});
+</script>
+@endsection

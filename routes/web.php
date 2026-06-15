@@ -126,9 +126,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('rooms', ['as' => 'pages.rooms', 'uses' => 'App\Http\Controllers\PageController@rooms']);
     Route::get('rates', ['as' => 'pages.rates', 'uses' => 'App\Http\Controllers\PageController@rates']);
     Route::get('tour', ['as' => 'pages.tour', 'uses' => 'App\Http\Controllers\PageController@tour']);
+    Route::get('news', ['as' => 'pages.news', 'uses' => 'App\Http\Controllers\PageController@news']);
     Route::get('destinasi', ['as' => 'pages.destinasi', 'uses' => 'App\Http\Controllers\PageController@destinasi']);
     Route::get('activity', ['as' => 'pages.activity', 'uses' => 'App\Http\Controllers\PageController@activity']);
     Route::get('products', ['as' => 'pages.products', 'uses' => 'App\Http\Controllers\PageController@products']);
+    //=================rate
+    // Route::get('rates', ['as' => 'pages.rates', 'uses' => 'App\Http\Controllers\PageController@rates']);
+    Route::post('rates/update', [App\Http\Controllers\backendController::class, 'updateRate'])->name('rates.update');
+    Route::post('rates/bulk-update', [App\Http\Controllers\backendController::class, 'bulkUpdateRate'])->name('rates.bulkUpdate');
     //============room
     Route::get('room-add', ['as' => 'pages.room_add', 'uses' => 'App\Http\Controllers\PageController@roomAdd']);
     Route::post('room/media', [App\Http\Controllers\backendController::class, 'storeMedia'])->name('room.storeMedia');
@@ -141,6 +146,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('tour/media/delete', [App\Http\Controllers\backendController::class, 'deleteMediaTour'])->name('tour.deleteMedia');
     Route::post('tour-store', [App\Http\Controllers\backendController::class, 'storeTour'])->name('tour.store');
     Route::get('tour-edit/{tour_code}', [App\Http\Controllers\backendController::class, 'editTour'])->name('tour.edit');
+    //=========news
+    Route::get('news-add', ['as' => 'pages.news_add', 'uses' => 'App\Http\Controllers\PageController@newsAdd']);
+    Route::post('news/media', [App\Http\Controllers\backendController::class, 'storeMediaNews'])->name('news.storeMedia');
+    Route::post('news/media/delete', [App\Http\Controllers\backendController::class, 'deleteMediaNews'])->name('news.deleteMedia');
+    Route::post('news-store', [App\Http\Controllers\backendController::class, 'storeNews'])->name('news.store');
+    Route::post('news-delete', [App\Http\Controllers\backendController::class, 'deleteNews'])->name('news.delete');
+    Route::get('news-edit/{news_code}', [App\Http\Controllers\backendController::class, 'editNews'])->name('news.edit');
+    
     //=========destinasi
     Route::get('destinasi-add', ['as' => 'pages.destinasi_add', 'uses' => 'App\Http\Controllers\PageController@destinasiAdd']);
     Route::post('destinasi/media', [App\Http\Controllers\backendController::class, 'storeMediaDestinasi'])->name('destinasi.storeMedia');
@@ -162,6 +175,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('products-edit/{product_code}', [App\Http\Controllers\backendController::class, 'editProducts'])->name('products.edit');
 
 });
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);

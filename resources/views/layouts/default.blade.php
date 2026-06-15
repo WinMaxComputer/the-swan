@@ -6,8 +6,8 @@
 @yield('meta')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @yield('media')
-</head>
-
+<link rel="alternate" hreflang="id" href="{{ url('id') }}" />
+<link rel="alternate" hreflang="en" href="{{ url('en') }}" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YGQ91MNY00"></script>
 <script>
@@ -16,6 +16,7 @@
   gtag('js', new Date());
   gtag('config', 'G-YGQ91MNY00');
 </script>
+</head>
 
 <body>
 
@@ -26,7 +27,13 @@
     @include('pages.notification')
     <!-- ======= About Section ======= -->
     @yield('content')
-    @yield('scripts')
+    <div class="popup-container" id="popupContainer">
+        <a href="https://api.whatsapp.com/send?phone=62818688114&text=&source=&data=" class="whatsApp" target="_blank"><i class="fa fa-whatsapp my-whatsApp"></i></a>
+        <div class="popup-content" id="popupContent">
+            <img src="{{asset('assets/img/wa.webp')}}" /><br />
+            Scan Me
+        </div>
+    </div>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -37,6 +44,7 @@
   <!-- End Footer -->
 
   @include('includes.footerjs')
+  @yield('scripts')
 
 </body>
 

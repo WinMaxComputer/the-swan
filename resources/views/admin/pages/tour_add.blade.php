@@ -15,32 +15,40 @@
         <div class="row">
           <div class="form-group col-lg-6">
             <label>Code</label>
-            <input type="hidden" name="id" class="form-control" placeholder="code" value="{{ $tourDetail->id ?? '' }}" >
-            <input type="text" name="code" class="form-control" placeholder="code" value="{{ $tourDetail->code ?? '' }}" >
+            <input type="hidden" name="id" value="{{ $tourDetail->id ?? '' }}" >
+            <input type="text" name="code" class="form-control text-white" placeholder="Tour Code" value="{{ $tourDetail->code ?? 'TOUR-' . date('YmdHis') }}" required>
           </div>
           <div class="form-group col-lg-6">
               <label>Name</label>
-              <input type="text" name="tour_name" class="form-control" placeholder="Title" value="{{ $tourDetail->tour_name ?? '' }}">
+              <input type="text" name="tour_name" id="tour_name" class="form-control text-white" placeholder="Tour Name" value="{{ $tourDetail->tour_name ?? '' }}" required>
           </div>
         </div>
         <div class="row">
           <div class="form-group col-lg-6">
-            <label>Lang</label>
-            <input type="text" name="lang" class="form-control" placeholder="Lang" value="{{ $tourDetail->lang ?? '' }}">
+            <label>Language</label>
+            <select name="lang" class="form-control text-info">
+                <option value="en" {{ (isset($tourDetail) && $tourDetail->lang == 'en') || !isset($tourDetail) ? 'selected' : '' }}>English</option>
+                <option value="id" {{ (isset($tourDetail) && $tourDetail->lang == 'id') ? 'selected' : '' }}>Indonesia</option>
+            </select>
           </div>
           <div class="form-group col-lg-6">
               <label>Type</label>
-              <input type="text" name="type" class="form-control" value="{{ $tourDetail->type ?? '' }}">
+              <input type="text" name="type" class="form-control text-white" placeholder="Tour Type" value="{{ $tourDetail->type ?? '' }}">
           </div>
         </div>
         <div class="row">
           <div class="form-group col-lg-6">
-            <label>slug</label>
-            <input type="text" name="slug" class="form-control" placeholder="slug" value="{{ $tourDetail->slug ?? '' }}">
+            <label>Slug</label>
+            <input type="text" name="slug" id="slug" class="form-control text-white" placeholder="URL Slug" value="{{ $tourDetail->slug ?? '' }}">
           </div>
           <div class="form-group col-lg-6">
-            <label>area</label>
-            <input type="text" name="area_tour" class="form-control" placeholder="area_tour" value="{{ $tourDetail->area_tour ?? '' }}">
+            <label>Area</label>
+            <select name="area_tour" class="form-control text-info">
+                <option value="" disabled {{ !isset($tourDetail) ? 'selected' : '' }}>Select Tour Area</option>
+                @foreach($areas as $area)
+                    <option value="{{ $area->id }}" {{ (isset($tourDetail) && $tourDetail->area_tour == $area->id) ? 'selected' : '' }}>{{ ucfirst($area->name) }}</option>
+                @endforeach
+            </select>
           </div>
         </div>
         <div class="form-group">
@@ -64,30 +72,27 @@
             <textarea class="form-control" id="note" name="note" >{{ $tourDetail->note ?? '' }}</textarea>
         </div>
         <div class="form-group">
-            <label>Destination  </label>
-            
-                <label class="checkbox-inline">
-                 
-                @if(isset($tourDetail))
-                  @php $fasi = explode(";",$tourDetail->destination) ; @endphp
-                    @foreach($destinasi as $desti)
-                      @if(in_array($desti->id, $fasi))
-                        <input type="checkbox" id="destination" name="destination[]" value="{{ $desti->id }}" checked />{{$desti->name}} - {{$desti->lang}}
-                      @else
-                        <input type="checkbox" id="destination" name="destination[]" value="{{ $desti->id }}" />{{$desti->name}} - {{$desti->lang}}
-                      @endif
-
-                    @endforeach
-                @else
-                    @foreach($destinasi as $desti)
-                        <input type="checkbox" id="destination" name="destination[]" value="{{ $desti->id }}" />{{$desti->name}} - {{$desti->lang}}
-                    @endforeach
-                @endif
-               
-                </label>
-
+            <label>Destinations</label>
+            <div class="row px-3">
+                @php $selectedDestinations = isset($tourDetail) ? explode(';', $tourDetail->destination) : []; @endphp
+                @foreach($destinasi as $desti)
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="destination[]" value="{{ $desti->id }}" 
+                                    {{ in_array($desti->id, $selectedDestinations) ? 'checked' : '' }}>
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                                {{ $desti->name }} <small class="text-muted">({{ $desti->lang }})</small>
+                            </label>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
         <div class="form-group">
+            <label>Photo Gallery</label>
             <div class="needsclick dropzone" id="document-dropzone"></div>
         </div>
         <button type="submit" class="btn btn-fill btn-primary">Simpan</button>
@@ -115,12 +120,27 @@
     CKEDITOR.replace('payment', options);
     CKEDITOR.replace('note', options);
 
+    // Slug auto-generation
+    function generateSlug(text) {
+        return text.toLowerCase().trim()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/[\s_-]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    $('#tour_name').on('keyup', function() {
+        @if(!isset($tourDetail))
+        const title = $(this).val();
+        const slug = generateSlug(title);
+        $('#slug').val(slug);
+        @endif
+    });
 
     var uploadedDocumentMap = {}
     Dropzone.options.documentDropzone = {
       url: '{{ route('tour.storeMedia') }}',
       maxFilesize: 10, // MB
-      acceptedFiles: '.png, .jpg',
+      acceptedFiles: '.png, .jpg, .webp, .jpeg',
       addRemoveLinks: true,
       headers: {
         'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -157,7 +177,6 @@
           name = uploadedDocumentMap[nama]
         }
         $('form').find('input[name="document[]"][value="' + name + '"]').remove()     
-      
       },
       init: function () {
         // console.log('onload dropzone');
@@ -202,6 +221,6 @@
     }
     
   </script>
- 
+  
   @endpush
 @endsection

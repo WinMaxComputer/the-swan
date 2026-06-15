@@ -44,20 +44,20 @@
 
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
-        <div class="container" data-aos="fade-up">
+        <div class="container">
 
             <!-- <div class="section-header"> -->
             <!-- <h2>About Us</h2> -->
             <!-- <p>Tour Detail </p> -->
             <!-- </div> -->
             <div class="row">
-                <div class="col-lg-12 position-relative mt-0" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-lg-12 position-relative mt-0">
                     <h4>{{ $destinationDetail[0]->name }}</h4>
                 </div>
-                <div class="col-lg-6 position-relative mt-0" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-lg-6 position-relative mt-0">
                     <p>{!! $desk[0] !!}</p>
                 </div>
-                <div class="col-lg-6 position-relative img-blog mt-0" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-lg-6 position-relative img-blog mt-0">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
 
@@ -94,7 +94,7 @@
                 $leng = count($desk) ;
                 @endphp
                 @for($i = 1;$i < $leng ;$i++)
-                <div class="col-lg-12 position-relative mt-0" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-lg-12 position-relative mt-0">
                     <p>{!! $desk[$i] !!}</p>
                 </div>
                 @endfor

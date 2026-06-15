@@ -9,14 +9,14 @@
    
     <!-- ======= Events Section ======= -->
     <section id="events" class="events">
-      <div class="container-fluid" data-aos="fade-up">
+      <div class="container-fluid">
 
         <div class="section-header">
           <!-- <h2>Events</h2> -->
           <p>Whats <span>In Bali</span> </p>
         </div>
 
-        <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
+        <div class="slides-3 swiper">
           <div class="swiper-wrapper">
 
           @foreach ($artikel as $art)

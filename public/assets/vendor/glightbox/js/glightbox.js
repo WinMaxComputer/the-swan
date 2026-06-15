@@ -1,6 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
+  typeof define === 'function' && define.amd ? define(factory) : // eslint-disable-line no-undef
   (global = global || self, global.GLightbox = factory());
 }(this, (function () { 'use strict';
 

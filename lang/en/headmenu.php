@@ -7,7 +7,7 @@ return [
     'event' => 'Events',
     'driver' => 'Driver',
     'galleri' => 'Gallery',
-    'contact' => 'Contact Us',
+    'contact' => 'Contact us',
     'partnership' => 'Partnership',
     'booking' => 'Rooms Booking',
     'tour_package' => 'Tour Packages',

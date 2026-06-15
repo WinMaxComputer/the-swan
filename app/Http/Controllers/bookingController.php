@@ -39,16 +39,42 @@ class bookingController extends Controller
         return view('pages.tour',['tour' => $tur] );
     }
 
-    public function hotel(){
+    public function hotel(Request $request){
         $defaultLocale = config('app.locale');
-        $hotel = Booking::join('room_fotos', 'room_fotos.code', 'bookings.code')
+        
+        $query = Booking::join('room_fotos', 'room_fotos.code', 'bookings.code')
+                        ->leftJoin('travel_area', 'travel_area.id', '=', 'bookings.area')
                         ->where('bookings.lang', $defaultLocale)
-                        ->select('bookings.*', 'room_fotos.foto')
-                        ->get();
-        $date = Carbon::now()->format('Y-m-d');
-        $rate = DB::table('rates')->where('tgl', $date)->get();
+                        ->select('bookings.*', 'room_fotos.foto', 'travel_area.name as area_name');
+
+        // Filter by Area if selected
+        if ($request->filled('area') && $request->area != 'All Area') {
+            $area = $request->area;
+            $query->where(function($q) use ($area) {
+                $q->where('bookings.title', 'like', '%' . $area . '%')
+                  ->orWhere('bookings.real_address', 'like', '%' . $area . '%')
+                  ->orWhere('travel_area.name', 'like', '%' . $area . '%')
+                  ->orWhere('bookings.desc', 'like', '%' . $area . '%');
+            });
+        }
+
+        $hotels = $query->get();
+
+        // Determine which date to show rates for based on the search
+        $searchDate = Carbon::now()->format('Y-m-d');
+        if ($request->filled('cekin')) {
+            try {
+                $dates = explode(' - ', $request->cekin);
+                $searchDate = Carbon::parse($dates[0])->format('Y-m-d');
+            } catch (\Exception $e) {
+                // Fallback to today on parse error
+            }
+        }
+
+        $rate = DB::table('rates')->where('tgl', $searchDate)->get();
         $fasilitas = Facility::all();
-        return view('pages.hotel',['hotels' => $hotel, 'rate' => $rate, 'fasilitas' => $fasilitas] );
+        $areas = DB::table('travel_area')->get();
+        return view('pages.hotel', ['hotels' => $hotels, 'rate' => $rate, 'fasilitas' => $fasilitas, 'areas' => $areas]);
     }
 
     public function service(){
@@ -67,6 +93,7 @@ class bookingController extends Controller
         $fasilitas = Facility::all();
         $rate = DB::table('rates')->where('tgl', $date)->get();
         $artikel = Artikel::where('lang', $defaultLocale)->get();
+        $areas = DB::table('travel_area')->get();
 
         return view('pages.service',[
             'kamar' => $kamar, 
@@ -77,15 +104,17 @@ class bookingController extends Controller
             'fasilitas' => $fasilitas,
             'rate' => $rate,
             'artikel' => $artikel,
+            'areas' => $areas,
+            'product' => $product
             ] );
     }
 
     public function home(){
-
         $defaultLocale = config('app.locale');
         $kamar = Booking::join('room_fotos', 'room_fotos.code', 'bookings.code')
+                        ->leftJoin('travel_area', 'travel_area.id', '=', 'bookings.area')
                         ->where('bookings.lang', $defaultLocale)
-                        ->select('bookings.*', 'room_fotos.foto')
+                        ->select('bookings.*', 'room_fotos.foto', 'travel_area.name as area_name')
                         ->get();
         $date = Carbon::now()->format('Y-m-d');
         $fasilitas = Facility::all();
@@ -93,15 +122,39 @@ class bookingController extends Controller
         $transport = Transport::where('transports.lang', $defaultLocale)->get();
         $detinasi = Destination::where('destinations.lang', $defaultLocale)
                         ->join('destination_fotos', 'destination_fotos.code', 'destinations.code')
-                        ->select('destinations.*', 'destination_fotos.foto')
+                        ->leftJoin('travel_area', 'travel_area.id', '=', 'destinations.type')
+                        ->select('destinations.*', 'destination_fotos.foto', 'travel_area.name as area_name')
                         ->get();
         $tur = TourPackage::join('tour_fotos', 'tour_fotos.code', 'tour_packages.code')
                         ->where('tour_packages.lang', $defaultLocale)
                         ->select('tour_packages.*', 'tour_fotos.foto')
                         ->get();
         $paket = Package::where('lang', $defaultLocale)->get();
-        $artikel = Artikel::where('lang', $defaultLocale)->get();
+        $artikel = DB::table('artikels')
+                        ->leftJoin('artikel_fotos', 'artikel_fotos.code', '=', 'artikels.code')
+                        ->where('artikels.lang', $defaultLocale)
+                        ->select('artikels.*', 'artikel_fotos.foto')
+                        ->groupBy('artikels.id')
+                        ->get();
         $galeri = Gallery::where('lang', $defaultLocale)->take(3)->get();
+        $areas = DB::table('travel_area')->get();
+        $all_activities = DB::table('activities')->get();
+        $product = DB::table('products')->where('lang', $defaultLocale)->get();
+
+        // Resolve area names for products via their parent activities
+        foreach ($product as $item) {
+            $parentCodes = array_filter(explode(';', $item->parent_type));
+            $parentCode = reset($parentCodes);
+            
+            $item->area_names = 'Bali';
+            if ($parentCode) {
+                $act = $all_activities->where('code', $parentCode)->first();
+                if ($act && $act->area) {
+                    $ids = array_filter(explode(';', $act->area));
+                    $item->area_names = $areas->whereIn('id', $ids)->pluck('name')->map(fn($n) => ucfirst($n))->implode(', ');
+                }
+            }
+        }
 
         // var_dump($kamar[0]->foto);
 
@@ -115,6 +168,8 @@ class bookingController extends Controller
             'galeri'  => $galeri,
             'fasilitas' => $fasilitas,
             'rate' => $rate,
+            'areas' => $areas,
+            'product' => $product,
             ] );
     }
 
@@ -131,7 +186,8 @@ class bookingController extends Controller
         $defaultLocale = config('app.locale');
         $destinasi = DB::table('destinations')->where('lang', $defaultLocale)
                         ->join('destination_fotos', 'destination_fotos.code', 'destinations.code')
-                        ->select('destinations.*', 'destination_fotos.foto')
+                        ->leftJoin('travel_area', 'travel_area.id', '=', 'destinations.type')
+                        ->select('destinations.*', 'destination_fotos.foto', 'travel_area.name as area_name')
                         ->get();
         return view('pages.destinations', compact('destinasi'));
     }
@@ -142,7 +198,8 @@ class bookingController extends Controller
                         ->select('destinations.*', 'destination_fotos.foto')
                         ->get();
                         // dd($destinationDetail);
-        return view('pages.destination-detail', ['destinationDetail' => $destinationDetail]);
+        $areas = DB::table('travel_area')->get();
+        return view('pages.destination-detail', ['destinationDetail' => $destinationDetail, 'areas' => $areas]);
     }
 
     public function activity()
@@ -160,9 +217,25 @@ class bookingController extends Controller
                     ->join('activity_fotos', 'activity_fotos.code', 'activities.code')
                     ->select('activities.*', 'activity_fotos.foto')
                     ->get();
+
+        $areas = DB::table('travel_area')->get();
+
+        // Resolve semicolon-separated area IDs into human-readable names
+        foreach ($activityDetail as $activity) {
+            $ids = array_filter(explode(';', $activity->area));
+            $names = $areas->whereIn('id', $ids)->pluck('name')->map(function($name) {
+                return ucfirst($name);
+            })->implode(', ');
+            $activity->area_names = $names ?: 'Bali';
+        }
+
+        if (!$activityDetail->isEmpty()) {
+            \App::setLocale($activityDetail[0]->lang);
+        }
+
         $product = DB::table('products')->get();
         $country = DB::table('countries')->get();
-        return view('pages.activity-detail', ['activityDetail' => $activityDetail, 'products' => $product, 'country' => $country,]);
+        return view('pages.activity-detail', ['activityDetail' => $activityDetail, 'products' => $product, 'country' => $country, 'areas' => $areas]);
     }
 
     public function tourDetail($slug){
@@ -194,17 +267,20 @@ class bookingController extends Controller
         $code = Booking::where('slug', $slug)->first();
         $hotel = Booking::where('bookings.code', $code->code)->where('bookings.lang', $defaultLocale)
                     ->join('room_fotos', 'room_fotos.code', 'bookings.code')
-                    ->select('bookings.*', 'room_fotos.foto')
+                    ->leftJoin('travel_area', 'travel_area.id', '=', 'bookings.area')
+                    ->select('bookings.*', 'room_fotos.foto', 'travel_area.name as area_name')
                     ->get();
         $review = DB::table('review_ratings')->where('product_code', $code->code)->get(); // Review::where('product_code', $code->code)->get();
         $country = DB::table('countries')->get();
         $fasilitas = Facility::all();
         $destinasi = DB::table('destinations')->where('lang', $defaultLocale)
                     ->join('destination_fotos', 'destination_fotos.code', 'destinations.code')
+                    ->where('destination_fotos.foto', '!=', '')
                     ->select('destinations.*', 'destination_fotos.foto')
                     ->inRandomOrder()->limit(6)->get();
         $activities = DB::table('activities')->where('lang', $defaultLocale)
                     ->join('activity_fotos', 'activity_fotos.code', 'activities.code')
+                    ->where('activity_fotos.foto', '!=', '')
                     ->select('activities.*', 'activity_fotos.foto')
                     ->inRandomOrder()->limit(6)->get();
         return view('pages.hotel-detail',[

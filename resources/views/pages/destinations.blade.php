@@ -4,6 +4,121 @@
     <meta content="we are company that acomodate room booking, tour travel and also property management, visit bali instereted place" name="description">
     <meta content="bali room booking, car rental bali, bali management property, ubud tour, bali tour" name="keywords">
 @endsection
+
+@section('media')
+<style>
+    .nav-tabs.desti-tabs {
+        border-bottom: none;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+    .nav-tabs.desti-tabs .nav-item {
+        margin-bottom: 0;
+    }
+    .nav-tabs.desti-tabs .nav-link {
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 50px;
+        color: #444;
+        padding: 8px 25px;
+        transition: 0.3s;
+        box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.05);
+    }
+    .nav-tabs.desti-tabs .nav-link h4 {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+    .nav-tabs.desti-tabs .nav-link.active {
+        background: #ce1212;
+        color: #fff;
+        border-color: #ce1212;
+    }
+
+    .destination-card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .destination-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .destination-img-container {
+        height: 180px; /* Fixed height for images */
+        overflow: hidden;
+        position: relative; /* Added for badge positioning */
+    }
+    .destination-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+@endsection
+
+@section('media')
+<style>
+    .nav-tabs.desti-tabs {
+        border-bottom: none;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+    .nav-tabs.desti-tabs .nav-item {
+        margin-bottom: 0;
+    }
+    .nav-tabs.desti-tabs .nav-link {
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 50px;
+        color: #444;
+        padding: 8px 25px;
+        transition: 0.3s;
+        box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.05);
+    }
+    .nav-tabs.desti-tabs .nav-link h4 {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+    .nav-tabs.desti-tabs .nav-link.active {
+        background: #ce1212;
+        color: #fff;
+        border-color: #ce1212;
+    }
+
+    .destination-card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .destination-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .destination-img-container {
+        height: 180px; /* Fixed height for images */
+        overflow: hidden;
+        position: relative; /* Added for badge positioning */
+    }
+    .destination-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+@endsection
+
 @section('content')
     
     <!-- ======= Breadcrumbs ======= -->
@@ -23,17 +138,17 @@
 
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu">
-      <div class="container" data-aos="fade-up">
+      <div class="container">
 
         <div class="section-header">
           <!-- <h2>Our Menu</h2> -->
           <p>Best <span>Bali destinations place</span></p>
         </div>
 
-        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+        <ul class="nav nav-tabs desti-tabs d-flex justify-content-center">
 
           <li class="nav-item ">
-            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-ubud">
+            <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#menu-ubud">
               <h4>Ubud</h4>
             </a>
           </li><!-- End tab nav item -->
@@ -41,7 +156,8 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-south">
               <h4>South Bali Destinations</h4>
-            </a><!-- End tab nav item -->
+            </a>
+          </li>
 
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-north">
@@ -74,196 +190,136 @@
 
         <div class="tab-content chefs">
        
-
           <div class="tab-pane fade active show" id="menu-ubud">
-            <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <!-- <h3>Transport</h3> -->
-            </div>
-            <div class="row gy-3">
-            @foreach ($destinasi as $tr)
-            @if($tr->type == 'ubud')
-              <!-- Menu Item -->
-              <div class="col-lg-3 col-md-4 d-flex align-items-stretch" >
-                <div class="chef-member">
-                  <div class="member-img">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+            @forelse ($destinasi->where('type', '1') as $tr)
+                <div class="col">
+                  <a href="/destinations/{{$tr->slug}}" class="destination-card d-block">
+                  <div class="destination-img-container rounded-3 overflow-hidden shadow-sm">
                     @php $gmbr = explode(";",$tr->foto) ; @endphp
-                    <img src="assets/img/destinasi/{{ $gmbr[0] }}" class="img-fluid" alt="">
-                    <div class="social">
-                    </div>
+                    <img src="{{ asset('assets/img/destinasi/' . ($gmbr[0] ?? '')) }}" alt="{{ $tr->name }}">
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-2" style="font-size: 0.65rem; border-radius: 20px;">
+                      <i class="bi bi-geo-alt-fill me-1"></i>{{ ucfirst($tr->area_name) }}
+                    </span>
                   </div>
-                  <div class="member-info">
-                    <h4>{{ $tr->name }}</h4>
-                    <!-- <span>Cook</span> -->
-                    <p>{!! cutText($tr->deskripsi, 300, 3) !!}</p>
-                    <a href="/destinations/{{$tr->slug}}" class="btn-book-a-table">Detail</a>
+                  <div class="mt-2 text-center">
+                    <h6 class="fw-bold text-dark text-truncate mb-0 px-1" style="font-size: 0.9rem;">{{ $tr->name }}</h6>
                   </div>
-                  
+                  </a>
                 </div>
-              </div><!-- End Chefs Member -->
-            @endif
-            @endforeach
+            @empty
+                <div class="col-12 text-center py-4"><p class="text-muted">No destinations found for Ubud.</p></div>
+            @endforelse
             </div>
           </div><!-- End Breakfast Menu Content -->
-          <div class="tab-pane fade active show" id="menu-south">
-            <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <!-- <h3>Transport</h3> -->
-            </div>
-            <div class="row gy-3">
-            @foreach ($destinasi as $tr)
-            @if($tr->type == 'south')
-              <!-- Menu Item -->
-              <div class="col-lg-3 col-md-4 d-flex align-items-stretch" >
-                <div class="chef-member">
-                  <div class="member-img">
+          <div class="tab-pane fade" id="menu-south">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+            @forelse ($destinasi->where('type', '2') as $tr)
+                <div class="col">
+                  <a href="/destinations/{{$tr->slug}}" class="destination-card d-block">
+                  <div class="destination-img-container rounded-3 overflow-hidden shadow-sm">
                     @php $gmbr = explode(";",$tr->foto) ; @endphp
-                    <img src="assets/img/destinasi/{{ $gmbr[0] }}" class="img-fluid" alt="">
-                    <div class="social">
-                    </div>
+                    <img src="{{ asset('assets/img/destinasi/' . ($gmbr[0] ?? '')) }}" alt="{{ $tr->name }}">
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-2" style="font-size: 0.65rem; border-radius: 20px;">
+                      <i class="bi bi-geo-alt-fill me-1"></i>{{ ucfirst($tr->area_name) }}
+                    </span>
                   </div>
-                  <div class="member-info">
-                    <h4>{{ $tr->name }}</h4>
-                    <!-- <span>Cook</span> -->
-                    <p>{!! cutText($tr->deskripsi, 300, 3) !!}</p>
+                  <div class="mt-2 text-center">
+                    <h6 class="fw-bold text-dark text-truncate mb-0 px-1" style="font-size: 0.9rem;">{{ $tr->name }}</h6>
                   </div>
-                  <p class="price">
-                    <div >
-                      <a href="/destinations/{{$tr->slug}}" class="btn-book-a-table">Detail</a>
-                    </div>
-                  </p>
+                  </a>
                 </div>
-              </div><!-- End Chefs Member -->
-            @endif
-            @endforeach
+            @empty
+                <div class="col-12 text-center py-4"><p class="text-muted">No destinations found for South Bali.</p></div>
+            @endforelse
             </div>
           </div><!-- End Breakfast Menu Content -->
-          <div class="tab-pane fade active show" id="menu-north">
-            <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <!-- <h3>Transport</h3> -->
-            </div>
-            <div class="row gy-3">
-            @foreach ($destinasi as $tr)
-            @if($tr->type == 'north')
-              <!-- Menu Item -->
-              <div class="col-lg-3 col-md-4 d-flex align-items-stretch" >
-                <div class="chef-member">
-                  <div class="member-img">
+          <div class="tab-pane fade" id="menu-north">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+            @forelse ($destinasi->where('type', '3') as $tr)
+                <div class="col">
+                  <a href="/destinations/{{$tr->slug}}" class="destination-card d-block">
+                  <div class="destination-img-container rounded-3 overflow-hidden shadow-sm">
                     @php $gmbr = explode(";",$tr->foto) ; @endphp
-                    <img src="assets/img/destinasi/{{ $gmbr[0] }}" class="img-fluid" alt="">
-                    <div class="social">
-                    </div>
+                    <img src="{{ asset('assets/img/destinasi/' . ($gmbr[0] ?? '')) }}" alt="{{ $tr->name }}">
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-2" style="font-size: 0.65rem; border-radius: 20px;">
+                      <i class="bi bi-geo-alt-fill me-1"></i>{{ ucfirst($tr->area_name) }}
+                    </span>
                   </div>
-                  <div class="member-info">
-                    <h4>{{ $tr->name }}</h4>
-                    <!-- <span>Cook</span> -->
-                    <p>{!! cutText($tr->deskripsi, 300, 3) !!}</p>
+                  <div class="mt-2 text-center">
+                    <h6 class="fw-bold text-dark text-truncate mb-0 px-1" style="font-size: 0.9rem;">{{ $tr->name }}</h6>
                   </div>
-                  <p class="price">
-                    <div >
-                      <a href="/destinations/{{$tr->slug}}" class="btn-book-a-table">Detail</a>
-                    </div>
-                  </p>
+                  </a>
                 </div>
-              </div><!-- End Chefs Member -->
-            @endif
-            @endforeach
+            @empty
+                <div class="col-12 text-center py-4"><p class="text-muted">No destinations found for North Bali.</p></div>
+            @endforelse
             </div>
           </div><!-- End Breakfast Menu Content -->
-          <div class="tab-pane fade active show" id="menu-east">
-            <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <!-- <h3>Transport</h3> -->
-            </div>
-            <div class="row gy-3">
-            @foreach ($destinasi as $tr)
-            @if($tr->type == 'east')
-              <!-- Menu Item -->
-              <div class="col-lg-3 col-md-4 d-flex align-items-stretch" >
-                <div class="chef-member">
-                  <div class="member-img">
+          <div class="tab-pane fade" id="menu-east">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+            @forelse ($destinasi->where('type', '4') as $tr)
+                <div class="col">
+                  <a href="/destinations/{{$tr->slug}}" class="destination-card d-block">
+                  <div class="destination-img-container rounded-3 overflow-hidden shadow-sm">
                     @php $gmbr = explode(";",$tr->foto) ; @endphp
-                    <img src="assets/img/destinasi/{{ $gmbr[0] }}" class="img-fluid" alt="">
-                    <div class="social">
-                    </div>
+                    <img src="{{ asset('assets/img/destinasi/' . ($gmbr[0] ?? '')) }}" alt="{{ $tr->name }}">
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-2" style="font-size: 0.65rem; border-radius: 20px;">
+                      <i class="bi bi-geo-alt-fill me-1"></i>{{ ucfirst($tr->area_name) }}
+                    </span>
                   </div>
-                  <div class="member-info">
-                    <h4>{{ $tr->name }}</h4>
-                    <!-- <span>Cook</span> -->
-                    <p>{!! cutText($tr->deskripsi, 300, 3) !!}</p>
+                  <div class="mt-2 text-center">
+                    <h6 class="fw-bold text-dark text-truncate mb-0 px-1" style="font-size: 0.9rem;">{{ $tr->name }}</h6>
                   </div>
-                  <p class="price">
-                    <div >
-                      <a href="/destinations/{{$tr->slug}}" class="btn-book-a-table">Detail</a>
-                    </div>
-                  </p>
+                  </a>
                 </div>
-              </div><!-- End Chefs Member -->
-            @endif
-            @endforeach
+            @empty
+                <div class="col-12 text-center py-4"><p class="text-muted">No destinations found for East Bali.</p></div>
+            @endforelse
             </div>
           </div><!-- End Breakfast Menu Content -->
-          <div class="tab-pane fade active show" id="menu-kintamani">
-            <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <!-- <h3>Transport</h3> -->
-            </div>
-            <div class="row gy-3">
-            @foreach ($destinasi as $tr)
-            @if($tr->type == 'kintamani')
-              <!-- Menu Item -->
-              <div class="col-lg-3 col-md-4 d-flex align-items-stretch" >
-                <div class="chef-member">
-                  <div class="member-img">
+          <div class="tab-pane fade" id="menu-kintamani">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+            @forelse ($destinasi->where('type', '5') as $tr)
+                <div class="col">
+                  <a href="/destinations/{{$tr->slug}}" class="destination-card d-block">
+                  <div class="destination-img-container rounded-3 overflow-hidden shadow-sm">
                     @php $gmbr = explode(";",$tr->foto) ; @endphp
-                    <img src="assets/img/destinasi/{{ $gmbr[0] }}" class="img-fluid" alt="">
-                    <div class="social">
-                    </div>
+                    <img src="{{ asset('assets/img/destinasi/' . ($gmbr[0] ?? '')) }}" alt="{{ $tr->name }}">
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-2" style="font-size: 0.65rem; border-radius: 20px;">
+                      <i class="bi bi-geo-alt-fill me-1"></i>{{ ucfirst($tr->area_name) }}
+                    </span>
                   </div>
-                  <div class="member-info">
-                    <h4>{{ $tr->name }}</h4>
-                    <!-- <span>Cook</span> -->
-                    <p>{!! cutText($tr->deskripsi, 300, 3) !!}</p>
+                  <div class="mt-2 text-center">
+                    <h6 class="fw-bold text-dark text-truncate mb-0 px-1" style="font-size: 0.9rem;">{{ $tr->name }}</h6>
                   </div>
-                  <p class="price">
-                    <div >
-                      <a href="/destinations/{{$tr->slug}}" class="btn-book-a-table">Detail</a>
-                    </div>
-                  </p>
+                  </a>
                 </div>
-              </div><!-- End Chefs Member -->
-            @endif
-            @endforeach
+            @empty
+                <div class="col-12 text-center py-4"><p class="text-muted">No destinations found for Kintamani.</p></div>
+            @endforelse
             </div>
           </div><!-- End Breakfast Menu Content -->
-          <div class="tab-pane fade active show" id="menu-west">
-            <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <!-- <h3>Transport</h3> -->
-            </div>
-            <div class="row gy-3">
-            @foreach ($destinasi as $tr)
-            @if($tr->type == 'west')
-              <!-- Menu Item -->
-              <div class="col-lg-3 col-md-4 d-flex align-items-stretch" >
-                <div class="chef-member">
-                  <div class="member-img">
+          <div class="tab-pane fade" id="menu-west">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+            @forelse ($destinasi->where('type', '6') as $tr)
+                <div class="col">
+                  <a href="/destinations/{{$tr->slug}}" class="destination-card d-block">
+                  <div class="destination-img-container rounded-3 overflow-hidden shadow-sm">
                     @php $gmbr = explode(";",$tr->foto) ; @endphp
-                    <img src="assets/img/destinasi/{{ $gmbr[0] }}" class="img-fluid" alt="">
-                    <div class="social">
-                    </div>
+                    <img src="{{ asset('assets/img/destinasi/' . ($gmbr[0] ?? '')) }}" alt="{{ $tr->name }}">
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-2" style="font-size: 0.65rem; border-radius: 20px;">
+                      <i class="bi bi-geo-alt-fill me-1"></i>{{ ucfirst($tr->area_name) }}
+                    </span>
                   </div>
-                  <div class="member-info">
-                    <h4>{{ $tr->name }}</h4>
-                    <!-- <span>Cook</span> -->
-                    <p>{!! cutText($tr->deskripsi, 300, 3) !!}</p>
-                    <a href="/destinations/{{$tr->slug}}" class="btn-book-a-table">Detail</a>
+                  <div class="mt-2 text-center">
+                    <h6 class="fw-bold text-dark text-truncate mb-0 px-1" style="font-size: 0.9rem;">{{ $tr->name }}</h6>
                   </div>
+                  </a>
                 </div>
-              </div><!-- End Chefs Member -->
-            @endif
-            @endforeach
+            @empty
+                <div class="col-12 text-center py-4"><p class="text-muted">No destinations found for West Bali.</p></div>
+            @endforelse
             </div>
           </div><!-- End Breakfast Menu Content -->
 
@@ -288,16 +344,13 @@
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up">
+      <div class="container">
 
         <div class="section-header">
           <h2>Contact</h2>
           <p>Need Help? <span>Contact Us</span></p>
         </div>
 
-        <div class="mb-3">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d986.1957654155755!2d115.17408542285924!3d-8.6168148017417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd239e1f895d5b3%3A0xad8aa8fe6cf83d1d!2sPerumahan%20Pesona%20gaji%20Dalung%20Block%204!5e0!3m2!1sid!2sid!4v1710597857163!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
         <!-- End Google Maps -->
 
         <div class="row gy-4">

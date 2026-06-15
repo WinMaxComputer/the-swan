@@ -15,7 +15,7 @@
         <div class="row">
             <div class="form-group col-lg-6">
               <label>Code</label>
-              <input type="text" name="id" class="form-control" placeholder="code" value="{{ $roomDetail->id ?? '' }}" >
+              <input type="hidden" name="id" class="form-control" placeholder="code" value="{{ $roomDetail->id ?? '' }}" >
               <input type="text" name="code" class="form-control" placeholder="code" value="{{ $roomDetail->code ?? '' }}" >
             </div>
             <div class="form-group col-lg-6">
@@ -32,6 +32,16 @@
         <div class="form-group col-lg-12">
               <label>Real Address</label>
               <textarea name="real_address" class="form-control" placeholder="Real Address">{{ $roomDetail->real_address ?? '' }}</textarea>
+        </div>
+        <div class="row">
+          <div class="form-group col-lg-6">
+              <label>Area Name</label>
+              <input type="text" name="area" class="form-control" placeholder="Area Name" value="{{ $roomDetail->area ?? '' }}">
+          </div>
+          <div class="form-group col-lg-6">
+              <label>Map</label>
+              <input type="text" name="map" class="form-control" placeholder="Map" value="{{ $roomDetail->map ?? '' }}">
+          </div>
         </div>
         <div class="row">
           <div class="form-group col-lg-6">
@@ -112,7 +122,7 @@
       url: '{{ route('room.storeMedia') }}',
       
       maxFilesize: 10, // MB
-      acceptedFiles: '.png, .jpg, .jpeg',
+      acceptedFiles: '.png, .jpg, .jpeg, .webp',
       addRemoveLinks: true,
       headers: {
         'X-CSRF-TOKEN': "{{ csrf_token() }}"

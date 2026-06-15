@@ -13,7 +13,7 @@ return [
     'tour_package' => 'Paket Tur',
     //============
     'welcome_title' => 'Perusahaan Hospitality Terbaik di Bali',
-    'welcome_desc' => 'Kami me managed property dan perjalan anda di Bali, Kami Me manage Semua Jenis Property, seperti luxury villas, unique vacation homes, guesthouses, ocean-view resorts, modern apartments, ',
+    'welcome_desc' => 'Kami mengelola properti dan perjalanan Anda di Bali. Kami mengelola semua jenis properti, seperti vila mewah, rumah liburan unik, wisma, resor dengan pemandangan laut, apartemen modern.',
      //=========== about us
      'about_us' => 'Tentang Kami',
      'about_des' => 'Penjelasan tentang kami',

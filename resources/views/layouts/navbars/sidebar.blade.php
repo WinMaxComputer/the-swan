@@ -41,7 +41,7 @@
                     <p>{{ __('Destination') }}</p>
                 </a>
             </li>
-            <li @if ($pageSlug == 'activity') class="active " @endif>
+            <li @if ($pageSlug == 'aktivitas') class="active " @endif>
                 <a href="{{ route('pages.activity') }}">
                     <i class="tim-icons icon-chart-pie-36"></i>
                     <p>{{ __('Activity') }}</p>
@@ -51,6 +51,12 @@
                 <a href="{{ route('pages.products') }}">
                     <i class="tim-icons icon-chart-pie-36"></i>
                     <p>{{ __('Products') }}</p>
+                </a>
+            </li>
+            <li @if ($pageSlug == 'news') class="active " @endif>
+                <a href="{{ route('pages.news') }}">
+                    <i class="tim-icons icon-chart-pie-36"></i>
+                    <p>{{ __('News') }}</p>
                 </a>
             </li>
             <!-- <li>

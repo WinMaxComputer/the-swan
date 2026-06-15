@@ -23,32 +23,50 @@
 
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu">
-      <div class="container" data-aos="fade-up">
+      <div class="container">
 
         <div class="section-header">
-          <h3>{{ __('activity.title') }}</h3>
-          <p><span>{{ __('activity.sub_title') }}</span></p>
+          <h3>{{ __('activities.title') }}</h3>
+          <p><span>{{ __('activities.sub_title') }}</span></p>
         </div>
-        <p>{{ __('activity.desc') }}</p>
+        <p>{{ __('activities.desc') }}</p>
 
-        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+        <form action="{{ url('/activities') }}" method="GET" class="mb-4">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6">
+              <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search activities..." value="{{ request('search') }}">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </div>
+            @if(request('search'))
+              <div class="col-lg-2 col-md-2">
+                <a href="{{ url('/activities') }}" class="btn btn-outline-secondary">Clear</a>
+              </div>
+            @endif
+          </div>
+        </form>
+
+        <ul class="nav nav-tabs d-flex justify-content-center">
           <li class="nav-item ">
             <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-land">
-              <h4>{{ __('activity.land_activity') }}</h4>
+              <h4>{{ __('activities.land_activity') }}</h4>
             </a>
           </li><!-- End tab nav item -->
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-water">
-              <h4>{{ __('activity.water_activity') }}</h4>
+              <h4>{{ __('activities.water_activity') }}</h4>
             </a><!-- End tab nav item -->
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-air">
-              <h4>{{ __('activity.air_activity') }}</h4>
+              <h4>{{ __('activities.air_activity') }}</h4>
             </a>
           </li><!-- End tab nav item -->
         </ul>
 
-        <div class="tab-content chefs">
+<div class="tab-content chefs">
 
           <div class="tab-pane fade active show" id="menu-land">
             <div class="tab-header text-center">
@@ -56,7 +74,7 @@
               <!-- <h3>Transport</h3> -->
             </div>
             <div class="row gy-3">
-            @foreach ($activity as $tr)
+            @forelse ($activity as $tr)
             @if($tr->type == 'land')
               <!-- Menu Item -->
               <div class="col-lg-3 col-md-4 d-flex align-items-stretch">
@@ -76,7 +94,11 @@
                 </div>
               </div><!-- End Chefs Member -->
               @endif
-            @endforeach
+            @empty
+              <div class="col-12 text-center py-4">
+                <p class="text-muted">No land activities found.</p>
+              </div>
+            @endforelse
             </div>
           </div><!-- End Breakfast Menu Content -->
 
@@ -86,7 +108,7 @@
               <!-- <h3>Transport</h3> -->
             </div>
             <div class="row gy-3">
-            @foreach ($activity as $tr)
+            @forelse ($activity as $tr)
             @if($tr->type == 'water')
               <!-- Menu Item -->
               <div class="col-lg-3 col-md-4 d-flex align-items-stretch" >
@@ -110,7 +132,11 @@
                 </div>
               </div><!-- End Chefs Member -->
               @endif
-            @endforeach
+            @empty
+              <div class="col-12 text-center py-4">
+                <p class="text-muted">No water activities found.</p>
+              </div>
+            @endforelse
             </div>
           </div><!-- End Breakfast Menu Content -->
 
@@ -120,7 +146,7 @@
               <!-- <h3>Transport</h3> -->
             </div>
             <div class="row gy-3">
-            @foreach ($activity as $tr)
+            @forelse ($activity as $tr)
             @if($tr->type == 'air')
               <!-- Menu Item -->
               <div class="col-lg-3 col-md-4 d-flex align-items-stretch" >
@@ -143,8 +169,12 @@
                   </p>
                 </div>
               </div><!-- End Chefs Member -->
-            @endif
-            @endforeach
+              @endif
+            @empty
+              <div class="col-12 text-center py-4">
+                <p class="text-muted">No air activities found.</p>
+              </div>
+            @endforelse
             </div>
           </div><!-- End Breakfast Menu Content -->
 
@@ -166,16 +196,13 @@
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up">
+      <div class="container">
 
         <div class="section-header">
           <h2>Contact</h2>
           <p>Need Help? <span>Contact Us</span></p>
         </div>
 
-        <div class="mb-3">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d986.1957654155755!2d115.17408542285924!3d-8.6168148017417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd239e1f895d5b3%3A0xad8aa8fe6cf83d1d!2sPerumahan%20Pesona%20gaji%20Dalung%20Block%204!5e0!3m2!1sid!2sid!4v1710597857163!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
         <!-- End Google Maps -->
 
         <div class="row gy-4">

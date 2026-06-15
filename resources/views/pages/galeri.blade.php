@@ -23,7 +23,7 @@
    
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery section-bg">
-      <div class="container" data-aos="fade-up">
+      <div class="container">
 
         <div class="section-header">
           <!-- <h2>gallery</h2> -->

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Validator;
 
 class backendController extends Controller
@@ -57,6 +59,8 @@ class backendController extends Controller
                     'facility' => ';'.$fasi,
                     'lang' => $data['lang'],
                     'alotment' => $data['allotment'],
+                    'area' => $data['area'],
+                    'map' => $data['map'],
                     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
                     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
                 ], 'id');
@@ -143,7 +147,7 @@ class backendController extends Controller
         unlink(public_path('assets/img/tour/'.$toDelete));
     }
 
-    public function storeTour(Request $request)
+public function storeTour(Request $request)
     {
         try{
             $exception = DB::transaction(function() use ($request){ 
@@ -196,13 +200,13 @@ class backendController extends Controller
                 ], 500);
                 // return redirect()->route('pages.room_add');
             }
-        } catch (\Exception $e) {
+} catch (\Exception $e) {
             DB::rollback();
             // something went wrong
             return response()->json([
              'success' => false,
-             'message' => 'exception'.$e,
-         ], 400);
+             'message' => 'exception'.$e
+            ], 400);
             // return redirect()->route('pages.room_add');
         }
 
@@ -214,10 +218,11 @@ class backendController extends Controller
                     ->join('tour_fotos', 'tour_fotos.code', 'tour_packages.code')
                     ->select('tour_packages.*', 'tour_fotos.foto')
                     ->first();
+        $areas = DB::table('travel_area')->get();
         // return redirect()->route('pages.room_add');
         $destinasi = DB::table('destinations')->get();
 
-        return view('admin.pages.tour_add', compact('tourDetail', 'destinasi'));
+        return view('admin.pages.tour_add', compact('tourDetail', 'destinasi', 'areas'));
 
     }
 
@@ -436,24 +441,31 @@ class backendController extends Controller
     {
         try{
             $exception = DB::transaction(function() use ($request){ 
-                
-            
                 $data = $request->all();
-            
+                
                 $gmbr = "";
-                $foto = $data['document'];
+                $foto = $data['document'] ?? [];
                 foreach($foto as $ft){
                     $gmbr = $gmbr.$ft.";" ;
                 }
-                $parent = implode(';', $data['parent_type']);
+                $parent = isset($data['parent_type']) ? implode(';', $data['parent_type']).';' : '';
+                
+                // Auto-generate code if empty
+                $productCode = $data['product_code'] ?? '';
+                if (empty($productCode)) {
+                    $productCode = 'PRD-' . substr(time(), -6);
+                }
+                
                 $project = DB::table('products')->upsert([
-                    'id' => $data['id'],
-                    'product_code' => $data['product_code'],
-                    'product_des' => $data['product_des'],
-                    'product_name' => $data['product_name'],
-                    'parent_type' => $parent.';',
+                    'id' => $data['id'] ?? null,
+                    'product_code' => $productCode,
+                    'product_des' => $data['product_des'] ?? '',
+                    'product_name' => $data['product_name'] ?? '',
+                    'slug' => $data['slug'] ?? Str::slug($data['product_name'] ?? 'product'),
+                    'parent_type' => $parent,
                     'product_foto' => $gmbr,
-                    'price' => $data['price'],
+                    'price' => $data['price'] ?? 0,
+                    'lang' => $data['lang'] ?? config('app.locale'),
                     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
                     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
                 ], 'id');
@@ -461,10 +473,6 @@ class backendController extends Controller
                 DB::commit();
             });
             if(is_null($exception)) {
-                // return response()->json([
-                //     'success' => true,
-                //     'message' => 'Post Berhasil Diupdate!',
-                // ], 200);
                 return redirect()->route('pages.products');
             } else {
                 DB::rollback();
@@ -500,7 +508,7 @@ class backendController extends Controller
 
     public function guestOrder(Request $request){
         $email = $request->email ;
-        $data = DB::table('reservations')->where('guest_email', $email)->orderby('id', 'DESC')->get();
+        $data = DB::table('reservations')->where('guest_email', $email)->orderBy('tgl_reservasi', 'DESC')->get();
          return response()->json([
             'success' => true,
             'message' => 'your list reservasi!',
@@ -533,6 +541,233 @@ class backendController extends Controller
         return response($response, 201);
 
     }
+    
 
 
+    /**
+     * Update or create a room rate and stock for a specific date.
+     */
+    public function updateRate(Request $request)
+    {
+        $request->validate([
+            'tgl' => 'required|date',
+            'kode_kamar' => 'required|string',
+            'harga' => 'required|numeric',
+            'stok' => 'required|integer',
+        ]);
+
+        try {
+            DB::table('rates')->updateOrInsert(
+                ['tgl' => $request->tgl, 'kode_kamar' => $request->kode_kamar],
+                [
+                    'harga' => $request->harga,
+                    'stok' => $request->stok,
+                    'updated_at' => Carbon::now()
+                ]
+            );
+
+            return redirect()->back()->with('success', 'Rate and availability updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Bulk update or create room rates and stock for a date range.
+     */
+    public function bulkUpdateRate(Request $request)
+    {
+        $request->validate([
+            'kode_kamar' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'harga' => 'required|numeric',
+            'stok' => 'required|integer',
+        ]);
+
+        try {
+            $period = CarbonPeriod::create($request->start_date, $request->end_date);
+            
+            foreach ($period as $date) {
+                DB::table('rates')->updateOrInsert(
+                    ['tgl' => $date->format('Y-m-d'), 'kode_kamar' => $request->kode_kamar],
+                    ['harga' => $request->harga, 'stok' => $request->stok, 'updated_at' => Carbon::now()]
+                );
+            }
+
+            return redirect()->back()->with('success', 'Bulk update completed successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Bulk update failed: ' . $e->getMessage());
+        }
+    }
+    public function news(Request $request)
+    {
+        $defaultLocale = config('app.locale');
+        $lang = $request->query('lang', $defaultLocale);
+        $search = $request->query('search');
+        $perPage = $request->query('perPage', 10);
+
+        $news = DB::table('artikels')
+            ->where('lang', $lang)
+            ->when($search, function ($query, $search) {
+                return $query->where(function($q) use ($search) {
+                    $q->where('isi', 'like', "%{$search}%")
+                      ->orWhere('judul', 'like', "%{$search}%")
+                      ->orWhere('lang', 'like', "%{$search}%");
+                });
+            })
+            ->paginate($perPage)
+            ->withQueryString();
+
+        return view('admin.pages.news', ['news' => $news]);    
+    }
+    public function editNews($code){
+        $newsDetail = DB::table('artikels')->where('artikels.id', $code)
+                    ->leftJoin('artikel_fotos', 'artikel_fotos.code', 'artikels.code')
+                    ->select('artikels.*', 'artikel_fotos.foto')
+                    ->first();
+        return view('admin.pages.news_add', compact('newsDetail'));
+
+    }
+    public function storeNews(Request $request)
+    {    
+        try{
+            $exception = DB::transaction(function() use ($request){ 
+            
+                $data = $request->all();
+            
+                $gmbr = "";
+                $foto = $data['document'];                
+                    foreach($foto as $ft){
+                        $gmbr = $gmbr.$ft.";" ;
+                    }
+                $project = DB::table('artikels')->upsert([
+                    'id' => $data['id'],
+                    'code' => $data['code'],
+                    'judul' => $data['judul'],
+                    'slug' => $data['slug'],
+                    'lang' => $data['lang'],
+                    'isi' => $data['isi'],
+                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                ], 'id');
+                DB::table('artikel_fotos')->upsert([
+                    'code' => $data['code'],
+                    'foto' => $gmbr,
+                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                ], 'code');
+
+                DB::commit();
+            });
+            if(is_null($exception)) {
+                // return response()->json([
+                //     'success' => true,
+                //     'message' => 'News created successfully!'
+                // ]);
+                return redirect()->route('pages.news');
+            } else {
+                DB::rollback();
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to create news!'  
+                    ], 500);
+                    // return redirect()->route('pages.news_add');
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            // something went wrong
+            return response()->json([
+             'success' => false,
+             'message' => 'Exception: '.$e->getMessage(),
+         ], 400);
+            // return redirect()->route('pages.news_add');
+        }
+    }
+
+    public function deleteNews(Request $request)
+    {
+        $code = $request->code;
+        $id = $request->news_id;
+        // Assuming 'artikel_fotos' also needs to be deleted or handled
+        try {
+            DB::table('artikels')->where('id', $id)->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'News deleted successfully!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete news: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+    public function updateNews(Request $request)
+    {   
+        try{
+            $exception = DB::transaction(function() use ($request){ 
+            
+                $data = $request->all();
+            
+                $gmbr = "";
+                $foto = $data['document'];
+                foreach($foto as $ft){
+                    $gmbr = $gmbr.$ft.";" ;
+                }
+                $project = DB::table('artikels')->upsert([
+                    'id' => $data['id'],
+                    'code' => $data['code'],
+                    'judul' => $data['judul'],
+                    'slug' => $data['slug'],
+                    'lang' => $data['lang'],
+                    'isi' => $data['isi'],
+                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                ], 'id');
+                DB::table('artikel_fotos')->upsert([
+                    'code' => $data['code'],
+                    'foto' => $gmbr,
+                    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                ], 'code'); 
+                DB::commit();
+            });
+            if(is_null($exception)) {
+                return redirect()->route('pages.news');
+            } else {
+                DB::rollback();
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to update news!'  
+                    ], 500);
+                    // return redirect()->route('pages.news_add');
+                    }
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'success' => false,
+                'message' => 'Exception: '.$e->getMessage(),
+            ], 400);
+        }
+    }
+    public function deleteMediaNews(Request $request)
+    {
+        $toDelete= $request->filetodelete ;
+        unlink(public_path('assets/img/news/'.$toDelete));
+    }
+    public function storeMediaNews(Request $request)
+    {
+        $path = public_path('assets/img/news/');
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        $file = $request->file('file');
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        $file->move($path, $name);
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+    }
 }

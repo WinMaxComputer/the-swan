@@ -23,7 +23,7 @@
 
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
-        <div class="container" data-aos="fade-up">
+        <div class="container">
 
           <div class="section-header">
             <h2>{{ __('headmenu.about_us') }}</h2>
@@ -31,7 +31,7 @@
           </div>
 
           <div class="row gy-4">
-            <div class="col-lg-7 position-relative about-img" style="background-image: url(assets/img/about.jpg) ;" data-aos="fade-up" data-aos-delay="150">
+            <div class="col-lg-7 position-relative about-img" style="background-image: url(assets/img/about.webp) ;">
               <div class="call-us position-absolute">
                 <h4>{{ __('headmenu.about_book') }}</h4>
                 
@@ -41,7 +41,7 @@
                 
               </div>
             </div>
-            <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
+            <div class="col-lg-5 d-flex align-items-end">
               <div class="content ps-0 ps-lg-5">
                 <p class="fst-italic">
                   We are company that manage property and also rent for acomodation. 

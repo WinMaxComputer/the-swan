@@ -9,39 +9,40 @@
 
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu">
-      <div class="container" data-aos="fade-up">
+      <div class="container">
 
         <div class="section-header">
           <!-- <h2>Our Menu</h2> -->
           <p>Check Our <span>Best Booking Service</span></p>
         </div>
 
-        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+        <ul class="nav nav-pills service-tabs d-flex justify-content-center" role="tablist">
 
-          <li class="nav-item ">
-            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-bookings">
-            <i class="fa-solid fa-hotel"></i>
-              <h4>Bookings</h4>
+          <li class="nav-item">
+            <a class="nav-link active show" href="#menu-bookings" role="tab" data-bs-toggle="tab" aria-controls="menu-bookings" aria-selected="true">
+              <span class="service-tab-icon"><i class="fa-solid fa-hotel"></i></span>
+              <span class="service-tab-label">Bookings</span>
             </a>
           </li><!-- End tab nav item -->
 
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-transport">
-            <i class="fa-solid fa-car"></i>
-              <h4>Transport</h4>
-            </a><!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-tour">
-            <i class="fa-solid fa-person-walking-luggage"></i>
-              <h4>Tour</h4>
+            <a class="nav-link" href="#menu-transport" role="tab" data-bs-toggle="tab" aria-controls="menu-transport" aria-selected="false">
+              <span class="service-tab-icon"><i class="fa-solid fa-car"></i></span>
+              <span class="service-tab-label">Transport</span>
             </a>
           </li><!-- End tab nav item -->
 
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-package">
-              <i class="fa-solid fa-people-roof"></i>
-              <h4>Package</h4>
+            <a class="nav-link" href="#menu-tour" role="tab" data-bs-toggle="tab" aria-controls="menu-tour" aria-selected="false">
+              <span class="service-tab-icon"><i class="fa-solid fa-person-walking-luggage"></i></span>
+              <span class="service-tab-label">Tour</span>
+            </a>
+          </li><!-- End tab nav item -->
+
+          <li class="nav-item">
+            <a class="nav-link" href="#menu-package" role="tab" data-bs-toggle="tab" aria-controls="menu-package" aria-selected="false">
+              <span class="service-tab-icon"><i class="fa-solid fa-people-roof"></i></span>
+              <span class="service-tab-label">Package</span>
             </a>
           </li>
           <!-- End tab nav item -->
@@ -52,137 +53,105 @@
 
           <div class="tab-pane fade active show" id="menu-bookings">
 
-            <div class="tab-header text-center">
-              <!-- <p>Bookings</p> -->
-              <!-- <h3>Rooms Booking</h3> -->
+            <div class="tab-header text-center mb-4">
+              <h3>Stay in comfort</h3>
+              <p>Choose your ideal room and book with confidence.</p>
             </div>
 
-            <div class="row gy-5">
-              <!-- {{$kamar}} -->
-              <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
-                <div class="row gy-4">
-
-                  <div class="col-lg-5 input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">Cek In - Cek Out</span>
+            <div class="row gy-4 mb-4">
+              <div class="col-12">
+                <div class="chef-member p-4 bg-white shadow-sm rounded-4">
+                  <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form">
+                    <div class="row gy-3 align-items-end">
+                      <div class="col-lg-5 form-group">
+                        <label class="form-label text-muted">Check In - Check Out</label>
+                        <input type="text" class="form-control" name="cekin" id="cekin" aria-describedby="basic-addon1" placeholder="Select dates">
+                      </div>
+                      <div class="col-lg-4 form-group">
+                        <label class="form-label text-muted">Area</label>
+                        <select class="form-control" name="area">
+                          <option value="">All Area</option>
+                          @foreach($areas as $area)
+                            <option value="{{ $area->name }}">{{ $area->name }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <div class="col-lg-3 text-lg-end">
+                        <button type="submit" class="btn-book-a-table">Search Rooms</button>
+                      </div>
                     </div>
-                    <input type="text" class="form-control" name="cekin" id="cekin" aria-describedby="basic-addon1">
-                  </div>
-                  <div class="col-lg-3 input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">Area</span>
-                    </div>
-                    <select class="form-control">
-                      <option>All Area</option>
-                      <option>Canggu</option>
-                      <option>Seminyak</option>
-                      <option>Ubud</option>
-                    </select>
-                  </div>
-                  <!-- <div class="col-lg-2 col-md-2">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="cek Out" data-rule="email" data-msg="Please enter a valid email">
-                    <div class="validate"></div>
-                  </div> -->
-                  <div class="col-lg-2 col-md-2">
-                    <button type="submit" class="btn-book-a-table" data-toggle="modal" data-target="#exampleModal">
-                        Seacrh
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-              <script>
-              $(function() {
-                $('input[name="cekin"]').daterangepicker({
-                  "autoApply": true,
-                  "locale": {
-                      "format": "MMM DD, YYYY",
-                      "separator": " - ",
-                      "applyLabel": "Apply",
-                      "cancelLabel": "Cancel",
-                      "fromLabel": "From",
-                      "toLabel": "To",
-                      "customRangeLabel": "Custom",
-                      "weekLabel": "W",
-                      "daysOfWeek": ["Su","Mo","Tu","We","Th","Fr","Sa"],
-                      "monthNames": ["January","February","March","April","May","June","July","August","September","October","November","December"],
-                      "firstDay": 1
-                  },
-                  "minDate": new Date(),
-                  "startDate": new Date(),//  moment().format('MM/DD/YYYY'),
-                  "endDate": new Date(Date.now() + ( 3600 * 1000 * 24)), // moment().format('MM/DD/YYYY'),
-                  "opens": "center",
-                  "drops": "auto"
-                }, function(start, end, label) {
-                  // var years = moment().diff(start, 'years');
-                  console.log(moment(start).format('YYYY-MM-DD'))
-                });
-              });
-              </script>
-
-          <div class="row gy-4">
-            @foreach ($kamar as $detail)
-              <div class="col-lg-4 position-relative about-img" data-aos="fade-up" data-aos-delay="150">
-                <div class="chef-member">
-                  <!-- <h4>Book a Table</h4> -->
-                  <div class="member-img">
-                    @php $gmbr = explode(";",$detail->foto) ; @endphp
-                    
-                    <img src="assets/img/rooms/{{ $gmbr[1] }}" class="img-fluid" alt="">
-                    
-                    <div class="social">
-                      <!-- <a href=""><i class="bi bi-twitter"></i></a>
-                      <a href=""><i class="bi bi-facebook"></i></a>
-                      <a href=""><i class="bi bi-instagram"></i></a> -->
-                      <a href="" data-toggle="modal" data-target="#exampleModal{{$detail->id}}" alt="Preview"><i class="bi bi-eye"></i></a>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
-              <div class="col-lg-8 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
-                <div class="content ps-0 ps-lg-5">
-                <h4>{{ $detail->title}}</h4>
-                  <p class="fst-italic">
-                  {!! substr($detail->desc, 0, 150) !!}
-                  </p>
+            </div>
 
-                  <div class="row">
-                  @php $fasi = explode(";",$detail->facility) ; @endphp
-                    @for ($i = 1; $i < 4; $i++)
-                      @foreach ($fasilitas as $fas)
-                        @if($fasi[$i] == $fas->id)
-                        <div class="col-2 form-group">
-                        <i class="bi bi-check2-all"></i> {!! $fas->icon !!}
-                        <!-- <i class="fa-sharp fa-solid fa-person-swimming"></i> -->
+            <div class="row gy-4">
+              @foreach ($kamar as $detail)
+                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                  <div class="chef-member service-card">
+                    <div class="member-img">
+                      @php $gmbr = explode(";", $detail->foto); @endphp
+                      <div class="position-absolute top-0 start-0 m-3" style="z-index: 1;">
+                        <span class="badge bg-danger text-uppercase fw-bold shadow-sm" style="font-size: 0.65rem;">Hot Deal</span>
+                      </div>
+                      <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute top-0 end-0 m-3 shadow-sm border-0 d-flex align-items-center justify-content-center" style="z-index: 1; width: 30px; height: 30px;" title="Add to Wishlist">
+                        <i class="bi bi-heart text-danger" style="font-size: 0.9rem;"></i>
+                      </button>
+                      <img src="assets/img/rooms/{{ $gmbr[1] ?? $gmbr[0] }}" class="img-fluid" alt="{{ $detail->title }}">
+                      <div class="social">
+                        <a href="" data-toggle="modal" data-target="#exampleModal{{$detail->id}}" alt="Preview"><i class="bi bi-eye"></i></a>
+                      </div>
+                    </div>
+                    <div class="member-info">
+                      <h4>{{ $detail->title }}</h4>
+                      @php 
+                        $review = DB::table('review_ratings')->where('product_code', $detail->code)->sum('star_rating');
+                        $count = DB::table('review_ratings')->where('product_code', $detail->code)->count('star_rating');
+                        $rating = $count ? round($review / $count) : 0;
+                      @endphp
+                      <div class="d-flex align-items-center mb-2" style="font-size: 0.85rem;">
+                        <div class="d-flex align-items-center me-3">
+                          <div class="text-warning me-1">
+                            @for($i = 1; $i <= 5; $i++)
+                              <i class="bi {{ $i <= $rating ? 'bi-star-fill' : 'bi-star' }}" style="font-size: 0.75rem;"></i>
+                            @endfor
+                          </div>
+                          <small class="text-muted">({{$count}} Reviews)</small>
                         </div>
+                        <div class="d-flex align-items-center border-start ps-3" style="border-color: #ddd !important;">
+                          <i class="bi bi-geo-alt-fill me-1" style="color: #ce1212; font-size: 0.9rem;"></i>
+                          <small class="text-muted">{{ $detail->area_name ?? 'Bali' }}</small>
+                        </div>
+                      </div>
+                      <p class="fst-italic mb-3">{!! strip_tags(substr($detail->desc, 0, 120)) !!}...</p>
+
+                      <div class="service-tags mb-3">
+                        @php $fasi = explode(";", $detail->facility); @endphp
+                        @for ($i = 1; $i < 4; $i++)
+                          @foreach ($fasilitas as $fas)
+                            @if(isset($fasi[$i]) && $fasi[$i] == $fas->id)
+                              <span class="badge bg-light text-dark me-1 mb-1">{!! $fas->icon !!}</span>
+                            @endif
+                          @endforeach
+                        @endfor
+                      </div>
+
+                      @foreach ($rate as $rat)
+                        @if($detail->code == $rat->kode_kamar)
+                          <div class="d-flex justify-content-between align-items-center service-actions">
+                            <div>
+                              <strong>IDR {{ number_format($rat->harga, 2) }}</strong><br>
+                              <small class="text-muted">{{ $rat->stok }} room(s) available</small>
+                            </div>
+                            <a href="/bookings/{{$detail->slug}}" class="btn-book-a-table">Book Now</a>
+                          </div>
                         @endif
                       @endforeach
-                    @endfor
-                        <div class="col-5 form-group d-flex" data-aos="fade-up" data-aos-delay="200">
-                          
-                            <a href="/bookings/{{$detail->slug}}" class="btn-book-a-table">Book Now</a>
-                          
-                        </div>
-
+                    </div>
                   </div>
-                  
-                  @foreach ($rate as $rat)
-                  <p>
-                      @if($detail->code == $rat->kode_kamar)
-                        IDR {{ number_format($rat->harga, 2) }} / Night <br>
-                        {{ $rat->stok }} room available on our site
-                      @endif
-                    <!-- Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident -->
-                  </p>
-                  @endforeach
-
-                  
                 </div>
-              </div>
-            @endforeach
+              @endforeach
             </div>
-                        
 
             <!-- Modal -->
             @foreach ($kamar as $detail)
@@ -259,148 +228,95 @@
 
           <div class="tab-pane fade" id="menu-transport">
 
-            <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <!-- <h3>Transport</h3> -->
+            <div class="tab-header text-center mb-4">
+              <h3>Transport Services</h3>
+              <p>Travel in style with private cars and professional drivers.</p>
             </div>
 
             <div class="row gy-4">
-
-            @foreach ($transport as $tr)
-              <!-- Menu Item -->
-              <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-                <div class="chef-member">
-                  <div class="member-img">
-                    @php $gmbr = explode(";",$tr->foto) ; @endphp
-                    
-                    <img src="assets/img/transport/{{ $gmbr[0] }}" class="img-fluid" alt="">
-                    {{ $gmbr[1] }}
-                    
-                    <div class="social">
-                      <!-- <a href=""><i class="bi bi-twitter"></i></a>
-                      <a href=""><i class="bi bi-facebook"></i></a>
-                      <a href=""><i class="bi bi-instagram"></i></a> -->
-                      <a href="" data-toggle="modal" data-target="#trModal{{$tr->id}}" alt="Preview"><i class="bi bi-eye"></i></a>
+              @foreach ($transport as $tr)
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                  <div class="chef-member service-card">
+                    <div class="member-img">
+                      @php $gmbr = explode(";", $tr->foto); @endphp
+                      <img src="assets/img/transport/{{ $gmbr[0] ?? '' }}" class="img-fluid" alt="{{ $tr->nama }}">
+                    </div>
+                    <div class="member-info">
+                      <h4>{{ $tr->nama }}</h4>
+                      <p class="fst-italic">{{ substr($tr->deskripsi, 0, 140) }}</p>
+                      <div class="service-tags mb-3">
+                        @php $fs = explode(",", $tr->fasilitas); @endphp
+                        @foreach ($fs as $fas)
+                          <span class="badge bg-light text-dark me-1 mb-1"><i class="bi bi-check2-all"></i> {{ trim($fas) }}</span>
+                        @endforeach
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center service-actions">
+                        <div>
+                          <strong>IDR {{ number_format($tr->harga, 2) }}</strong><br>
+                          <small class="text-muted">for {{ $tr->waktu }} Hours</small>
+                        </div>
+                        <a href="https://api.whatsapp.com/send?phone=+62818688114&text=Halo" target="_blank" class="btn-book-a-table">Book Now</a>
+                      </div>
                     </div>
                   </div>
-                  
-                  <div class="member-info">
-                    <h4>{{ $tr->nama}}</h4>
-                    <!-- <span>Cook</span> -->
-                    <p>{{ substr($tr->deskripsi, 0, 200)}}</p>
-                    
-                  <!-- </div>
-                  <div class="member-info"> -->
-                    <!-- <i class="bi bi-wifi"></i>
-                    <i class="bi bi-twitter"></i> -->
-                    @php $fs = explode(",",$tr->fasilitas) ; @endphp
-                    @foreach ($fs as $fas)
-                      <i class="bi bi-check2-all"></i> {{$fas}}<br>
-                      <!-- <i class="bi bi-check2-all"></i> Shower
-                      <i class="bi bi-check2-all"></i> Free Wifi -->
-                    @endforeach
-                  </div>
-                  <p class="price">
-                    IDR {{ number_format($tr->harga, 2) }} for {{ $tr->waktu }} Hours <br>
-                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#trModal{{$tr->id}}">
-                      Detail
-                    </button> -->
-                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#trModal{{$tr->id}}">
-                      Book Now
-                    </button> -->
-                    <div >
-                      <a href="https://api.whatsapp.com/send?phone=+62818688114&text=Halo" target="_blank" class="btn-book-a-table">
-                      
-                      <img src="assets/img/wa.png" > Book Now </a>
-                    </div>
-                  </p>
-                  
                 </div>
-              </div><!-- End Chefs Member -->
-            @endforeach
-
-            
+              @endforeach
             </div>
           </div><!-- End Breakfast Menu Content -->
 
           <div class="tab-pane fade" id="menu-tour">
 
-            <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <h6>Our best tour</h6>
+            <div class="tab-header text-center mb-4">
+              <h3>Tour Experiences</h3>
+              <p>Discover Bali with our curated tour packages.</p>
             </div>
             <div class="row gy-5">
 
               @foreach ($tour as $tur)
-                <!-- Menu Item -->
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-                  <div class="chef-member">
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                  <div class="chef-member service-card">
                     <div class="member-img">
-                      @php $gmbr = explode(";",$tur->foto) ; @endphp
-                      
-                      <img src="assets/img/tour/{{ $gmbr[0] }}" class="img-fluid" alt="{{ $gmbr[0] }}">
-                      
-                      <div class="social">
-                        <!-- <a href=""><i class="bi bi-twitter"></i></a>
-                        <a href=""><i class="bi bi-facebook"></i></a>
-                        <a href=""><i class="bi bi-instagram"></i></a> -->
-                        <a href="" data-toggle="modal" data-target="#trModal{{$tr->id}}" alt="Preview"><i class="bi bi-eye"></i></a>
+                      @php $gmbr = explode(";", $tur->foto); @endphp
+                      <img src="assets/img/tour/{{ $gmbr[0] ?? '' }}" class="img-fluid" alt="{{ $tur->tour_name }}">
+                    </div>
+                    <div class="member-info">
+                      <h4>{{ $tur->tour_name }}</h4>
+                      <p class="fst-italic">{!! strip_tags(substr($tur->deskripsi, 0, 120)) !!}...</p>
+                      <div class="d-flex justify-content-between align-items-center service-actions">
+                        <a href="/tour_packages/{{$tur->slug}}" class="btn-book-a-table">View Details</a>
                       </div>
                     </div>
-                    
-                    <div class="member-info">
-                      <h4>{{ $tur->tour_name}}</h4>
-                      <!-- <span>Cook</span> -->
-                      <!-- <p>{{ substr($tur->deskripsi, 0, 200)}}</p> -->
-                      
-                    <!-- </div>
-                    <div class="member-info"> -->
-                      <!-- <i class="bi bi-wifi"></i>
-                      <i class="bi bi-twitter"></i> -->
-                      <!-- @php $fs = explode(",",$tur->destination) ; @endphp -->
-                      <!-- @foreach ($fs as $fas) -->
-                        <!-- <i class="bi bi-check2-all"></i> {{$fas}}<br> -->
-                        <!-- <i class="bi bi-check2-all"></i> Shower
-                        <i class="bi bi-check2-all"></i> Free Wifi -->
-                      <!-- @endforeach -->
-                    </div>
-                    <p class="price">
-                      <!-- IDR {{ number_format($tr->harga, 2) }} for {{ $tr->waktu }} Hours <br> -->
-                      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#trModal{{$tr->id}}">
-                        Detail
-                      </button> -->
-                      <a href="/tour_packages/{{$tur->slug}}" class="btn-book-a-table">Detail</a>
-                    </p>
-                    
                   </div>
-                </div><!-- End Chefs Member -->
+                </div>
               @endforeach
 
-            
             </div>
           </div><!-- End Lunch Menu Content -->
 
           <div class="tab-pane fade" id="menu-package">
 
-            <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <!-- <h3>Package</h3> -->
+            <div class="tab-header text-center mb-4">
+              <h3>Holiday Packages</h3>
+              <p>Get the best value with our full packages.</p>
             </div>
 
-            <div class="row gy-5">
-            @foreach ($paket as $paket)
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
-                <h4>{{$paket->name}}</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $5.95
-                </p>
-              </div><!-- Menu Item -->
-            @endforeach
-              
+            <div class="row gy-4">
+              @foreach ($paket as $paket)
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                  <div class="chef-member service-card px-3 py-4">
+                    <div class="member-info">
+                      <h4 class="mb-3">{{ $paket->name }}</h4>
+                      <p class="mb-3">{!! strip_tags(substr($paket->deskripsi, 0, 120)) !!}...</p>
+                      <div class="service-actions">
+                        <div>
+                          <strong>IDR {{ number_format($paket->price, 2) }}</strong>
+                        </div>
+                        <a href="#" class="btn-book-a-table">More Info</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
             </div>
           </div><!-- End Lunch Menu Content -->
 
@@ -423,7 +339,7 @@
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up">
+      <div class="container">
 
         <div class="section-header">
           <h2>Contact</h2>

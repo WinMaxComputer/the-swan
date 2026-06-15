@@ -5,35 +5,349 @@
     <meta content="bali room booking, car rental bali, bali management property" name="keywords">
 @endsection
 
-@section('content')
+@section('media')
+<style>
+    .timeline-item {
+        height: auto;
+        padding-bottom: 40px;
+    }
+    .timeline-content {
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+        height: 100%;
+    }
+    .timeline-info h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-secondary);
+    }
+    .timeline-info p {
+        font-size: 0.85rem;
+        margin-bottom: 0;
+    }
+    .timeline-content:hover {
+        transform: translateY(-10px);
+    }
+    .timeline-img {
+        position: relative;
+        height: 160px;
+        overflow: hidden;
+    }
+    .timeline-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .date-badge {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: #ce1212;
+        color: #fff;
+        padding: 3px 10px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-top-left-radius: 10px;
+    }
 
+    .search-panel {
+        background: #fff;
+        padding: 10px 15px;
+        border-radius: 12px;
+        box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.08);
+        margin-bottom: 40px;
+    }
+    .search-panel .input-group-text {
+        background: transparent;
+        border: none;
+        color: #ce1212;
+        padding-right: 0;
+    }
+    .search-panel .form-control, .search-panel .form-select {
+        border: none;
+        font-size: 0.9rem;
+    }
+    .search-panel .form-control:focus, .search-panel .form-select:focus {
+        box-shadow: none;
+    }
+    .btn-search {
+        background: #ce1212;
+        color: #fff;
+        border-radius: 8px;
+        padding: 6px 18px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+    .btn-search:hover {
+        background: #e02a2a;
+        color: #fff;
+    }
+    .form-note {
+        font-size: 0.8rem;
+        color: #777;
+        margin-top: 10px;
+    }
+
+    .destination-card {
+        transition: 0.3s;
+        text-decoration: none;
+    }
+    .destination-card:hover {
+        transform: translateY(-5px);
+    }
+    .destination-img-container {
+        height: 160px;
+        position: relative;
+    }
+    .destination-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .popular-areas .areas-swiper {
+        padding: 10px 5px;
+    }
+    .popular-areas .area-card {
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    .popular-areas .area-card:hover {
+        transform: translateY(-5px);
+    }
+    .popular-areas .area-img-container {
+        height: 140px;
+        position: relative;
+    }
+    .popular-areas .area-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+    .popular-areas .area-card:hover .area-img-container img {
+        transform: scale(1.08);
+    }
+    .popular-areas .area-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .popular-areas .area-card:hover .area-overlay {
+        opacity: 1;
+    }
+    .popular-areas .area-count {
+        color: #fff;
+        font-size: 0.85rem;
+        font-weight: 600;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 6px 14px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+    }
+    .popular-areas .btn-view-all {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 12px 32px;
+        border-radius: 50px;
+        background: var(--color-primary);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 2px solid var(--color-primary);
+    }
+    .popular-areas .btn-view-all:hover {
+        background: #fff;
+        color: var(--color-primary);
+    }
+    .popular-areas .btn-view-all .btn-arrow {
+        transition: transform 0.3s ease;
+    }
+    .popular-areas .btn-view-all:hover .btn-arrow {
+        transform: translateX(5px);
+    }
+
+    .products-slider .products-swiper {
+        padding: 30px 10px 50px;
+    }
+    .products-slider .product-card {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    .products-slider .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+    .products-slider .product-thumb {
+        height: 180px;
+        overflow: hidden;
+    }
+    .products-slider .product-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+    .products-slider .product-card:hover .product-thumb img {
+        transform: scale(1.1);
+    }
+    .products-slider .product-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: var(--color-primary);
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        text-transform: uppercase;
+    }
+    .products-slider .product-info {
+        padding: 18px 20px;
+    }
+    .products-slider .product-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.6rem;
+        color: var(--color-secondary);
+    }
+    .products-slider .product-desc {
+        font-size: 0.85rem;
+        color: rgba(55, 55, 63, 0.75);
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+    .products-slider .btn-product {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 8px 20px;
+        border-radius: 50px;
+        background: var(--color-primary);
+        color: #fff;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 1px solid var(--color-primary);
+    }
+    .products-slider .btn-product:hover {
+        background: #fff;
+        color: var(--color-primary);
+    }
+    .products-slider .btn-product .product-arrow {
+        transition: transform 0.3s ease;
+    }
+    .products-slider .btn-product:hover .product-arrow {
+        transform: translateX(5px);
+    }
+    .products-slider .products-nav {
+        color: var(--color-primary);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .products-slider .products-nav::after {
+        font-size: 18px;
+    }
+    .products-slider .products-nav:hover {
+        background: var(--color-primary);
+    }
+    .products-slider .products-nav:hover::after {
+        color: #fff;
+    }
+
+    /* Enhanced visibility for inner-card carousel controls */
+    .card-carousel .carousel-control-prev,
+    .card-carousel .carousel-control-next {
+        z-index: 5 !important;
+        width: 30px;
+        height: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5) !important;
+        border-radius: 50%;
+        opacity: 0; /* Hidden until hover */
+        transition: all 0.3s ease;
+    }
+
+    .card-carousel .carousel-control-prev { left: 8px; }
+    .card-carousel .carousel-control-next { right: 8px; }
+
+    .product-card:hover .carousel-control-prev,
+    .product-card:hover .carousel-control-next,
+    .service-card:hover .carousel-control-prev,
+    .service-card:hover .carousel-control-next {
+        opacity: 1;
+    }
+</style>
+@endsection
+
+@section('content')
    
-    <!-- ======= Hero Section ======= -->
+    <!-- ======= News Timeline Slider Section ======= -->
     <section id="hero" class="hero d-flex align-items-center section-bg">
       <div class="container">
-        <div class="row justify-content-between gy-5">
-          <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-            <h3 data-aos="fade-up">{{ __('headmenu.welcome_title') }}</h3>
-            <p data-aos="fade-up" data-aos-delay="100">{{ __('headmenu.welcome_desc') }}</p>
-            <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-              <a href="/service" class="btn-book-a-table">Book a Service</a>
-              <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
+        <div class="section-header">
+          <h5>Our Journey</h5>
+          <p>The Swand <span>Latest Updates</span></p>
+        </div>
+
+        <div class="timeline-swiper swiper">
+          <div class="swiper-wrapper">
+
+            @foreach ($artikel as $item)
+            <div class="swiper-slide timeline-item">
+              <div class="timeline-content">
+                <div class="timeline-img">
+                  @php
+                    $fotos = explode(';', $item->foto);
+                    $imagePath = 'assets/img/news/' . ($fotos[0] ?? '');
+                    $formattedDate = \Carbon\Carbon::parse($item->created_at)->format('M Y');
+                  @endphp
+                  <img src="{{ asset($imagePath) }}" class="img-fluid" alt="{{ $item->judul }}">
+                  <div class="date-badge">{{ $formattedDate }}</div>
+                </div>
+                <div class="timeline-info p-3">
+                  <h4>{{ $item->judul }}</h4>
+                  <p>{{ Str::limit(strip_tags($item->isi), 80) }}</p>
+                </div>
+              </div>
             </div>
+            @endforeach
+
           </div>
-          <div class="col-lg-7 order-lg-2 text-center text-lg-start">
-            <img src="assets/img/hero-img.png" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
-          </div>
+          <div class="swiper-pagination"></div>
         </div>
       </div>
-    </section><!-- End Hero Section -->
+    </section><!-- End Hero Section (Timeline) -->
 
     <!-- ======= Why Us Section ======= -->
     <section id="why-us" class="why-us section-bg">
-      <div class="container" data-aos="fade-up">
+      <div class="container">
 
         <div class="row gy-4">
 
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-4">
             <div class="why-box">
               <h4>{{ __('whyus.why') }}</h4>
               <p>{{ __('whyus.why_desc') }}</p>
@@ -46,27 +360,27 @@
           <div class="col-lg-8 d-flex align-items-center">
             <div class="row gy-4">
 
-              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="200">
+              <div class="col-xl-4">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                   <i class="bi bi-clipboard-data"></i>
-                  <h4>As Client The Swand</h4>
-                  <p>as client The Swand we improve your property score, maximaize revenue, treat your property is one of the stragey for great goal</p>
+                  <h4>{{ __('whyus.prop_growth_title') }}</h4>
+                  <p>{{ __('whyus.prop_growth_desc') }}</p>
                 </div>
               </div><!-- End Icon Box -->
 
-              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
+              <div class="col-xl-4">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                   <i class="bi bi-gem"></i>
-                  <h4>Vacations Rental</h4>
-                  <p>Get you amazing vacations, stay with us in comfort propery can make unforgetable holiday</p>
+                  <h4>{{ __('whyus.vacation_rental_title') }}</h4>
+                  <p>{{ __('whyus.vacation_rental_desc') }}</p>
                 </div>
               </div><!-- End Icon Box -->
 
-              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
+              <div class="col-xl-4">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
                   <i class="bi bi-inboxes"></i>
-                  <h4>Tour Trip.</h4>
-                  <p>explore amazing bali with our driver and paket, you choose we drive, or we plan and you always enjoy</p>
+                  <h4>{{ __('whyus.tours_title') }}</h4>
+                  <p>{{ __('whyus.tours_desc') }}</p>
                 </div>
               </div><!-- End Icon Box -->
 
@@ -80,7 +394,7 @@
 
     <!-- ======= Stats Counter Section ======= -->
     <section id="stats-counter" class="stats-counter">
-      <div class="container" data-aos="zoom-out">
+      <div class="container">
 
         <div class="row gy-4">
 
@@ -117,41 +431,71 @@
       </div>
     </section><!-- End Stats Counter Section -->
 
+    <!-- ======= Destinations Section ======= -->
+    <!-- <section id="popular-destinations" class="destinations section-bg pt-0">
+      <div class="container">
+        <div class="section-header">
+          <p>Explore <span>Bali Destinations</span></p>
+        </div>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+          @foreach($destination->take(10) as $desti)
+            @php $fotos = explode(';', $desti->foto); @endphp
+            <div class="col">
+              <a href="/destinations/{{$desti->slug}}" class="destination-card d-block">
+                <div class="destination-img-container rounded-3 overflow-hidden shadow-sm">
+                  <img src="{{ asset('assets/img/destinasi/' . ($fotos[0] ?? '')) }}" alt="{{ $desti->name }}">
+                  <span class="badge bg-danger position-absolute top-0 end-0 m-2" style="font-size: 0.65rem; border-radius: 20px;">
+                    <i class="bi bi-geo-alt-fill me-1"></i>{{ ucfirst($desti->type) }}
+                  </span>
+                </div>
+                <div class="mt-2 text-center">
+                  <h6 class="fw-bold text-dark text-truncate mb-0 px-1" style="font-size: 0.9rem;">{{ $desti->name }}</h6>
+                </div>
+              </a>
+            </div>
+          @endforeach
+        </div>
+      </div>
+    </section> -->
+    <!-- End Destinations Section -->
+
+    
+
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu">
-      <div class="container" data-aos="fade-up">
+      <div class="container">
 
         <div class="section-header">
-          <!-- <h2>Our Menu</h2> -->
           <p>Check Our <span>Best Booking Service</span></p>
         </div>
 
-        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+        <ul class="nav nav-pills service-tabs d-flex justify-content-center" role="tablist">
 
-          <li class="nav-item ">
-            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-bookings">
-            <i class="fa-solid fa-hotel"></i>
-              <h4>Bookings</h4>
+          <li class="nav-item">
+            <a class="nav-link active show" href="#menu-bookings" role="tab" data-bs-toggle="tab" aria-controls="menu-bookings" aria-selected="true">
+              <span class="service-tab-icon"><i class="fa-solid fa-hotel"></i></span>
+              <span class="service-tab-label">Bookings</span>
             </a>
           </li><!-- End tab nav item -->
 
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-transport">
-            <i class="fa-solid fa-car"></i>
-              <h4>Transport</h4>
-            </a><!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-tour">
-            <i class="fa-solid fa-person-walking-luggage"></i>
-              <h4>Tour</h4>
+            <a class="nav-link" href="#menu-transport" role="tab" data-bs-toggle="tab" aria-controls="menu-transport" aria-selected="false">
+              <span class="service-tab-icon"><i class="fa-solid fa-car"></i></span>
+              <span class="service-tab-label">Transport</span>
             </a>
           </li><!-- End tab nav item -->
 
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-package">
-              <i class="fa-solid fa-people-roof"></i>
-              <h4>Package</h4>
+            <a class="nav-link" href="#menu-tour" role="tab" data-bs-toggle="tab" aria-controls="menu-tour" aria-selected="false">
+              <span class="service-tab-icon"><i class="fa-solid fa-person-walking-luggage"></i></span>
+              <span class="service-tab-label">Tour</span>
+            </a>
+          </li><!-- End tab nav item -->
+
+          <li class="nav-item">
+            <a class="nav-link" href="#menu-package" role="tab" data-bs-toggle="tab" aria-controls="menu-package" aria-selected="false">
+              <span class="service-tab-icon"><i class="fa-solid fa-people-roof"></i></span>
+              <span class="service-tab-label">Package</span>
             </a>
           </li>
           <!-- End tab nav item -->
@@ -163,211 +507,125 @@
           <div class="tab-pane fade active show" id="menu-bookings">
 
             <div class="tab-header text-center">
-              <!-- <p>Bookings</p> -->
-              <!-- <h3>Rooms Booking</h3> -->
             </div>
 
             <div class="row gy-5">
               <!-- {{$kamar}} -->
-              <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
-                <div class="row gy-4">
-
-                  <div class="col-lg-5 input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">Cek In - Cek Out</span>
-                    </div>
-                    <input type="text" class="form-control" name="cekin" id="cekin" aria-describedby="basic-addon1">
-                  </div>
-                  <div class="col-lg-3 input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">Area</span>
-                    </div>
-                    <select class="form-control">
-                      <option>All Area</option>
-                      <option>Canggu</option>
-                      <option>Seminyak</option>
-                      <option>Ubud</option>
-                    </select>
-                  </div>
-                  <!-- <div class="col-lg-2 col-md-2">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="cek Out" data-rule="email" data-msg="Please enter a valid email">
-                    <div class="validate"></div>
-                  </div> -->
-                  <div class="col-lg-2 col-md-2">
-                    <button type="submit" class="btn-book-a-table" data-toggle="modal" data-target="#exampleModal">
-                        Seacrh
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-              <script>
-              $(function() {
-                $('input[name="cekin"]').daterangepicker({
-                  "autoApply": true,
-                  "locale": {
-                      "format": "MMM DD, YYYY",
-                      "separator": " - ",
-                      "applyLabel": "Apply",
-                      "cancelLabel": "Cancel",
-                      "fromLabel": "From",
-                      "toLabel": "To",
-                      "customRangeLabel": "Custom",
-                      "weekLabel": "W",
-                      "daysOfWeek": ["Su","Mo","Tu","We","Th","Fr","Sa"],
-                      "monthNames": ["January","February","March","April","May","June","July","August","September","October","November","December"],
-                      "firstDay": 1
-                  },
-                  "minDate": new Date(),
-                  "startDate": new Date(),//  moment().format('MM/DD/YYYY'),
-                  "endDate": new Date(Date.now() + ( 3600 * 1000 * 24)), // moment().format('MM/DD/YYYY'),
-                  "opens": "center",
-                  "drops": "auto"
-                }, function(start, end, label) {
-                  // var years = moment().diff(start, 'years');
-                  console.log(moment(start).format('YYYY-MM-DD'))
-                });
-              });
-              </script>
-
-            <div class="row gy-4">
-              
-            @foreach ($kamar as $detail)
-              <div class="col-lg-3 position-relative about-img" data-aos="fade-up" data-aos-delay="150">
-                <div class="chef-member">
-                  <!-- <h4>Book a Table</h4> -->
-                  
-                  <div class="member-img">
-                    @php $gmbr = explode(";",$detail->foto) ; @endphp
-                    
-                    <img src="assets/img/rooms/{{ $gmbr[0] }}" class="img-fluid" alt="{{ $gmbr[0] }}">
-                    
-                    <div class="social">
-                      <a href=""><i class="bi bi-twitter"></i></a>
-                      <a href=""><i class="bi bi-facebook"></i></a>
-                      <a href=""><i class="bi bi-instagram"></i></a>
-                      <a href="" data-toggle="modal" data-target="#exampleModal{{$detail->id}}" alt="Preview"><i class="bi bi-eye"></i></a>
-                    </div>
-                  </div>
-                  <h6>Top Facilities</h6>
-                  <div class="row">
-                  @php $fasi = explode(";",$detail->facility) ; @endphp
-                    @for ($i = 1; $i < 4; $i++)
-                      @foreach ($fasilitas as $fas)
-                        @if($fasi[$i] == $fas->id)
-                        <div class="col-2 form-group">
-                        <i class="bi bi-check2-all"></i> {!! $fas->icon !!}
-                        <!-- <i class="fa-sharp fa-solid fa-person-swimming"></i> -->
-                        </div>
-                        @endif
-                      @endforeach
-                    @endfor
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
-                <div class="content ps-0 ps-lg-3">
-                <a href="/bookings/{{$detail->slug}}" >
-                    <h5>{{ $detail->title}}</h5>
-                </a>
-                  @php 
-                      $jml = 0;
-                      $review = DB::table('review_ratings')->where('product_code', $detail->code)->sum('star_rating');
-                      $count = DB::table('review_ratings')->where('product_code', $detail->code)->count('star_rating');
-                  @endphp
-                  <div class="rated">
-                  @php 
-                    $jml = $review / ($count ? $count : 1);
-                  @endphp
-                    @for($i=1; $i<=$jml; $i++)                                                      
-                        <label class="star-rating-uncomplete" title="text">{{$i}} stars</label>
-                    @endfor
-                    ({{$count}} Reviews)
-                  </div>
-                  <br>
-                  <p class="fst-italic">
-                  {!! substr($detail->desc, 0, 150) !!}
-                  </p>
-
-                  
-                  
-                  @foreach ($rate as $rat)
-                  <p>
-                      @if($detail->code == $rat->kode_kamar)
-                        IDR {{ number_format($rat->harga, 2) }} / Night <br>
-                        {{ $rat->stok }} room available on our site
-                      @endif
-                    <!-- Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident -->
-                  </p>
-                  @endforeach
-
-                  
-                </div>
-              </div>
-            @endforeach
-            </div>
-                        
-
-            <!-- Modal -->
-            <!-- @foreach ($kamar as $detail)
-            <div class="modal fade" id="exampleModal{{$detail->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                  
-                    <div class="row gy-4">
-                      <div class="col-md-6">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                          <ol class="carousel-indicators">
-
-                            @php $gmbra = explode(";",$detail->foto) ; @endphp
-                            @php $gmbr = array_slice($gmbra, 0, -1) ; @endphp
-                            @foreach($gmbr as $value)
-                            <li data-target=".carouselExampleCaptions" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
-                            @endforeach
-                            
-                          </ol>
-                          <div class="carousel-inner">
-                            
-                            @foreach($gmbr as $key => $slider)
-                            <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                              <img src="assets/img/rooms/{{ $slider }}" class="d-block w-100" alt="">
-                            </div>
-                            @endforeach
-                            
-                          </div>
-                          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                          </a>
-                          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                          </a>
+              <div class="col-12">
+                <div class="search-panel">
+                  <form action="{{ url('/hotels') }}" method="GET">
+                    <div class="row align-items-center g-2">
+                      <div class="col-lg-5 col-md-5">
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="bi bi-calendar-range"></i></span>
+                          <input type="text" class="form-control" name="cekin" placeholder="Select dates">
                         </div>
                       </div>
-
-                      
+                      <div class="col-lg-5 col-md-5">
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                          <select class="form-select" id="area" name="area">
+                            <option value="" selected>All Area</option>
+                            @foreach($areas as $area)
+                              <option value="{{ $area->name }}">{{ $area->name }}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-md-2 text-center">
+                        <button type="submit" class="btn-search">Search</button>
+                      </div>
                     </div>
-
-                    
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  </div>
+                    <p class="form-note mb-0 text-center">Find the best rooms, transport and tour packages in one place.</p>
+                  </form>
                 </div>
               </div>
-            </div>
-            @endforeach -->
 
-              
+            <div class="row gy-4">
+              @foreach ($kamar as $detail)
+                @php $gmbr = array_filter(explode(";", $detail->foto)); @endphp
+                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                  <div class="chef-member service-card">
+                    <div class="member-img">
+                      <div id="carouselKamar{{ $detail->id }}" class="carousel slide card-carousel" data-bs-ride="false" data-bs-interval="false" data-bs-touch="true">
+                        <div class="carousel-inner">
+                          @foreach($gmbr as $index => $foto)
+                            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                              <img src="{{ asset('assets/img/rooms/' . $foto) }}" class="img-fluid" alt="{{ $detail->title }}" style="width: 100%; height: 180px; object-fit: cover;">
+                            </div>
+                          @endforeach
+                        </div>
+                        @if(count($gmbr) > 1)
+                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselKamar{{ $detail->id }}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true" style="width: 0.8rem; height: 0.8rem;"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#carouselKamar{{ $detail->id }}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true" style="width: 0.8rem; height: 0.8rem;"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
+                        @endif
+                      </div>
+                      <div class="position-absolute top-0 start-0 m-3" style="z-index: 2;">
+                        <span class="badge bg-danger text-uppercase fw-bold shadow-sm" style="font-size: 0.65rem;">Hot Deal</span>
+                      </div>
+                      <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute top-0 end-0 m-3 shadow-sm border-0 d-flex align-items-center justify-content-center" style="z-index: 2; width: 30px; height: 30px;" title="Add to Wishlist">
+                        <i class="bi bi-heart text-danger" style="font-size: 0.9rem;"></i>
+                      </button>
+                    </div>
+                    <div class="member-info">
+                      <a href="/bookings/{{$detail->slug}}"><h4>{{ $detail->title }}</h4></a>
+                      @php
+                        $review = DB::table('review_ratings')->where('product_code', $detail->code)->sum('star_rating');
+                        $count = DB::table('review_ratings')->where('product_code', $detail->code)->count('star_rating');
+                        $rating = $count ? round($review / $count) : 0;
+                      @endphp
+                      <div class="d-flex align-items-center mb-2" style="font-size: 0.65rem;">
+                        <div class="d-flex align-items-center me-3">
+                          <div class="text-warning me-1">
+                            @for($i = 1; $i <= 5; $i++)
+                              <i class="bi {{ $i <= $rating ? 'bi-star-fill' : 'bi-star' }}" style="font-size: 0.65rem;"></i>
+                            @endfor
+                          </div>
+                          <small class="text-muted">({{$count}} Reviews)</small>
+                        </div>
+                        <div class="d-flex align-items-center border-start ps-3" style="border-color: #ddd !important;">
+                          <i class="bi bi-geo-alt-fill me-1" style="color: #ce1212; font-size: 0.9rem;"></i>
+                          <small class="text-muted">{{ $detail->area_name ?? 'Bali' }}</small>
+                        </div>
+                      </div>
+                      <p class="fst-italic mb-3">{!! strip_tags(substr($detail->desc, 0, 120)) !!}...</p>
+
+                      <div class="service-tags mb-3">
+                        @php $fasi = explode(";", $detail->facility); @endphp
+                        @for ($i = 1; $i < 4; $i++)
+                          @foreach ($fasilitas as $fas)
+                            @if(isset($fasi[$i]) && $fasi[$i] == $fas->id)
+                              <span class="facility-badge">
+                                {!! $fas->icon !!}
+                                <span>{{ $fas->fas_name }}</span>
+                              </span>
+                            @endif
+                          @endforeach
+                        @endfor
+                      </div>
+
+                      @foreach ($rate as $rat)
+                        @if($detail->code == $rat->kode_kamar)
+                          <div class="d-flex justify-content-between align-items-center service-actions">
+                            <div>
+                              <strong>IDR {{ number_format($rat->harga, 2) }}</strong><br>
+                              <small class="text-muted">{{ $rat->stok }} room available</small>
+                            </div>
+                            <a href="/bookings/{{$detail->slug}}" class="btn-book-a-table">Book Now</a>
+                          </div>
+                        @endif
+                      @endforeach
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            </div>
 
             </div>
           </div><!-- End Starter Menu Content -->
@@ -375,15 +633,13 @@
           <div class="tab-pane fade" id="menu-transport">
 
             <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <!-- <h3>Transport</h3> -->
             </div>
 
             <div class="row gy-4">
 
             @foreach ($transport as $tr)
               <!-- Menu Item -->
-              <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+              <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                 <div class="chef-member">
                   <div class="member-img">
                     @php $gmbr = explode(";",$tr->foto) ; @endphp
@@ -392,28 +648,17 @@
                     <!-- {{ $gmbr[0] }} -->
                     
                     <div class="social">
-                      <!-- <a href=""><i class="bi bi-twitter"></i></a>
-                      <a href=""><i class="bi bi-facebook"></i></a>
-                      <a href=""><i class="bi bi-instagram"></i></a> -->
                       <a href="" data-toggle="modal" data-target="#trModal{{$tr->id}}" alt="Preview"><i class="bi bi-eye"></i></a>
                     </div>
                   </div>
                   
                   <div class="member-info">
-                    <!-- {{ $gmbr[0] }} -->
                     <h4>{{ $tr->nama}}</h4>
-                    <!-- <span>Cook</span> -->
                     <p>{{ substr($tr->deskripsi, 0, 200)}}</p>
                     
-                  <!-- </div>
-                  <div class="member-info"> -->
-                    <!-- <i class="bi bi-wifi"></i>
-                    <i class="bi bi-twitter"></i> -->
                     @php $fs = explode(",",$tr->fasilitas) ; @endphp
                     @foreach ($fs as $fas)
                       <i class="bi bi-check2-all"></i> {{$fas}}<br>
-                      <!-- <i class="bi bi-check2-all"></i> Shower
-                      <i class="bi bi-check2-all"></i> Free Wifi -->
                     @endforeach
                     IDR {{ number_format($tr->harga, 2) }} for {{ $tr->waktu }} Hours
                     <a href="https://api.whatsapp.com/send?phone=+62818688114&text=Halo" target="_blank" class="btn-book-a-table">
@@ -429,7 +674,6 @@
           <div class="tab-pane fade" id="menu-tour">
 
             <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
               <h6>Our best tour</h6>
             </div>
             
@@ -438,7 +682,7 @@
 
               @foreach ($tour as $tur)
                 <!-- Menu Item -->
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                   <div class="chef-member">
                     <div class="member-img">
                       @php $gmbr = explode(";",$tur->foto) ; @endphp
@@ -466,8 +710,6 @@
           <div class="tab-pane fade" id="menu-package">
 
             <div class="tab-header text-center">
-              <!-- <p>Menu</p> -->
-              <!-- <h3>Package</h3> -->
             </div>
 
             <div class="row gy-5">
@@ -486,10 +728,7 @@
             @endforeach
               
             </div>
-          </div><!-- End Lunch Menu Content -->
-
-          
-
+          </div>
         </div>
 
       </div>
@@ -497,48 +736,168 @@
     
     <!-- End Menu Section -->
 
+    <!-- ======= Products Slider Section ======= -->
+    <section id="products-slider" class="products-slider section-bg">
+      <div class="container">
+        <div class="section-header">
+          <p>Featured <span>Activity</span></p>
+        </div>
+
+        <div class="products-swiper swiper">
+          <div class="swiper-wrapper">
+            @foreach ($product as $item)
+              @php $thumbs = array_filter(explode(";", $item->product_foto ?? '')); @endphp
+              <div class="swiper-slide">
+                <div class="product-card h-100 d-flex flex-column">
+                  <div class="product-thumb position-relative">
+                    <div id="carouselProduct{{ $item->id }}" class="carousel slide card-carousel" data-bs-ride="false" data-bs-interval="false" data-bs-touch="true">
+                      <div class="carousel-inner">
+                        @foreach($thumbs as $index => $foto)
+                          <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                            <img src="{{ asset('assets/img/products/' . $foto) }}" class="img-fluid" alt="{{ $item->product_name }}" style="width: 100%; height: 180px; object-fit: cover;">
+                          </div>
+                        @endforeach
+                      </div>
+                      @if(count($thumbs) > 1)
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselProduct{{ $item->id }}" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true" style="width: 0.8rem; height: 0.8rem;"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselProduct{{ $item->id }}" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true" style="width: 0.8rem; height: 0.8rem;"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      @endif
+                    </div>
+                    <div class="position-absolute top-0 start-0 m-3" style="z-index: 2;">
+                      <span class="badge bg-warning text-dark text-uppercase fw-bold shadow-sm" style="font-size: 0.65rem;">Top Pick</span>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute top-0 end-0 m-3 shadow-sm border-0 d-flex align-items-center justify-content-center" style="z-index: 2; width: 30px; height: 30px;" title="Add to Wishlist">
+                      <i class="bi bi-heart text-danger" style="font-size: 0.9rem;"></i>
+                    </button>
+                    <span class="product-badge" style="top: auto; bottom: 12px; z-index: 2;">{{ $item->price ? 'IDR ' . number_format($item->price, 0, ',', '.') : 'NEW' }}</span>
+                  </div>
+                  @php
+                    $review = DB::table('review_ratings')->where('product_code', $item->product_code)->sum('star_rating');
+                    $count = DB::table('review_ratings')->where('product_code', $item->product_code)->count('star_rating');
+                    $rating = $count ? round($review / $count) : 0;
+                  @endphp
+                  <div class="product-info flex-grow-1 d-flex flex-column">
+                    <a href="/products/{{ $item->slug ?? $item->product_code }}"><h5 class="product-title">{{ $item->product_name }}</h5></a>
+                    <div class="d-flex align-items-center mb-2" style="font-size: 0.65rem;">
+                      <div class="d-flex align-items-center me-3">
+                        <div class="text-warning me-1">
+                          @for($i = 1; $i <= 5; $i++)
+                            <i class="bi {{ $i <= $rating ? 'bi-star-fill' : 'bi-star' }}" style="font-size: 0.65rem;"></i>
+                          @endfor
+                        </div>
+                        <small class="text-muted">({{$count}} Reviews)</small>
+                      </div>
+                      <div class="d-flex align-items-center border-start ps-3" style="border-color: #ddd !important;">
+                        <i class="bi bi-geo-alt-fill me-1" style="color: #ce1212; font-size: 0.9rem;"></i>
+                        <small class="text-muted">{{ $item->area_names }}</small>
+                      </div>
+                    </div>
+                    <p class="product-desc flex-grow-1">{{ Str::limit(strip_tags($item->product_des ?? ''), 80) }}</p>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
+          
+          <div class="swiper-button-next products-nav"></div>
+          <div class="swiper-button-prev products-nav"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section><!-- End Products Slider Section -->
+
+    <!-- ======= Areas Section ======= -->
+    <section id="popular-areas" class="popular-areas section-bg pt-0">
+      <div class="container">
+        <div class="section-header">
+          <p>Explore <span>Bali Areas</span></p>
+        </div>
+        
+        <div class="areas-swiper swiper">
+          <div class="swiper-wrapper">
+            @foreach($areas as $area)
+            <div class="swiper-slide">
+              <a href="/destinations?area={{ $area->name }}" class="area-card d-block text-center">
+                <div class="area-img-container rounded-4 overflow-hidden shadow-sm">
+                  <img src="{{ asset('assets/img/areas/' . ($area->image ?? 'default.jpg')) }}" alt="{{ $area->name }}">
+                  <div class="area-overlay">
+                    <span class="area-count">{{ $area->hotels_count ?? 0 }} Properties</span>
+                  </div>
+                </div>
+                <h6 class="fw-bold text-dark mt-2 mb-0">{{ $area->name }}</h6>
+              </a>
+            </div>
+            @endforeach
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+        
+        <div class="text-center mt-4">
+          <a href="/hotels" class="btn-view-all">
+            View All Areas <i class="bx bx-right-arrow-alt btn-arrow"></i>
+          </a>
+        </div>
+      </div>
+    </section><!-- End Areas Section -->
+
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
-        <div class="container" data-aos="fade-up">
+        <div class="container">
 
           <div class="section-header">
             <h2>{{ __('headmenu.about_us') }}</h2>
             <p>{{ __('headmenu.about_des') }} <span></span></p>
           </div>
 
-          <div class="row gy-4">
-            <div class="col-lg-7 position-relative about-img" style="background-image: url(assets/img/about.jpg) ;" data-aos="fade-up" data-aos-delay="150">
-              <div class="call-us position-absolute">
-                <h4>{{ __('headmenu.about_book') }}</h4>
-                
-                  <a href="https://api.whatsapp.com/send?phone=+6282340064488&text=Halo" target="_blank" class="btn-book-a-table">
-                    <img src="assets/img/wa.png" class="img-fluid">+62 8234 006 4488
-                  </a>
-              
-                
-              </div>
+          <div class="row gy-5 align-items-center">
+            <div class="col-lg-6">
+              <div class="about-img" style="background-image: url(assets/img/about.webp);"></div>
             </div>
-            <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
-              <div class="content ps-0 ps-lg-5">
-                <p class="fst-italic">
-                  We are company that manage property and also rent for acomodation. 
+            <div class="col-lg-6">
+              <div class="about-content">
+                <p class="about-intro">
+                  We are a company dedicated to managing properties and providing exceptional accommodation experiences.
                 </p>
-                <ul>
-                  <li><i class="bi bi-check2-all"></i> As traveller : we are your friend, family and guide as you need.</li>
-                  <li><i class="bi bi-check2-all"></i> As Traveller : we make your holly day to be awesome and memoriable,.</li>
-                  <li><i class="bi bi-check2-all"></i> As Traveller : rooms, transport, private tour as you wish or our idea.</li>
-                </ul>
-                <p>dont be hastitate to contact us on mobile or whatsapp number 24H/27.</p>
-                <p>Or you have property still confuse to manage, don't worry sit back, take a braath and relax let our team do the best.</p>
-                <ul>
-                  <li><i class="bi bi-check2-all"></i> As Property Owner : Increase booking from OTA.</li>
-                  <li><i class="bi bi-check2-all"></i> As Property Owner : Increase Revenue, neat report, </li>
-                  <li><i class="bi bi-check2-all"></i> As Property Owner : and also taking care all about the property.</li>
-                </ul>
-                <!-- <div class="position-relative mt-4">
-                  <img src="assets/img/about-2.jpg" class="img-fluid" alt="">
-                  <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox play-btn"></a>
-                </div> -->
+
+                <div class="about-cards">
+                  <div class="about-card">
+                    <div class="card-icon">
+                      <i class="bi bi-backpack2"></i>
+                    </div>
+                    <h4>For Travelers</h4>
+                    <ul class="about-list">
+                      <li><i class="bi bi-check2"></i> Your friend, family and guide</li>
+                      <li><i class="bi bi-check2"></i> Unforgettable holidays</li>
+                      <li><i class="bi bi-check2"></i> Rooms, transport & tours as you wish</li>
+                    </ul>
+                    <p class="about-contact">Contact us 24/7 on WhatsApp</p>
+                    <a href="https://api.whatsapp.com/send?phone=+6282340064488&text=Halo" target="_blank" class="btn-book-a-table">
+                      <i class="bi bi-whatsapp"></i> +62 8234 006 4488
+                    </a>
+                  </div>
+
+                  <div class="about-card">
+                    <div class="card-icon">
+                      <i class="bi bi-building"></i>
+                    </div>
+                    <h4>For Property Owners</h4>
+                    <ul class="about-list">
+                      <li><i class="bi bi-check2"></i> Increase bookings from OTA</li>
+                      <li><i class="bi bi-check2"></i> Maximize revenue</li>
+                      <li><i class="bi bi-check2"></i> Complete property management</li>
+                    </ul>
+                    <p class="about-contact">Let us handle your property</p>
+                    <a href="https://api.whatsapp.com/send?phone=+6282340064488&text=Halo" target="_blank" class="btn-book-a-table">
+                      <i class="bi bi-whatsapp"></i> +62 8234 006 4488
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -546,132 +905,18 @@
         </div>
       </section><!-- End About Section -->
 
-    <!-- ======= Testimonials Section ======= -->
-    <!-- <section id="testimonials" class="testimonials section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-header">
-          <h2>Testimonials</h2>
-          <p>What Are They <span>Saying About Us</span></p>
-        </div>
-
-        <div class="slides-1 swiper" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Saul Goodman</h3>
-                      <h4>Ceo &amp; Founder</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-1.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Sara Wilsson</h3>
-                      <h4>Designer</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-2.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Jena Karlis</h3>
-                      <h4>Store Owner</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-3.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>John Larson</h3>
-                      <h4>Entrepreneur</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-4.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-    </section> -->
-    <!-- End Testimonials Section -->
+    
 
     <!-- ======= Events Section ======= -->
     <section id="events" class="events">
-      <div class="container-fluid" data-aos="fade-up">
+      <div class="container-fluid">
 
         <div class="section-header">
           <h2>Events</h2>
           <p>Bali's <span>Event and ceremony</span></p>
         </div>
 
-        <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
+        <div class="slides-3 swiper">
           <div class="swiper-wrapper">
 
           @foreach ($artikel as $art)
@@ -695,173 +940,112 @@
       </div>
     </section><!-- End Events Section -->
 
-       
-
-    <!-- ======= Gallery Section ======= -->
-    <section id="gallery" class="gallery section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-header">
-          <h2>gallery</h2>
-          <p>Check <span>Our Gallery</span></p>
-        </div>
-
-        <div class="gallery-slider swiper">
-          <div class="swiper-wrapper align-items-center">
-            
-            @foreach ($galeri as $gal)
-            <div class="swiper-slide">
-              <a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/{{ $gal->foto }}">
-                <img src="assets/img/gallery/{{ $gal->foto }}" class="img-fluid" alt="">
-              </a>
-            </div>
-            @endforeach
-
-            <!-- <div class="swiper-slide">
-              <a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-2.jpg">
-                <img src="assets/img/gallery/gallery-2.jpg" class="img-fluid" alt="">
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-3.jpg">
-                <img src="assets/img/gallery/gallery-3.jpg" class="img-fluid" alt="">
-              </a>
-            </div> -->
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-    </section><!-- End Gallery Section -->
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-header">
-          <h2>Contact</h2>
-          <p>Need Help? <span>Contact Us</span></p>
-        </div>
-
-        <div class="mb-3">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d986.1957654155755!2d115.17408542285924!3d-8.6168148017417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd239e1f895d5b3%3A0xad8aa8fe6cf83d1d!2sPerumahan%20Pesona%20gaji%20Dalung%20Block%204!5e0!3m2!1sid!2sid!4v1710597857163!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <!-- End Google Maps -->
-
-        <div class="row gy-4">
-
-          <!-- <div class="col-md-6">
-            <div class="info-item  d-flex align-items-center">
-              <i class="icon bi bi-map flex-shrink-0"></i>
-              <div>
-                <h3>Our Office Address</h3>
-                <p>AJalan Genta Sari Blok IV Gang Amerta Sari No 7 <br>
-              Dalung Badung Bali- ID 80361</p>
-              </div>
-            </div>
-          </div> -->
-          <!-- End Info Item -->
-
-          <!-- <div class="col-md-6">
-            <div class="info-item d-flex align-items-center">
-              <i class="icon bi bi-envelope flex-shrink-0"></i>
-              <div>
-                <h3>Email Us</h3>
-                <p>the.swand26@gmail.com</p>
-              </div>
-            </div>
-          </div> -->
-          <!-- End Info Item -->
-
-          <!-- <div class="col-md-6">
-            <div class="info-item  d-flex align-items-center">
-              <i class="icon bi bi-telephone flex-shrink-0"></i>
-              <div>
-                <h3>Call Us</h3>
-                <p>+62 8234 006 4488</p>
-              </div>
-            </div>
-          </div> -->
-          <!-- End Info Item -->
-
-          <!-- <div class="col-md-6">
-            <div class="info-item  d-flex align-items-center">
-              <i class="icon bi bi-share flex-shrink-0"></i>
-              <div>
-                <h3>Opening Hours</h3>
-                <div><strong>Mon-Sat:</strong> 11AM - 23PM;
-                  <strong>Sunday:</strong> Closed
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <!-- End Info Item -->
-
-        </div>
-        
-        
-        @if(session()->has('message'))
-            <div class="alert alert-success">
-                {{ session()->get('message') }}
-            </div>
-        @endif
-        @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                <ul class="mb-0 mt-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form action="contact-us" id="contactForm" method="post" role="form" class="php-email-form p-3 p-md-4"  >
-        @csrf
-          <div class="row">
-            <div class="col-xl-6 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-            </div>
-            <div class="col-xl-6 form-group">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-          </div>
-          <div class="my-3">
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your message has been sent. Thank you!</div>
-          </div>
-          <div class="text-center">
-            
-          <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
-              <div class="col-md-6">
-                  {!! RecaptchaV3::field('contact') !!}
-                  @if ($errors->has('g-recaptcha-response'))
-                      <span class="help-block">
-                          <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                      </span>
-                  @endif
-              </div>
-          </div>
-
-          
-          <button type="submit">Send Message</button>
-          <!-- <button class="g-recaptcha btn btn-primary btn-lg "
-                                    data-sitekey="{{ config('services.recaptcha_v3.siteKey') }}"
-                                    data-callback="onSubmit"
-                                    type="submit"
-                                    data-action="submitContact">Submit</button> -->
-          </div>
-        </form><!--End Contact Form -->
-
-      </div>
-    </section><!-- End Contact Section -->
    
 
 @stop
+
+@section('scripts')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Initialize Bootstrap Carousels
+    document.querySelectorAll('.carousel.slide').forEach(carouselElement => {
+        // Force initialization
+        const carousel = new bootstrap.Carousel(carouselElement, {
+            interval: false,
+            ride: false
+        });
+        console.log('Initialized carousel:', carouselElement.id);
+    });
+
+    // 2. Initialize DateRangePicker
+    if (typeof $ !== 'undefined' && $.fn.daterangepicker) {
+      $('input[name="cekin"]').daterangepicker({
+        "autoApply": true,
+        "locale": {
+            "format": "MMM DD, YYYY",
+            "separator": " - ",
+            "firstDay": 1
+        },
+        "minDate": new Date(),
+        "startDate": new Date(),
+        "endDate": new Date(Date.now() + (3600 * 1000 * 24)),
+        "opens": "center",
+        "drops": "auto"
+      }, function(start, end) {
+        console.log("Date selected: " + start.format('YYYY-MM-DD'));
+      });
+    }
+
+    // 3. Initialize Swipers
+    initSwipers();
+  });
+
+  function initSwipers() {
+    if (typeof Swiper === 'undefined') return;
+
+    new Swiper('.timeline-swiper', {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
+      },
+      slidesPerView: 1,
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true
+      },
+      breakpoints: {
+        320: { slidesPerView: 1, spaceBetween: 20 },
+        768: { slidesPerView: 2, spaceBetween: 20 },
+        1200: { slidesPerView: 5, spaceBetween: 20 }
+      }
+    });
+    
+    new Swiper('.areas-swiper', {
+      speed: 600,
+      loop: true,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false
+      },
+      slidesPerView: 2,
+      spaceBetween: 20,
+      pagination: {
+        el: '.areas-swiper .swiper-pagination',
+        clickable: true
+      },
+      breakpoints: {
+        576: { slidesPerView: 3, spaceBetween: 20 },
+        768: { slidesPerView: 4, spaceBetween: 20 },
+        992: { slidesPerView: 5, spaceBetween: 20 },
+        1200: { slidesPerView: 6, spaceBetween: 20 }
+      }
+    });
+
+    new Swiper('.products-swiper', {
+      speed: 600,
+      loop: false,
+      autoplay: false,
+      slidesPerView: 1,
+      spaceBetween: 20,
+      navigation: {
+        nextEl: '.products-swiper .swiper-button-next',
+        prevEl: '.products-swiper .swiper-button-prev'
+      },
+      pagination: {
+        el: '.products-swiper .swiper-pagination',
+        clickable: true
+      },
+      breakpoints: {
+        320: { slidesPerView: 2, spaceBetween: 10 },
+        576: { slidesPerView: 3, spaceBetween: 15 },
+        768: { slidesPerView: 4, spaceBetween: 20 },
+        992: { slidesPerView: 4, spaceBetween: 20 },
+        1200: { slidesPerView: 5, spaceBetween: 20 }
+      }
+    });
+  }
+</script>
+@endsection
