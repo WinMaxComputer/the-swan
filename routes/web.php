@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Booking;
-use App\Models\Transport;
-use App\Models\TourPackage;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Url;
 
 /*
@@ -31,27 +31,43 @@ use Spatie\Sitemap\Tags\Url;
 if (file_exists(app_path('Http/Controllers/LocalizationController.php')))
 {
     Route::get('/lang', [App\Http\Controllers\LocalizationController::class , 'lang'])->name('lang');
-    // Route::get('/', function () { return view('pages.home'); });
-    Route::get('/', [App\Http\Controllers\bookingController::class , 'home']);
-    Route::get('/about-us', function () { return view('pages.about'); });
-    Route::get('/gallery', [App\Http\Controllers\bookingController::class , 'galeri']);
-    Route::get('/events', [App\Http\Controllers\bookingController::class , 'event']);
-    Route::get('/contact_us', [App\Http\Controllers\ContactUsController::class , 'index']);
-    
-    Route::get('/transport', [App\Http\Controllers\bookingController::class , 'transport']);
-    Route::get('/tour_packages', [App\Http\Controllers\bookingController::class , 'tour']);
-    Route::get('/service', [App\Http\Controllers\bookingController::class , 'service'])->name('service');
-    Route::get('/tour_packages/{slug}', [App\Http\Controllers\bookingController::class , 'tourDetail']);
-    Route::get('/hotels', [App\Http\Controllers\bookingController::class , 'hotel']);
-    Route::get('/bookings/{slug}', [App\Http\Controllers\bookingController::class , 'hotelDetail']);
-    Route::get('/destinations', [App\Http\Controllers\bookingController::class , 'destination']);
-    Route::get('/destinations/{slug}', [App\Http\Controllers\bookingController::class , 'destinationDetail']);
-    Route::get('/activities', [App\Http\Controllers\bookingController::class , 'activity']);
-    Route::get('/activities/{slug}', [App\Http\Controllers\bookingController::class , 'activityDetail']);
 
-    Route::get('/detail-reservasi/{id}', [App\Http\Controllers\bookingController::class , 'bookDetail']);
+    $registerPublicRoutes = function (bool $withDefaultNames = false) {
+        Route::get('/', [App\Http\Controllers\bookingController::class , 'home']);
+        Route::get('/about-us', function () { return view('pages.about'); });
+        Route::get('/gallery', [App\Http\Controllers\bookingController::class , 'galeri']);
+        Route::get('/events', [App\Http\Controllers\bookingController::class , 'event']);
+        Route::get('/contact_us', [App\Http\Controllers\ContactUsController::class , 'index']);
 
-    Route::get('/try-checkout', [App\Http\Controllers\Checkout\CheckoutController::class, 'onSubmit']);
+        Route::get('/transport', [App\Http\Controllers\bookingController::class , 'transport']);
+        Route::get('/tour_packages', [App\Http\Controllers\bookingController::class , 'tour']);
+
+        $serviceRoute = Route::get('/service', [App\Http\Controllers\bookingController::class , 'service']);
+        if ($withDefaultNames) {
+            $serviceRoute->name('service');
+        }
+
+        Route::get('/tour_packages/{slug}', [App\Http\Controllers\bookingController::class , 'tourDetail']);
+        Route::get('/hotels', [App\Http\Controllers\bookingController::class , 'hotel']);
+        Route::get('/bookings/{slug}', [App\Http\Controllers\bookingController::class , 'hotelDetail']);
+        Route::get('/destinations', [App\Http\Controllers\bookingController::class , 'destination']);
+        Route::get('/destinations/{slug}', [App\Http\Controllers\bookingController::class , 'destinationDetail']);
+        Route::get('/activities', [App\Http\Controllers\bookingController::class , 'activity']);
+        Route::get('/activities/{slug}', [App\Http\Controllers\bookingController::class , 'activityDetail']);
+        Route::get('/detail-reservasi/{id}', [App\Http\Controllers\bookingController::class , 'bookDetail']);
+        Route::get('/try-checkout', [App\Http\Controllers\Checkout\CheckoutController::class, 'onSubmit']);
+    };
+
+    // Keep non-prefixed routes for backward compatibility.
+    $registerPublicRoutes(true);
+
+    // Locale-prefixed routes for SEO-friendly indexing.
+    Route::group([
+        'prefix' => '{locale}',
+        'where' => ['locale' => 'id|en'],
+    ], function () use ($registerPublicRoutes) {
+        $registerPublicRoutes(false);
+    });
 }
 
 // Route::post('/contact-us', ['App\Http\Controllers\ContactUsController', 'send'])->name('contact.send');
@@ -74,41 +90,226 @@ Route::post('/book-status', [App\Http\Controllers\callbackController::class, 'su
 Route::post('/paypal-callback', [App\Http\Controllers\callbackController::class, 'paypalComplete']);
 
 
-Route::get('/sitemap', function(){
-    $sitemap = Sitemap::create()
-    ->add(Url::create('/about-us'))
-    ->add(Url::create('/contact_us'))
-    ->add(Url::create('/gallery'))
-    ->add(Url::create('/transport'))
-    ->add(Url::create('/tour_packages'))
-    ->add(Url::create('/hotels'));
-   
-    $book = Booking::all();
-    foreach ($book as $book) {
-        $sitemap->add(Url::create("/bookings/{$book->slug}"));
-    }
-    $sitemap->writeToFile(public_path('sitemap.xml'));
+Route::get('/sitemap', function () {
+    return redirect('/sitemap.xml', 301);
+});
 
-    $activities = DB::table('activities')->get();
-    foreach ($activities as $act) {
-        $sitemap->add(Url::create("/activities/{$act->slug}"));
-    }
-    $sitemap->writeToFile(public_path('sitemap.xml'));
+Route::get('/sitemap-health', function () {
+    $files = [
+        'index' => public_path('sitemap.xml'),
+        'id' => public_path('sitemap-id.xml'),
+        'en' => public_path('sitemap-en.xml'),
+    ];
+    $maxAgeSeconds = 36 * 60 * 60;
 
-    $destinasi = DB::table('destinations')->get();
-    foreach ($destinasi as $des) {
-        $sitemap->add(Url::create("/destinations/{$des->slug}"));
-    }
-    $sitemap->writeToFile(public_path('sitemap.xml'));
+    $details = [];
+    $allHealthy = true;
 
-    $tour = TourPackage::all();
-    foreach ($tour as $tur) {
-        $sitemap->add(Url::create("/tour_packages/{$tur->slug}"));
-    }
-    $sitemap->writeToFile(public_path('sitemap.xml'));
+    foreach ($files as $key => $path) {
+        $exists = file_exists($path);
+        $size = $exists ? filesize($path) : 0;
+        $content = $exists ? file_get_contents($path) : '';
+        $urlCount = 0;
 
-    
-}); 
+        if ($content !== false && $content !== '') {
+            preg_match_all('/<loc>.*?<\/loc>/i', $content, $matches);
+            $urlCount = count($matches[0]);
+        }
+
+        $lastModifiedTs = $exists ? filemtime($path) : null;
+        $ageSeconds = $lastModifiedTs ? (time() - $lastModifiedTs) : null;
+        $isStale = is_int($ageSeconds) ? $ageSeconds > $maxAgeSeconds : true;
+        $lastModified = $lastModifiedTs ? date(DATE_ATOM, $lastModifiedTs) : null;
+        $isHealthy = $exists && $size > 0 && $urlCount > 0 && !$isStale;
+
+        if (!$isHealthy) {
+            $allHealthy = false;
+        }
+
+        $details[$key] = [
+            'path' => $path,
+            'exists' => $exists,
+            'size_bytes' => $size,
+            'url_count' => $urlCount,
+            'last_modified' => $lastModified,
+            'age_seconds' => $ageSeconds,
+            'stale' => $isStale,
+            'healthy' => $isHealthy,
+        ];
+    }
+
+    $statusCode = $allHealthy ? 200 : 503;
+
+    return response()->json([
+        'healthy' => $allHealthy,
+        'generated_at' => now()->toIso8601String(),
+        'max_age_seconds' => $maxAgeSeconds,
+        'details' => $details,
+    ], $statusCode);
+});
+
+
+Route::get('/sitemap.xml', function () {
+    $languages = ['id', 'en'];
+
+    foreach ($languages as $language) {
+        $sitemap = Sitemap::create();
+
+        $staticPages = [
+            '/',
+            '/about-us',
+            '/contact_us',
+            '/gallery',
+            '/events',
+            '/transport',
+            '/tour_packages',
+            '/hotels',
+            '/destinations',
+            '/activities',
+            '/service',
+        ];
+
+        foreach ($staticPages as $path) {
+            $fullPath = $path === '/' ? "/{$language}" : "/{$language}{$path}";
+            $urlTag = Url::create(url($fullPath));
+
+            foreach ($languages as $alternateLanguage) {
+                $alternatePath = $path === '/' ? "/{$alternateLanguage}" : "/{$alternateLanguage}{$path}";
+                $urlTag->addAlternate(url($alternatePath), $alternateLanguage);
+            }
+
+            $xDefaultPath = $path === '/' ? '/en' : "/en{$path}";
+            $urlTag->addAlternate(url($xDefaultPath), 'x-default');
+
+            $sitemap->add($urlTag);
+        }
+
+        $bookings = DB::table('bookings')
+            ->select('code', 'lang', 'slug', 'updated_at')
+            ->whereIn('lang', $languages)
+            ->get()
+            ->groupBy('code');
+
+        foreach ($bookings as $rowsByCode) {
+            $current = $rowsByCode->firstWhere('lang', $language);
+            if (!$current) {
+                continue;
+            }
+
+            $urlTag = Url::create(url("/{$language}/bookings/{$current->slug}"));
+            foreach ($rowsByCode as $row) {
+                $urlTag->addAlternate(url("/{$row->lang}/bookings/{$row->slug}"), $row->lang);
+            }
+
+            $xDefaultRow = $rowsByCode->firstWhere('lang', 'en') ?: $rowsByCode->first();
+            if ($xDefaultRow) {
+                $urlTag->addAlternate(url("/{$xDefaultRow->lang}/bookings/{$xDefaultRow->slug}"), 'x-default');
+            }
+
+            if (!empty($current->updated_at)) {
+                $urlTag->setLastModificationDate(Carbon::parse($current->updated_at));
+            }
+
+            $sitemap->add($urlTag);
+        }
+
+        $activities = DB::table('activities')
+            ->select('code', 'lang', 'slug', 'updated_at')
+            ->whereIn('lang', $languages)
+            ->get()
+            ->groupBy('code');
+
+        foreach ($activities as $rowsByCode) {
+            $current = $rowsByCode->firstWhere('lang', $language);
+            if (!$current) {
+                continue;
+            }
+
+            $urlTag = Url::create(url("/{$language}/activities/{$current->slug}"));
+            foreach ($rowsByCode as $row) {
+                $urlTag->addAlternate(url("/{$row->lang}/activities/{$row->slug}"), $row->lang);
+            }
+
+            $xDefaultRow = $rowsByCode->firstWhere('lang', 'en') ?: $rowsByCode->first();
+            if ($xDefaultRow) {
+                $urlTag->addAlternate(url("/{$xDefaultRow->lang}/activities/{$xDefaultRow->slug}"), 'x-default');
+            }
+
+            if (!empty($current->updated_at)) {
+                $urlTag->setLastModificationDate(Carbon::parse($current->updated_at));
+            }
+
+            $sitemap->add($urlTag);
+        }
+
+        $destinations = DB::table('destinations')
+            ->select('code', 'lang', 'slug', 'updated_at')
+            ->whereIn('lang', $languages)
+            ->get()
+            ->groupBy('code');
+
+        foreach ($destinations as $rowsByCode) {
+            $current = $rowsByCode->firstWhere('lang', $language);
+            if (!$current) {
+                continue;
+            }
+
+            $urlTag = Url::create(url("/{$language}/destinations/{$current->slug}"));
+            foreach ($rowsByCode as $row) {
+                $urlTag->addAlternate(url("/{$row->lang}/destinations/{$row->slug}"), $row->lang);
+            }
+
+            $xDefaultRow = $rowsByCode->firstWhere('lang', 'en') ?: $rowsByCode->first();
+            if ($xDefaultRow) {
+                $urlTag->addAlternate(url("/{$xDefaultRow->lang}/destinations/{$xDefaultRow->slug}"), 'x-default');
+            }
+
+            if (!empty($current->updated_at)) {
+                $urlTag->setLastModificationDate(Carbon::parse($current->updated_at));
+            }
+
+            $sitemap->add($urlTag);
+        }
+
+        $tourPackages = DB::table('tour_packages')
+            ->select('code', 'lang', 'slug', 'updated_at')
+            ->whereIn('lang', $languages)
+            ->get()
+            ->groupBy('code');
+
+        foreach ($tourPackages as $rowsByCode) {
+            $current = $rowsByCode->firstWhere('lang', $language);
+            if (!$current) {
+                continue;
+            }
+
+            $urlTag = Url::create(url("/{$language}/tour_packages/{$current->slug}"));
+            foreach ($rowsByCode as $row) {
+                $urlTag->addAlternate(url("/{$row->lang}/tour_packages/{$row->slug}"), $row->lang);
+            }
+
+            $xDefaultRow = $rowsByCode->firstWhere('lang', 'en') ?: $rowsByCode->first();
+            if ($xDefaultRow) {
+                $urlTag->addAlternate(url("/{$xDefaultRow->lang}/tour_packages/{$xDefaultRow->slug}"), 'x-default');
+            }
+
+            if (!empty($current->updated_at)) {
+                $urlTag->setLastModificationDate(Carbon::parse($current->updated_at));
+            }
+
+            $sitemap->add($urlTag);
+        }
+
+        $sitemap->writeToFile(public_path("sitemap-{$language}.xml"));
+    }
+
+    SitemapIndex::create()
+        ->add(url('/sitemap-id.xml'))
+        ->add(url('/sitemap-en.xml'))
+        ->writeToFile(public_path('sitemap.xml'));
+
+    return response()->file(public_path('sitemap.xml'));
+});
 
 //======================guest
 Route::post('guest-order', [App\Http\Controllers\backendController::class, 'guestOrder'])->name('guest.order');

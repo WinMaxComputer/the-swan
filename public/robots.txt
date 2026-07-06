@@ -1,12 +1,4 @@
-<?php
-    $url = $_SERVER['REQUEST_URI'];
-    $ur = explode('/', $url);
-    $table = $ur[1];
-    $slug = $ur[2]; 
-?>
-@if(!isset($tourDetail))
-@php $tourDetail = DB::table($table)->where('slug', $slug)->get(); @endphp
-@php $lang = $tourDetail[0]->lang @endphp
-@php $destinasi = DB::table('destinations')->where('lang', $lang)->get(); @endphp
-@php $activities = DB::table('activities')->where('lang', $lang)->get(); @endphp
-@endif
+User-agent: *
+Allow: /
+
+Sitemap: /sitemap.xml

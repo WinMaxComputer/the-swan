@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+    <url>
+        <loc>https://the-swand.com/id</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/about-us</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/about-us" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/about-us" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/about-us" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/contact_us</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/contact_us" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/contact_us" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/contact_us" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/gallery</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/gallery" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/gallery" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/gallery" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/events</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/events" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/events" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/events" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/transport</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/transport" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/transport" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/transport" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/tour_packages</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/tour_packages" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/tour_packages" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/tour_packages" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/hotels</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/hotels" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/hotels" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/hotels" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/service</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/service" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/service" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/service" />
+            <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/bookings/kamar-deluxe-di-batu-bolong</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/bookings/private-room-in-guesthouse-in-kecamatan-kuta-utara" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/bookings/kamar-deluxe-di-batu-bolong" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/bookings/private-room-in-guesthouse-in-kecamatan-kuta-utara" />
+        <lastmod>2026-06-05T19:15:03+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/bookings/Bangunan-lumbung-yang-cantik</loc>
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/bookings/Bangunan-lumbung-yang-cantik" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/bookings/beautiful-lumbung-near-batu-bolong" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/bookings/beautiful-lumbung-near-batu-bolong" />
+        <lastmod>2026-06-10T12:08:59+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/bookings/jening-bangunan-split-dicanggu</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/bookings/lumbung-house-in-canggu" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/bookings/jening-bangunan-split-dicanggu" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/bookings/lumbung-house-in-canggu" />
+        <lastmod>2026-06-10T12:10:13+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/bookings/kamar-dekat-pantai-yang-nyaman</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/bookings/guest-house-in-canggu-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/bookings/kamar-dekat-pantai-yang-nyaman" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/bookings/guest-house-in-canggu-by-theswand" />
+        <lastmod>2024-04-09T09:23:45+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/bookings/guest-house-comfortable-in-canggu-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/bookings/double-room-in-canggu-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/bookings/guest-house-comfortable-in-canggu-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/bookings/double-room-in-canggu-by-theswand" />
+        <lastmod>2024-04-09T08:21:59+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/bookings/double-a-guest-house-yang-nyaman-bytheswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/bookings/double-a-guest-house-bytheswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/bookings/double-a-guest-house-yang-nyaman-bytheswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/bookings/double-a-guest-house-bytheswand" />
+        <lastmod>2026-06-08T07:20:41+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/treking-ke-gunung-batur</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/mount-batur-trekking-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/treking-ke-gunung-batur" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/mount-batur-trekking-by-theswand" />
+        <lastmod>2024-04-11T07:40:18+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/aktivitas-menaiki-mobil-jeep</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/jeep-batur-sunrise-activiti-with-theswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/aktivitas-menaiki-mobil-jeep" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/jeep-batur-sunrise-activiti-with-theswand" />
+        <lastmod>2024-04-11T07:43:08+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/aktivitas-menaiki-kendaraan-segala-medan-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/atv-ride-activity-from-theswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/aktivitas-menaiki-kendaraan-segala-medan-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/atv-ride-activity-from-theswand" />
+        <lastmod>2024-04-11T07:43:45+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/menunggangi-kuda-dibali-bersama-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/riding-horse-in-bali-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/menunggangi-kuda-dibali-bersama-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/riding-horse-in-bali-by-theswand" />
+        <lastmod>2024-04-11T07:39:09+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/bali-safari-marine-park-bersama-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/bali-safari-marine-park" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/bali-safari-marine-park-bersama-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/bali-safari-marine-park" />
+        <lastmod>2024-04-10T21:27:12+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/tur-bersepda-di-bali-bersama-kami</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/bali-cycling-tour" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/tur-bersepda-di-bali-bersama-kami" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/bali-cycling-tour" />
+        <lastmod>2024-04-10T21:31:39+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/aktivitas-menunggangi-unta-di-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/riding-camel-in-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/aktivitas-menunggangi-unta-di-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/riding-camel-in-bali" />
+        <lastmod>2024-04-21T10:51:37+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/bermain-olah-raga-air-di-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/play-water-sport-in-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/bermain-olah-raga-air-di-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/play-water-sport-in-bali" />
+        <lastmod>2024-04-11T07:55:17+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/kunjungi-aktifitas-rafting-dibali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/visit-bali-rafting" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/kunjungi-aktifitas-rafting-dibali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/visit-bali-rafting" />
+        <lastmod>2024-04-12T22:09:37+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/berenang-bersama-lumba-lumba</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/bali-swim-with-dolphin" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/berenang-bersama-lumba-lumba" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/bali-swim-with-dolphin" />
+        <lastmod>2024-04-12T22:14:36+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/permainan-paragliding-di-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/paragliding-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/permainan-paragliding-di-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/paragliding-bali" />
+        <lastmod>2024-04-12T22:18:18+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/activities/permainan-ayunan-di-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/activities/bali-jungle-swing-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/activities/permainan-ayunan-di-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/activities/bali-jungle-swing-bali" />
+        <lastmod>2024-04-12T22:21:35+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/tari-barong-di-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/barong-dance-on-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/tari-barong-di-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/barong-dance-on-bali" />
+        <lastmod>2024-04-13T09:09:49+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/mongkey-forest-ubud-bali-tur-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/mongkey-forest-ubud-bali-tour" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/mongkey-forest-ubud-bali-tur-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/mongkey-forest-ubud-bali-tour" />
+        <lastmod>2024-04-13T09:09:34+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/tegenungan-waterfall-berlokasi-di-gianyar-the-swand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/tegenungan-waterfall-gianyar-the-swand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/tegenungan-waterfall-berlokasi-di-gianyar-the-swand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/tegenungan-waterfall-gianyar-the-swand" />
+        <lastmod>2024-04-13T09:09:07+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/kunjungi-desa-seni-celuk-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/visit-celuk-art-village-at-gianyar" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/kunjungi-desa-seni-celuk-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/visit-celuk-art-village-at-gianyar" />
+        <lastmod>2024-04-13T09:08:45+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/bali-bird-park-bersa,a-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/bali-bird-park" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/bali-bird-park-bersa,a-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/bali-bird-park" />
+        <lastmod>2024-04-13T08:42:43+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/kebun-binatang-bali-zoo</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/bali-zoo-park" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/kebun-binatang-bali-zoo" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/bali-zoo-park" />
+        <lastmod>2024-04-13T08:47:22+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/ubud-palace-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/ubud-palace" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/ubud-palace-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/ubud-palace" />
+        <lastmod>2024-04-13T08:52:09+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/umah-bali-kuno-tapak-siring-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/umah-bali-kuno-tapak-siring" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/umah-bali-kuno-tapak-siring-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/umah-bali-kuno-tapak-siring" />
+        <lastmod>2024-04-13T08:58:55+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/batuan-temple-ubud-bali-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/batuan-temple-ubud" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/batuan-temple-ubud-bali-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/batuan-temple-ubud" />
+        <lastmod>2024-04-13T09:03:16+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/campuhan-ridge-walk-ubud-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/campuhan-ridge-walk" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/campuhan-ridge-walk-ubud-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/campuhan-ridge-walk" />
+        <lastmod>2024-04-13T09:08:14+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/terasering-sawah-di-tegalalang</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/tegalalang-rice-field" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/terasering-sawah-di-tegalalang" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/tegalalang-rice-field" />
+        <lastmod>2024-04-13T09:14:39+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pura-tirta-empul-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/tirta-empul-temple-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pura-tirta-empul-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/tirta-empul-temple-bali" />
+        <lastmod>2024-04-13T09:30:04+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pura-gunung-kawi-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/gunung-kawi-temple" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pura-gunung-kawi-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/gunung-kawi-temple" />
+        <lastmod>2024-04-13T09:34:43+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pura-goa-gajah-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/goa-gajah-tremple" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pura-goa-gajah-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/goa-gajah-tremple" />
+        <lastmod>2024-04-13T10:43:56+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/hidden-canyon-guwang-gianyar-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/hidden-canyon-guwang" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/hidden-canyon-guwang-gianyar-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/hidden-canyon-guwang" />
+        <lastmod>2024-04-13T10:50:32+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/air-terjun-tibumana-gianyar-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/tibumana-waterfall-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/air-terjun-tibumana-gianyar-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/tibumana-waterfall-bali" />
+        <lastmod>2024-04-13T10:55:54+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/tlaga-singha-ubud-bali-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/tlaga-singha-ubud" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/tlaga-singha-ubud-bali-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/tlaga-singha-ubud" />
+        <lastmod>2024-04-13T11:00:59+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/kopi-luwak-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/luwak-coffee-plantation" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/kopi-luwak-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/luwak-coffee-plantation" />
+        <lastmod>2024-04-13T11:09:27+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pura-uluwatu-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/Uluwatu-temple" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pura-uluwatu-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/Uluwatu-temple" />
+        <lastmod>2024-04-13T15:56:44+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/water-blow-nusa-dua-bali-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/water-blow-nusa-dua" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/water-blow-nusa-dua-bali-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/water-blow-nusa-dua" />
+        <lastmod>2024-04-13T20:07:32+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/geger-beach-nusa-dua-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/geger-beach-nusa-dua" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/geger-beach-nusa-dua-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/geger-beach-nusa-dua" />
+        <lastmod>2024-04-13T20:11:52+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pantai-pandawa-nusa-dua-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/pandawa-beach-nusa-dua" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pantai-pandawa-nusa-dua-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/pandawa-beach-nusa-dua" />
+        <lastmod>2024-04-13T20:15:23+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pantai-melasti-di-nusa-dua-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/melasti-beach-nusa-dua" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pantai-melasti-di-nusa-dua-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/melasti-beach-nusa-dua" />
+        <lastmod>2024-04-13T20:20:58+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pantai-suluban-nusa-dua-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/suluban-beach-nusa-dua" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pantai-suluban-nusa-dua-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/suluban-beach-nusa-dua" />
+        <lastmod>2024-04-13T20:24:31+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pantai-karma-nusa-dua-bali-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/karma-beach-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pantai-karma-nusa-dua-bali-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/karma-beach-bali" />
+        <lastmod>2024-04-13T20:29:25+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pantai-padang-padang-bali-nusa-dua-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/padang-padang-beach-nusa-dua-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pantai-padang-padang-bali-nusa-dua-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/padang-padang-beach-nusa-dua-bali" />
+        <lastmod>2024-04-13T20:33:08+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pantai-bingin-di-nusa-dua-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/bingin-beach-south-bali-tour" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pantai-bingin-di-nusa-dua-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/bingin-beach-south-bali-tour" />
+        <lastmod>2024-04-13T20:37:09+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/impossible-beach-bali-nusa-dua</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/impossible-beach-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/impossible-beach-bali-nusa-dua" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/impossible-beach-bali" />
+        <lastmod>2024-04-13T20:39:52+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pantai-dream-land-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/dream-land-beach-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pantai-dream-land-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/dream-land-beach-bali" />
+        <lastmod>2024-04-13T20:43:20+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pantai-balangan-nusa-dua-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/balangan-beach-nusa-dua-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pantai-balangan-nusa-dua-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/balangan-beach-nusa-dua-bali" />
+        <lastmod>2024-04-13T20:47:04+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/garuda-wisnu-kencana-gwk-bali-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/garuda-wisnu-kencana-gwk-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/garuda-wisnu-kencana-gwk-bali-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/garuda-wisnu-kencana-gwk-bali" />
+        <lastmod>2024-04-13T20:51:29+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pura-taman-ayun-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/taman-ayun-temple" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pura-taman-ayun-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/taman-ayun-temple" />
+        <lastmod>2024-04-14T07:48:04+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/air-terjun-leke-leke-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/leke-leke-waterfall-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/air-terjun-leke-leke-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/leke-leke-waterfall-bali" />
+        <lastmod>2024-04-14T07:52:12+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/sungai-bangkung-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/tukad-bangkung-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/sungai-bangkung-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/tukad-bangkung-bali" />
+        <lastmod>2024-04-14T07:55:31+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/air-terjun-nungnung-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/nung-nung-waterfall-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/air-terjun-nungnung-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/nung-nung-waterfall-bali" />
+        <lastmod>2024-04-14T07:59:35+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/sawah-terasering-jatiluwih-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/jatiluwih-rice-terrace-bali-by-the-swand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/sawah-terasering-jatiluwih-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/jatiluwih-rice-terrace-bali-by-the-swand" />
+        <lastmod>2024-04-14T08:05:32+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/air-terjun-munduk-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/munduk-waterfall-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/air-terjun-munduk-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/munduk-waterfall-bali" />
+        <lastmod>2024-04-14T08:09:55+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/kebun-raya-bedugl-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/Bedugul-botanical-garden" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/kebun-raya-bedugl-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/Bedugul-botanical-garden" />
+        <lastmod>2024-04-14T08:13:09+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/ulun-danu-beratan-bali-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/ulun-danu-beratan-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/ulun-danu-beratan-bali-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/ulun-danu-beratan-bali" />
+        <lastmod>2024-04-14T08:16:16+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/handara-gate-bali-utara</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/handara-gate-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/handara-gate-bali-utara" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/handara-gate-bali" />
+        <lastmod>2024-04-14T08:19:39+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/bukit-tersembunyi-wanagiri-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/wanagiri-hidden-hills-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/bukit-tersembunyi-wanagiri-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/wanagiri-hidden-hills-bali" />
+        <lastmod>2024-04-14T08:23:50+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/air-terjun-bnyumala-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/banyumala-waterfall-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/air-terjun-bnyumala-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/banyumala-waterfall-bali" />
+        <lastmod>2024-04-14T08:36:04+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/air-terjun-aling-aling-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/aling-aling-waterfall-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/air-terjun-aling-aling-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/aling-aling-waterfall-bali" />
+        <lastmod>2024-04-14T08:39:08+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/air-terjun-git-git-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/git-git-waterfal-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/air-terjun-git-git-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/git-git-waterfal-bali" />
+        <lastmod>2024-04-14T08:42:51+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/air-terjun-sekumpul-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/sekumpul-waterfall-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/air-terjun-sekumpul-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/sekumpul-waterfall-bali" />
+        <lastmod>2024-04-14T08:45:56+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/the-blooms-garden-bali-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/the-blooms-garden-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/the-blooms-garden-bali-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/the-blooms-garden-bali" />
+        <lastmod>2024-04-14T08:50:16+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pantai-lovina-bali-utara</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/lovina-beach-north-of-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pantai-lovina-bali-utara" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/lovina-beach-north-of-bali" />
+        <lastmod>2024-04-14T08:54:31+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/kerta-gosa-bali-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/kerta-gosa-bali" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/kerta-gosa-bali-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/kerta-gosa-bali" />
+        <lastmod>2024-04-24T09:33:22+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/destinations/pura-goa-lawah-bali</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/destinations/goa-lawah-temple" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/destinations/pura-goa-lawah-bali" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/destinations/goa-lawah-temple" />
+        <lastmod>2024-04-24T10:13:50+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/tour_packages/Ubud-Bali-Tur</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/tour_packages/Ubud-Bali-Tour" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/tour_packages/Ubud-Bali-Tur" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/tour_packages/Ubud-Bali-Tour" />
+        <lastmod>2026-06-10T09:17:28+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/tour_packages/Tour-Bali-Selatan-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/tour_packages/South-Bali-Tour" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/tour_packages/Tour-Bali-Selatan-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/tour_packages/South-Bali-Tour" />
+        <lastmod>2024-04-09T19:24:31+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/tour_packages/tur-sehari-ke-bali-utara-by-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/tour_packages/full-day-tour-north-of-bali-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/tour_packages/tur-sehari-ke-bali-utara-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/tour_packages/full-day-tour-north-of-bali-by-theswand" />
+        <lastmod>2024-04-09T19:17:40+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/tour_packages/tur-bali-timur-bersama-kami-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/tour_packages/east-of-bali-tour-with-us-theswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/tour_packages/tur-bali-timur-bersama-kami-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/tour_packages/east-of-bali-tour-with-us-theswand" />
+        <lastmod>2024-04-09T19:30:35+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/tour_packages/tur-menyenangkan-ke-daerah-bali-barat-heswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/tour_packages/west-of-bali-tour-by-theswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/tour_packages/tur-menyenangkan-ke-daerah-bali-barat-heswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/tour_packages/west-of-bali-tour-by-theswand" />
+        <lastmod>2024-04-09T19:42:55+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+    <url>
+        <loc>https://the-swand.com/id/tour_packages/tur-ke-kawasan-kintamani-bali-bersama-theswand</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="https://the-swand.com/en/tour_packages/kintamani-tour-with-theswand" />
+        <xhtml:link rel="alternate" hreflang="id" href="https://the-swand.com/id/tour_packages/tur-ke-kawasan-kintamani-bali-bersama-theswand" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://the-swand.com/en/tour_packages/kintamani-tour-with-theswand" />
+        <lastmod>2024-04-09T19:49:28+08:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+            </url>
+</urlset>
