@@ -137,6 +137,7 @@ class CheckoutController extends BaseController {
             'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
 
         ]);
+        $this->broadcastPropertyCalendarChanged('xendit-reservation-created');
         // if($post){
         //     var_dump($post);
         // }
@@ -173,5 +174,14 @@ class CheckoutController extends BaseController {
             $message->to($req->payer_email, $req->name)->subject('Booking Confirm');
         });
         // return $service->createInvoice1($req->all());
+    }
+
+    private function broadcastPropertyCalendarChanged(string $reason): void
+    {
+        try {
+            broadcast(new \App\Events\PropertyCalendarChanged($reason));
+        } catch (\Throwable $exception) {
+            report($exception);
+        }
     }
 }

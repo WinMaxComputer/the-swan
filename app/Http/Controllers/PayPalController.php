@@ -169,6 +169,7 @@ class PayPalController extends Controller
                         'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
 
                     ]);
+                    $this->broadcastPropertyCalendarChanged('paypal-reservation-created');
                     // if($post){
                     //     var_dump($post);
                     // }
@@ -229,6 +230,15 @@ class PayPalController extends Controller
 
         return redirect()->route('paypal')->with('error', $response['message'] ?? 'You have canceled the transaction.');
 
+    }
+
+    private function broadcastPropertyCalendarChanged(string $reason): void
+    {
+        try {
+            broadcast(new \App\Events\PropertyCalendarChanged($reason));
+        } catch (\Throwable $exception) {
+            report($exception);
+        }
     }
 
   

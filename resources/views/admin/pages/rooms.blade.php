@@ -94,6 +94,7 @@
                 <th>Code</th>
                 <th>Name</th>
                 <th>Price</th>
+                <th>Discount</th>
                 <th class="text-center">Allotment</th>
                 <th>Desc</th>
                 <th class="text-center">Language</th>
@@ -106,6 +107,7 @@
                   <td><span class="badge badge-info">{{$rm->code}}</span></td>
                   <td><strong>{{$rm->title}}</strong></td>
                   <td>Rp {{ number_format($rm->price, 0, ',', '.') }}</td>
+                  <td>{{ $rm->discount ?? 0 }}%</td>
                   <td class="text-center">{{$rm->alotment}}</td>
                   <td title="{{ strip_tags($rm->desc) }}">{{ Str::limit(strip_tags($rm->desc), 40) }}</td>
                   <td class="text-center"><span class="text-uppercase badge badge-default">{{$rm->lang}}</span></td>
@@ -118,7 +120,7 @@
                 </tr>
               @empty
                 <tr>
-                  <td colspan="7" class="text-center text-muted py-5">No rooms found matching your criteria.</td>
+                  <td colspan="8" class="text-center text-muted py-5">No rooms found matching your criteria.</td>
                 </tr>
               @endforelse  
             </tbody>

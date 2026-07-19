@@ -22,19 +22,20 @@ class ContactUsController extends Controller
             'name' => ['required', 'string', 'max:50'],
             'message' => ['required', 'string', 'max:500'],
             'email' => ['required', 'email:rfc'],
+            'subject' => ['required', 'string', 'max:150'],
             // 'g-recaptcha-response' => ['required', new ReCaptchaV3('submitContact')]
             'g-recaptcha-response' => 'required|recaptchav3:contact,0.5'
         ]);
 
         // $to = $request->email ;
 
-        \Mail::send('pages.email-contact', array(
+        Mail::send('pages.email-contact', array(
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'subject' => $request->get('subject'),
             'user_query' => $request->get('message'),
         ), function($message) use ($request){
-            // $message->from($request->email);
+            $message->replyTo($request->get('email'), $request->get('name'));
             $message->to('winmaxcomp@gmail.com', 'Admin')->subject($request->get('subject'));
         });
 
@@ -43,7 +44,7 @@ class ContactUsController extends Controller
         // Here you can add code to actually send the email message
 
         // return view('pages.contact');
-        return 'Sent Successfuly' ;
+        return response('OK');
         
     }
 }

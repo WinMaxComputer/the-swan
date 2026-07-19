@@ -93,7 +93,7 @@
                 <th>code</th>
                 <th>name</th>
                 <th class="text-center">desct</th>
-                <th class="text-center">Type</th>
+                <th class="text-center">Area</th>
                 <th class="text-center">Language</th>
                 <th class="text-center">Action</th>
               </tr>
@@ -104,7 +104,7 @@
                 <td>{{$rm->code}}</td>
                 <td>{{$rm->name}}</td>
                 <td>{!! substr($rm->deskripsi, 0, 60) !!}</td>
-                <td>{{$rm->type}}</td>
+                <td>{{ $rm->area_name ?? '-' }}</td>
                 <td>{{$rm->lang}}</td>
                 <td>
                   <a href="{!! route('destinasi.edit', ['type'=>'copy', 'id' => $rm->id]) !!}">Copy</a>

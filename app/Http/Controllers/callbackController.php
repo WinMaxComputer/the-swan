@@ -79,6 +79,8 @@ class callbackController extends Controller
             'status' => 'PAID',
         ]);
 
+        $this->broadcastPropertyCalendarChanged('xendit-payment-updated');
+
         // return response()->json([
         //     'success' => trprint_rue,
         //     'message' => 'Post Berhasil di insert!',
@@ -100,6 +102,8 @@ class callbackController extends Controller
         DB::table('reservations')->where('no_reservasi', $order_id)->update([
             'status' => $transaction,
         ]);
+
+        $this->broadcastPropertyCalendarChanged('midtrans-payment-updated');
 
         if ($transaction == 'capture') {
         if ($type == 'credit_card'){
@@ -167,5 +171,16 @@ class callbackController extends Controller
             'status' => $transaction,
         ]);
 
+        $this->broadcastPropertyCalendarChanged('paypal-payment-updated');
+
+    }
+
+    private function broadcastPropertyCalendarChanged(string $reason): void
+    {
+        try {
+            broadcast(new \App\Events\PropertyCalendarChanged($reason));
+        } catch (\Throwable $exception) {
+            report($exception);
+        }
     }
 }

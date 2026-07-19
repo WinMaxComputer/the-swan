@@ -518,7 +518,7 @@
                       <div class="col-lg-5 col-md-5">
                         <div class="input-group">
                           <span class="input-group-text"><i class="bi bi-calendar-range"></i></span>
-                          <input type="text" class="form-control" name="cekin" placeholder="Select dates">
+                          <input type="text" class="form-control" id="cekin" name="cekin" placeholder="Select dates" required>
                         </div>
                       </div>
                       <div class="col-lg-5 col-md-5">
@@ -612,9 +612,19 @@
 
                       @foreach ($rate as $rat)
                         @if($detail->code == $rat->kode_kamar)
+                          @php
+                            $roomDiscount = max(0, min(100, (int) ($detail->discount ?? 0)));
+                            $discountedRate = round($rat->harga * (100 - $roomDiscount) / 100);
+                          @endphp
                           <div class="d-flex justify-content-between align-items-center service-actions">
                             <div>
-                              <strong>IDR {{ number_format($rat->harga, 2) }}</strong><br>
+                              @if($roomDiscount > 0)
+                                <small class="text-muted text-decoration-line-through">IDR {{ number_format($rat->harga, 2) }}</small><br>
+                                <strong class="text-danger">IDR {{ number_format($discountedRate, 2) }}</strong>
+                                <small class="text-danger">({{ $roomDiscount }}% off)</small><br>
+                              @else
+                                <strong>IDR {{ number_format($rat->harga, 2) }}</strong><br>
+                              @endif
                               <small class="text-muted">{{ $rat->stok }} room available</small>
                             </div>
                             <a href="/bookings/{{$detail->slug}}" class="btn-book-a-table">Book Now</a>
@@ -783,7 +793,7 @@
                     $rating = $count ? round($review / $count) : 0;
                   @endphp
                   <div class="product-info flex-grow-1 d-flex flex-column">
-                    <a href="/products/{{ $item->slug ?? $item->product_code }}"><h5 class="product-title">{{ $item->product_name }}</h5></a>
+                    <a href="{{ $item->activity_slug ? url('/activities/' . $item->activity_slug) : url('/activities') }}"><h5 class="product-title">{{ $item->product_name }}</h5></a>
                     <div class="d-flex align-items-center mb-2" style="font-size: 0.65rem;">
                       <div class="d-flex align-items-center me-3">
                         <div class="text-warning me-1">
@@ -945,7 +955,6 @@
 @stop
 
 @section('scripts')
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // 1. Initialize Bootstrap Carousels

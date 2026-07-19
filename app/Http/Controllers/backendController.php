@@ -47,6 +47,7 @@ class backendController extends Controller
                     $gmbr = $gmbr.$ft.";" ;
                 }
                 $fasi = implode(';', $data['facility']);
+                $discount = max(0, min(100, (int) ($data['discount'] ?? 0)));
                 $project = DB::table('bookings')->upsert([
                     'id' => $data['id'],
                     'code' => $data['code'],
@@ -56,6 +57,7 @@ class backendController extends Controller
                     'slug' => $data['slug'],
                     'desc' => $data['desc'],
                     'price' => $data['price'],
+                    'discount' => $discount,
                     'facility' => ';'.$fasi,
                     'lang' => $data['lang'],
                     'alotment' => $data['allotment'],
@@ -319,7 +321,9 @@ public function storeTour(Request $request)
         }else{
             $data = 'edit';
         }
-        return view('admin.pages.destinasi_add', ['destinasiDetail' => $destinasiDetail, 'type' => $data]);
+        $areas = DB::table('travel_area')->get();
+
+        return view('admin.pages.destinasi_add', compact('destinasiDetail', 'areas') + ['type' => $data]);
 
     }
 
@@ -349,6 +353,8 @@ public function storeTour(Request $request)
             $exception = DB::transaction(function() use ($request){ 
             
                 $data = $request->all();
+                $areas = array_filter($data['area'] ?? []);
+                $area = $areas ? implode(';', $areas).';' : '';
             
                 $gmbr = "";
                 $foto = $data['document'];
@@ -364,7 +370,7 @@ public function storeTour(Request $request)
                     'slug' => $data['slug'],
                     'type' => $data['type'],
                     'lang' => $data['lang'],
-                    'area' => $data['area'],
+                    'area' => $area,
                     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
                     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
                 ], 'id');
@@ -413,7 +419,9 @@ public function storeTour(Request $request)
                     ->first();
 
 
-        return view('admin.pages.activity_add', compact('activityDetail'));
+        $areas = DB::table('travel_area')->get();
+
+        return view('admin.pages.activity_add', compact('activityDetail', 'areas'));
 
     }
 
@@ -566,6 +574,8 @@ public function storeTour(Request $request)
                 ]
             );
 
+            $this->broadcastPropertyCalendarChanged('rate-updated');
+
             return redirect()->back()->with('success', 'Rate and availability updated successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to update: ' . $e->getMessage());
@@ -595,9 +605,20 @@ public function storeTour(Request $request)
                 );
             }
 
+            $this->broadcastPropertyCalendarChanged('rates-bulk-updated');
+
             return redirect()->back()->with('success', 'Bulk update completed successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Bulk update failed: ' . $e->getMessage());
+        }
+    }
+
+    private function broadcastPropertyCalendarChanged(string $reason): void
+    {
+        try {
+            broadcast(new \App\Events\PropertyCalendarChanged($reason));
+        } catch (\Throwable $exception) {
+            report($exception);
         }
     }
     public function news(Request $request)

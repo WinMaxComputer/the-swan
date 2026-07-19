@@ -145,13 +145,23 @@ class bookingController extends Controller
         foreach ($product as $item) {
             $parentCodes = array_filter(explode(';', $item->parent_type));
             $parentCode = reset($parentCodes);
-            
+
             $item->area_names = 'Bali';
+            $item->activity_slug = null;
             if ($parentCode) {
-                $act = $all_activities->where('code', $parentCode)->first();
+                $act = $all_activities
+                    ->where('code', $parentCode)
+                    ->where('lang', $item->lang)
+                    ->first()
+                    ?: $all_activities->where('code', $parentCode)->first();
+
                 if ($act && $act->area) {
                     $ids = array_filter(explode(';', $act->area));
                     $item->area_names = $areas->whereIn('id', $ids)->pluck('name')->map(fn($n) => ucfirst($n))->implode(', ');
+                }
+
+                if ($act) {
+                    $item->activity_slug = $act->slug;
                 }
             }
         }
@@ -338,6 +348,21 @@ class bookingController extends Controller
 
         $rate = Rate::where('tgl', $request->date)->where('kode_kamar', $request->code)->get();
 
+        if ($rate->isEmpty()) {
+            return response()->json([
+                'message' => 'Rate is not available for the selected date.',
+            ], 404);
+        }
+
+        $discount = (int) Booking::where('code', $request->code)->value('discount');
+        $discount = max(0, min(100, $discount));
+
+        foreach ($rate as $dailyRate) {
+            $dailyRate->harga_asli = (int) $dailyRate->harga;
+            $dailyRate->discount = $discount;
+            $dailyRate->harga = (int) round($dailyRate->harga_asli * (100 - $discount) / 100);
+        }
+
         // $users = DB::select("SELECT *
         // FROM room_nomors
         // WHERE room_no NOT IN
@@ -357,6 +382,12 @@ class bookingController extends Controller
         })
         ->where('unit_code', $request->code)
         ->get();
+        if ($users->isEmpty()) {
+            return response()->json([
+                'message' => 'No room is available for the selected date.',
+            ], 409);
+        }
+
         $no_kamar = $users['0']->room_no ;
 
         $kamar = count($users);

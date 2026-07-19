@@ -6,6 +6,10 @@
     @php $id = $destinasiDetail->id ; @endphp
   @endif
 @endif
+@php
+  $isCopy = ($type ?? '') === 'copy';
+  $destinationCode = old('code', (!$isCopy && isset($destinasiDetail)) ? $destinasiDetail->code : 'DEST-' . now()->format('YmdHis'));
+@endphp
 @section('content')
 <div class="row">
   <div class="col-md-12">
@@ -22,7 +26,8 @@
           <div class="form-group col-lg-6">
               <label>Code</label>
               <input type="hidden" name="id" class="form-control" placeholder="code" value="{{ $id ?? '' }}" >
-              <input type="text" name="code" class="form-control" placeholder="code" value="{{ $destinasiDetail->code ?? '' }}" >
+              <input type="text" name="code" class="form-control" value="{{ $destinationCode }}" readonly>
+              <small class="form-text text-muted">Generated automatically</small>
           </div>
           <div class="form-group col-lg-6">
             <label>Name</label>
@@ -36,12 +41,20 @@
               <input type="text" name="slug" class="form-control" placeholder="slug" value="{{ $destinasiDetail->slug ?? '' }}">
           </div>
           <div class="form-group col-lg-4">
-              <label>Lang</label>
-              <input type="text" name="lang" class="form-control" placeholder="Lang" value="{{ $destinasiDetail->lang ?? '' }}">
+              <label>Language</label>
+              <select name="lang" class="form-control" required>
+                <option value="en" {{ old('lang', $destinasiDetail->lang ?? 'en') === 'en' ? 'selected' : '' }}>English</option>
+                <option value="id" {{ old('lang', $destinasiDetail->lang ?? '') === 'id' ? 'selected' : '' }}>Indonesia</option>
+              </select>
           </div>
           <div class="form-group col-lg-4">
-              <label>Lang</label>
-              <input type="text" name="type" class="form-control" placeholder="Type" value="{{ $destinasiDetail->type ?? '' }}">
+              <label>Type</label>
+              <select name="type" class="form-control" required>
+                <option value="" disabled {{ old('type', $destinasiDetail->type ?? '') === '' ? 'selected' : '' }}>Select destination type</option>
+                @foreach($areas ?? [] as $area)
+                  <option value="{{ $area->id }}" {{ (string) old('type', $destinasiDetail->type ?? '') === (string) $area->id ? 'selected' : '' }}>{{ ucfirst($area->name) }}</option>
+                @endforeach
+              </select>
           </div>
         </div>
         <div class="form-group">

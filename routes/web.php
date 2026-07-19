@@ -71,7 +71,7 @@ if (file_exists(app_path('Http/Controllers/LocalizationController.php')))
 }
 
 // Route::post('/contact-us', ['App\Http\Controllers\ContactUsController', 'send'])->name('contact.send');
-Route::post('/contact-us', [App\Http\Controllers\ContactUsController::class, 'send']);
+Route::post('/contact-us', [App\Http\Controllers\ContactUsController::class, 'send'])->name('contact.send');
 Route::post('/review-store', [App\Http\Controllers\bookingController::class, 'reviewstore'])->name('review.store');
 
 //================paypal
@@ -323,6 +323,8 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function() {
     // your routes
     Route::get('properti', ['as' => 'pages.properti', 'uses' => 'App\Http\Controllers\PageController@properti']);
+    Route::get('properti/digest', [App\Http\Controllers\PageController::class, 'propertyCalendarDigest'])->name('pages.properti.digest');
+    Route::post('properti/reservation-room', [App\Http\Controllers\PageController::class, 'updateReservationRoom'])->name('pages.properti.updateReservationRoom');
     Route::get('icons', ['as' => 'pages.icons', 'uses' => 'App\Http\Controllers\PageController@icons']);
     Route::get('rooms', ['as' => 'pages.rooms', 'uses' => 'App\Http\Controllers\PageController@rooms']);
     Route::get('rates', ['as' => 'pages.rates', 'uses' => 'App\Http\Controllers\PageController@rates']);

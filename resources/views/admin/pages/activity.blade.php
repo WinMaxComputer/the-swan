@@ -105,7 +105,14 @@
               <tr>
                 <td>{{$rm->code}}</td>
                 <td>{{$rm->name}}</td>
-                <td>{{$rm->area}}</td>
+                <td>
+                  @php
+                    $areaNames = collect(explode(';', $rm->area ?? ''))
+                      ->filter()
+                      ->map(fn ($areaId) => $areas->get($areaId, 'Unknown area'));
+                  @endphp
+                  {{ $areaNames->isNotEmpty() ? $areaNames->implode(', ') : '-' }}
+                </td>
                 <td>{{$rm->type}}</td>
                 <td>{!! substr($rm->deskripsi, 0, 60) !!}</td>
                 <td>{{$rm->lang}}</td>

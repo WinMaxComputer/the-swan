@@ -50,7 +50,11 @@
           </div>
           <div class="form-group col-lg-6">
               <label>Price</label>
-              <input type="number" name="price" class="form-control" placeholder="Price" value="{{ $roomDetail->price ?? '' }}">
+              <input type="number" name="price" class="form-control" placeholder="Price" value="{{ $roomDetail->price ?? '' }}" min="0">
+          </div>
+          <div class="form-group col-lg-6">
+              <label>Discount (%)</label>
+              <input type="number" name="discount" class="form-control" placeholder="Discount percentage" value="{{ $roomDetail->discount ?? 0 }}" min="0" max="100">
           </div>
         </div>
         <div class="form-group">

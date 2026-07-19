@@ -173,10 +173,21 @@ class OrderController extends Controller
             $this->response['snap_token'] = $snapToken;
         });
 
+        $this->broadcastPropertyCalendarChanged('reservation-created');
+
         return response()->json([
             'status'     => 'success',
             'snap_token' => $this->response,
         ]);
+    }
+
+    private function broadcastPropertyCalendarChanged(string $reason): void
+    {
+        try {
+            broadcast(new \App\Events\PropertyCalendarChanged($reason));
+        } catch (\Throwable $exception) {
+            report($exception);
+        }
     }
 
 }

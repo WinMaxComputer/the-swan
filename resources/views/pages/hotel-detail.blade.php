@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('meta')
-    <title>{{ $hotelDetail[0]->slug }} - The Swand</title>
+    <title>{{ $hotelDetail[0]->title }} - The Swand</title>
     <meta content="{!! $hotelDetail[0]->desc !!}" name="description">
     <meta content="{{ $hotelDetail[0]->slug }}" name="keywords">
 @endsection
@@ -56,6 +56,44 @@
         .hotel-gallery-main img,
         .hotel-gallery-thumbs img {
             border-radius: 8px;
+        }
+        .booking-panel .card-body {
+            padding: 0.9rem !important;
+        }
+        .booking-panel .form-label {
+            margin-bottom: 0.25rem;
+        }
+        .booking-panel .form-control,
+        .booking-panel .form-select {
+            min-height: 30px;
+            padding-top: 0.2rem;
+            padding-bottom: 0.2rem;
+        }
+        .booking-panel .price-summary {
+            padding: 0.75rem !important;
+        }
+        .booking-panel .booking-header,
+        .booking-panel .price-summary,
+        .booking-panel .booking-actions {
+            margin-top: 0.75rem !important;
+            margin-bottom: 0.75rem !important;
+        }
+        /* Keep booking in the normal content flow. */
+        .booking-panel {
+            position: static;
+        }
+        @media (max-width: 575.98px) {
+            .booking-panel .card-body {
+                padding: 0.75rem !important;
+            }
+            .booking-panel .booking-header small {
+                display: block;
+                line-height: 1.35;
+            }
+            .booking-panel .form-control,
+            .booking-panel .form-select {
+                font-size: 16px;
+            }
         }
     </style>
     <script>
@@ -266,34 +304,34 @@
                     <div class="">
                         <div class="booking-panel card shadow-sm border-0 rounded-4">
                             <div class="card-body p-4">
-                                <div class="booking-header mb-4">
-                                    <h4 class="mb-1">Booking Detail</h4>
-                                    <small class="text-muted">Secure your stay at {{ $hotel->title }}</small>
+                                <div class="booking-header mb-3">
+                                    <h4 class="mb-1">Guest Details</h4>
+                                    <small class="text-muted">Tell us a little about yourself to reserve your stay at {{ $hotel->title }}.</small>
                                 </div>
                                 
                                 <form id="form-configure" autocomplete="off">
-                                    <div class="row g-3">
+                                    <div class="row g-2">
                                         <div class="col-md-6 form-group">
                                             <input type="hidden" name="code" id="code" value="{{ $hotel->code }}">
                                             <input type="hidden" name="nama_kamar" id="nama_kamar" value="{{ $hotel->title }}">
                                             <input type="hidden" name="hari" id="hari" value="1">
-                                            <label class="form-label small fw-bold" for="name">Name</label>
-                                            <input type="text" name="name" class="form-control form-control-sm" id="name" placeholder="Full Name" required>
+                                            <label class="form-label small fw-bold" for="name">Full name</label>
+                                            <input type="text" name="name" class="form-control form-control-sm" id="name" placeholder="As shown on your ID" autocomplete="name" required>
                                         </div>
                                         <div class="col-md-6 form-group">
-                                            <label class="form-label small fw-bold" for="email">Email</label>
-                                            <input type="email" class="form-control form-control-sm" name="email" id="email" placeholder="email@example.com" required>
+                                            <label class="form-label small fw-bold" for="email">Email address</label>
+                                            <input type="email" class="form-control form-control-sm" name="email" id="email" placeholder="you@example.com" autocomplete="email" required>
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label class="form-label small fw-bold" for="mobile">Mobile</label>
-                                            <input type="number" class="form-control form-control-sm" name="mobile" id="mobile" placeholder="Phone Number" required>
+                                            <label class="form-label small fw-bold" for="mobile">Phone number</label>
+                                            <input type="tel" class="form-control form-control-sm" name="mobile" id="mobile" placeholder="Include country code" autocomplete="tel" inputmode="tel" required>
                                         </div>
                                         <div class="col-md-6 form-group">
-                                            <label class="form-label small fw-bold" for="country_name">Nationality</label>
+                                            <label class="form-label small fw-bold" for="country_name">Country / region</label>
                                             <input type="hidden" name="nationality" id="nationality" required>
                                             <select id="country_name" class="form-select form-select-sm" onchange="getComboA(this)" required>
-                                                <option value="">Select Country</option>
+                                                <option value="">Select your country or region</option>
                                                 @foreach($country as $count)
                                                     <option value="{{ $count->country_code }}">{{ $count->country_name }}</option>
                                                 @endforeach
@@ -301,12 +339,12 @@
                                         </div>
 
                                         <div class="col-md-6 form-group">
-                                            <label class="form-label small fw-bold" for="adult">Guests</label>
+                                            <label class="form-label small fw-bold" for="adult">Number of guests</label>
                                             <input type="number" class="form-control form-control-sm" name="adult" id="adult" value="1" min="1" required>
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <input type="hidden" name="qty" id="qty" value="1">
-                                            <label class="form-label small fw-bold" for="tipe_bayar">Payment Type</label>
+                                            <label class="form-label small fw-bold" for="tipe_bayar">How would you like to pay?</label>
                                             <select name="tipe_bayar" id="tipe_bayar" class="form-select form-select-sm" onchange="getOption()">
                                                 <option value="deposit">30% Deposit</option>
                                                 <option value="full">Full Payment</option>
@@ -314,10 +352,10 @@
                                         </div>
 
                                         <div class="col-12 form-group">
-                                            <label class="form-label small fw-bold">Stay Dates</label>
+                                            <label class="form-label small fw-bold">Your stay dates</label>
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-text"><i class="bi bi-calendar-range"></i></span>
-                                                <input class="form-control" name="datefilter" id="datefilter" placeholder="Check In - Check Out" required>
+                                                <input class="form-control" name="datefilter" id="datefilter" placeholder="Choose check-in and check-out dates" required>
                                             </div>
                                             <input type="hidden" name="cek_in" id="cek_in">
                                             <input type="hidden" name="cek_out" id="cek_out">
@@ -327,7 +365,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="price-summary mt-4 p-3 bg-light rounded-3">
+                                    <div class="price-summary mt-3 p-3 bg-light rounded-3">
                                         <table class="table table-borderless table-sm mb-0">
                                             <tbody id="listharga"></tbody>
                                             <tfoot class="border-top">
@@ -351,10 +389,11 @@
                                     <input type="hidden" name="total_bayar" id="total_bayar">
                                     <input type="hidden" name="bayar_dolar" id="bayar_dolar">
 
-                                    <div class="booking-actions mt-4">
-                                        <button id="pay-button" class="btn btn-primary w-100 mb-2 py-2 fw-bold">
-                                            <i class="bi bi-credit-card me-2"></i>Pay with Midtrans
+                                    <div class="booking-actions mt-3">
+                                        <button type="button" id="pay-button" class="btn btn-primary w-100 mb-2 py-2 fw-bold">
+                                            <i class="bi bi-shield-check me-2"></i>Book Without Worry
                                         </button>
+                                        <p class="small text-muted text-center mb-2">Secure checkout with Midtrans</p>
                                         <button type="button" onclick="payPal()" class="btn btn-outline-primary w-100 py-2 fw-bold">
                                             <i class="bi bi-paypal me-2"></i>Pay with PayPal
                                         </button>
@@ -468,7 +507,6 @@
     </section><!-- End About Section -->
 
     @section('scripts')
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded",  
         
@@ -486,7 +524,8 @@
                 url: "/api/get-exchange",
                 error: function (request, error) { console.log(error); },
                 success: function (result) {
-                    document.getElementById('rate_dolar').value = result.conversion_rates.IDR
+                    document.getElementById('rate_dolar').value = result.conversion_rates.IDR || 16000;
+                    getOption();
                 }
             });
 
@@ -499,8 +538,11 @@
                 document.querySelector('#nationality').value = guestData.nationality;
                 document.querySelector('#country_name').value = guestData.nationality;
 
-                var delast = document.getElementById('last_rev').value ;
-                document.getElementById('booking_id').value = delast;
+                var lastReservation = document.getElementById('last_rev');
+                var bookingId = document.getElementById('booking_id');
+                if (lastReservation && bookingId) {
+                    bookingId.value = lastReservation.value;
+                }
                 document.getElementById('email_rev').value = guestData.email;
                 document.getElementById('name_rev').value = guestData.name;
 
@@ -511,10 +553,38 @@
             
         }, false ); 
         
+        function formatIdr(value) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'IDR' }).format(value || 0);
+        }
+
+        function formatUsd(value) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value || 0);
+        }
+
+        function resetBookingTotals(message) {
+            $('#listharga').empty();
+            document.getElementById('total').value = "";
+            document.getElementById('total_bayar').value = "";
+            document.getElementById('bayar_dolar').value = "";
+            document.getElementById('room_no').value = "";
+            document.getElementById("totalorder").innerHTML = "IDR 0";
+            document.getElementById("totalbayar").innerHTML = "IDR 0";
+            document.getElementById("totalbayardolar").innerHTML = "USD 0";
+
+            if (message) {
+                alert(message);
+            }
+        }
+
         function getOption() {
             const tipe = document.getElementById('tipe_bayar').value ; 
-            const rate_dolar = document.getElementById('rate_dolar').value ;                           
+            const rate_dolar = parseFloat(document.getElementById('rate_dolar').value) || 16000;
             const total_hidden = document.getElementById('total').value ;
+
+            if (!total_hidden || parseFloat(total_hidden) <= 0) {
+                resetBookingTotals();
+                return;
+            }
 
             if(tipe === "deposit"){
                 var totalbayar = ((total_hidden) * 30) / 100 ;
@@ -523,45 +593,60 @@
                 document.getElementById('total_bayar').value = totalbayar;
                 document.getElementById('bayar_dolar').value = totaldolar ;
                 
-                document.getElementById("totalbayar").innerHTML = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'IDR' }).format(totalbayar);
-                document.getElementById("totalbayardolar").innerHTML = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totaldolar);
-                document.getElementById("totalorder").innerHTML = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'IDR' }).format(total_hidden);
+                document.getElementById("totalbayar").innerHTML = formatIdr(totalbayar);
+                document.getElementById("totalbayardolar").innerHTML = formatUsd(totaldolar);
+                document.getElementById("totalorder").innerHTML = formatIdr(total_hidden);
             }else if(tipe === "full"){
                 var totald = Math.ceil(total_hidden / rate_dolar);
                 document.getElementById('total_bayar').value = total_hidden ;
                 document.getElementById('bayar_dolar').value = totald;
                 
-                document.getElementById("totalorder").innerHTML = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'IDR' }).format(total_hidden);
-                document.getElementById("totalbayar").innerHTML = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'IDR' }).format(total_hidden);
-                document.getElementById("totalbayardolar").innerHTML = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totald);
+                document.getElementById("totalorder").innerHTML = formatIdr(total_hidden);
+                document.getElementById("totalbayar").innerHTML = formatIdr(total_hidden);
+                document.getElementById("totalbayardolar").innerHTML = formatUsd(totald);
             }
         };
 
-        function FungsiHitung(start, end, difference, code){
+        function FungsiHitung(start, end, difference, code, showAlerts = true){
             $('#loading').show();
             var hrg = 0;
+            var completedRequests = 0;
             $('#listharga').empty();
 
+            if (difference < 1) {
+                resetBookingTotals(showAlerts ? "Please select at least one night." : "");
+                $('#loading').hide();
+                return;
+            }
+
             for(let i=0 ; i<difference ;i++){
-                var dt = moment(start).add(i, 'days').format('YYYY-M-DD');
-                var starte = moment(start).format('YYYY-M-DD');
-                var ende = moment(end).format('YYYY-M-DD');
+                var dt = moment(start).add(i, 'days').format('YYYY-MM-DD');
+                var starte = moment(start).format('YYYY-MM-DD');
+                var ende = moment(end).format('YYYY-MM-DD');
                 
                 $.ajax({
                     type: "POST",
                     url: "/api/get-rate",
                     data: { "code": code, "date": dt, "start" : starte, "end": ende },
                     error: function (request, error) {
-                        alert("Room not available on this date, please change your selection");
-                        document.getElementById('total').value = "";
+                        resetBookingTotals(showAlerts ? "Room not available on this date, please change your selection." : "");
+                        $('#loading').hide();
                     },
                     success: function (result) {
+                        if (!result[0] || !result[0][0] || !result[1]) {
+                            resetBookingTotals(showAlerts ? "Rate is not available for " + moment(dt).format('MMM DD') + "." : "");
+                            $('#loading').hide();
+                            return;
+                        }
+
                         var qty = document.getElementById('qty').value ;
                         if( qty > (result[1]).length ){
-                            alert("Insufficient stock");
-                            document.getElementById('total').value = "";
+                            resetBookingTotals(showAlerts ? "Insufficient stock for " + moment(dt).format('MMM DD') + "." : "");
+                            $('#loading').hide();
                         }else{
-                            hrg += parseInt(result[0][0].harga);
+                            var originalRate = parseInt(result[0][0].harga_asli || result[0][0].harga);
+                            var discountedRate = parseInt(result[0][0].harga);
+                            hrg += discountedRate;
 
                             var room_n = "";
                             for(let r=0 ; r<qty ;r++){
@@ -569,22 +654,52 @@
                             }
                             document.getElementById('room_no').value = room_n;
                             
+                            var rateDisplay = originalRate !== discountedRate
+                                ? '<del class="text-muted me-1">' + formatIdr(originalRate) + '</del><br><strong class="text-danger">' + formatIdr(discountedRate) + '</strong>'
+                                : formatIdr(discountedRate);
                             var trHTML = '<tr>' +
                                             '<td>' + (i+1) + '</td>' +
                                             '<td>' + moment(result[0][0].tgl).format('MMM DD') + '</td>' +
-                                            '<td class="text-end">' + new Intl.NumberFormat('en-US', { style: 'currency', currency: 'IDR' }).format(result[0][0].harga) + '</td>' +
+                                            '<td class="text-end">' + rateDisplay + '</td>' +
                                          '</tr>';
                             
                             $('#listharga').append(trHTML);
                             document.getElementById('total').value = hrg;
                             getOption();
                         }
+                    },
+                    complete: function () {
+                        completedRequests++;
+                        if (completedRequests >= difference) {
+                            $('#loading').hide();
+                        }
                     }
                 });
             }
         }
 
+        function updateStayDates(start, end, showAlerts = true) {
+            var code = document.getElementById('code').value;
+            var awal = moment(start);
+            var akhir = moment(end);
+            var difference = akhir.diff(awal, 'days');
+
+            document.getElementById('cek_in').value = moment(start).format('YYYY-MM-DD') ;
+            document.getElementById('cek_out').value = moment(end).format('YYYY-MM-DD') ;
+            document.getElementById('hari').value = difference ;
+
+            FungsiHitung(start, end, difference, code, showAlerts);
+        }
+
         $(function() {
+            if (!$.fn.daterangepicker) {
+                resetBookingTotals("Date picker failed to load. Please refresh the page.");
+                return;
+            }
+
+            var defaultStart = moment();
+            var defaultEnd = moment().add(1, 'days');
+
             $('#datefilter').daterangepicker({
                 "autoApply": true,
                 "locale": {
@@ -592,26 +707,29 @@
                     "separator": " - ",
                 },
                 "minDate": new Date(),
-                "startDate": new Date(),
-                "endDate": new Date(Date.now() + ( 3600 * 1000 * 24)),
+                "startDate": defaultStart,
+                "endDate": defaultEnd,
                 "opens": "center",
                 "drops": "auto"
             }, function(start, end, label) {
-                var code = document.getElementById('code').value;
-                var awal = moment(start);
-                var akhir = moment(end);
-                var difference = akhir.diff(awal, 'days');
-
-                document.getElementById('cek_in').value = moment(start).format('Y-M-D') ;
-                document.getElementById('cek_out').value = moment(end).format('Y-M-D') ;
-                document.getElementById('hari').value = difference ;
-
-                FungsiHitung(start, end, difference, code);
+                updateStayDates(start, end);
             });
+
+            updateStayDates(defaultStart, defaultEnd, false);
         });
 
         $('#pay-button').click(function (event) {
             event.preventDefault();
+
+            if (!document.getElementById('form-configure').checkValidity()) {
+                document.getElementById('form-configure').reportValidity();
+                return;
+            }
+
+            if (!$('#cek_in').val() || !$('#cek_out').val() || !$('#total').val() || !$('#total_bayar').val()) {
+                alert("Please select available stay dates before payment.");
+                return;
+            }
             
             const payload = {
                 _method: 'POST',
@@ -650,6 +768,8 @@
                     onPending: function (result) { location.reload(); },
                     onError: function (result) { location.reload(); }
                 });
+            }).fail(function () {
+                alert("Payment could not be started. Please check your dates and try again.");
             });
         });
 
@@ -662,7 +782,7 @@
             var nationality = $("#country_name option:selected").val();
             var cekin = $('#cek_in').val();
 
-            if(cekin !== '' && name !== '' && email !== '' && nationality !== ''){
+            if(cekin !== '' && name !== '' && email !== '' && nationality !== '' && $('#total').val() !== ''){
                 let arrGuest = {
                     name: name,
                     email: email,
@@ -673,7 +793,7 @@
                 localStorage.setItem('guest', JSON.stringify(arrGuest));
                 window.open("{{ url('/paypal/payment?')}}" + formData);
             }else{
-                alert("Please complete the form before proceeding to payment.");
+                alert("Please complete the form and select available stay dates before proceeding to payment.");
             }
         }
     </script>
@@ -754,13 +874,17 @@
                 const newCenter = mapsMouseEvent.latLng;
                 if (!newCenter) return;
                 walkingCircle.setCenter(newCenter);
-                centerMarker.position = newCenter;
+                if (typeof centerMarker !== 'undefined' && centerMarker) {
+                    centerMarker.position = newCenter;
+                }
                 innerMap.panTo(newCenter);
             });
 
             // Handle user dragging the circle, update the center marker position.
             walkingCircle.addListener('center_changed', () => {
-                centerMarker.position = walkingCircle.getCenter();
+                if (typeof centerMarker !== 'undefined' && centerMarker) {
+                    centerMarker.position = walkingCircle.getCenter();
+                }
             });
         }
 

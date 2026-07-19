@@ -49,9 +49,18 @@
               </select>
           </div>
           <div class="form-group col-lg-6">
-                <label>Area</label>
-                <input type="text" name="area" class="form-control text-white" placeholder="Area Code (e.g. 1;)" value="{{ $activityDetail->area ?? '' }}">
-                <small class="text-muted">Use area IDs separated by semicolon (e.g. 1;5;)</small>
+                <label>Areas</label>
+                @php
+                  $selectedAreas = old('area', isset($activityDetail) ? array_filter(explode(';', $activityDetail->area)) : []);
+                @endphp
+                <select name="area[]" class="form-control text-info" multiple size="5" required>
+                  @foreach($areas ?? [] as $area)
+                    <option value="{{ $area->id }}" {{ in_array((string) $area->id, array_map('strval', $selectedAreas), true) ? 'selected' : '' }}>
+                      {{ ucfirst($area->name) }}
+                    </option>
+                  @endforeach
+                </select>
+                <small class="text-muted">Hold Ctrl (Windows) or Cmd (Mac) to choose more than one area.</small>
             </div>
         </div>
         <div class="form-group">
